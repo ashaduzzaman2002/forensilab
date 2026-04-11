@@ -14,9 +14,15 @@ export default function HomePage() {
       <Equipment />
       <CaseStudies />
       <Testimonials />
-      <div className="bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40">
-      <Certifications />
-      <TrustedBy />
+      <div className="relative bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40">
+        <div
+          className="absolute inset-0 opacity-55 bg-repeat bg-center"
+          style={{ backgroundImage: "url('/fingerprint.png')" }}
+        />
+        <div className="relative z-10">
+          <Certifications />
+          <TrustedBy />
+        </div>
       </div>
       <Locations />
       <RequestQuote />
