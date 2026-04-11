@@ -46,7 +46,7 @@ export function Navbar() {
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 bg-white shadow rounded-[100px]">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] rounded-[100px]">
         <Link href="/">
           <Image
             src="/fL logo-01.png"
@@ -85,7 +85,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden mt-2 mx-2 rounded-2xl bg-white shadow-lg p-4 flex flex-col gap-3">
+        <div className="lg:hidden mt-2 mx-2 rounded-2xl bg-white shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-4 flex flex-col gap-3">
           {links.map(({ href, label }) => (
             <Link
               key={href}
