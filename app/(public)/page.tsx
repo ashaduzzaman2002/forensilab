@@ -14,8 +14,10 @@ export default function HomePage() {
       <Equipment />
       <CaseStudies />
       <Testimonials />
+      <div className="bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40">
       <Certifications />
       <TrustedBy />
+      </div>
       <Locations />
       <RequestQuote />
     </>
