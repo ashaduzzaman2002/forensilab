@@ -17,21 +17,21 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo */}
           <div>
-            <Link href="/" className="flex items-center gap-2 text-xl font-heading font-bold">
+            <Link href="/" >
               <Image src="/fL logo-01.png" alt="ForensiLabs Logo" width={120} height={80}/>
             </Link>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="mt-3 text-sm text-foreground">
               Trusted forensic science laboratory delivering accurate and reliable results.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-heading font-semibold mb-4 text-primary text-xl">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">
+                  <Link href={link.href} className="text-sm text-foreground hover:text-primary">
                     {link.label}
                   </Link>
                 </li>
@@ -41,8 +41,8 @@ export function Footer() {
 
           {/* Contact Us */}
           <div>
-            <h3 className="font-heading font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-sm text-muted-foreground">
+            <h3 className="font-heading font-semibold mb-4 text-primary text-xl">Contact Us</h3>
+            <ul className="space-y-3 text-sm text-foreground">
               <li className="flex items-center gap-2">
                 <Phone className="size-4 shrink-0" />
                 <span>+1 (555) 000-0000</span>
