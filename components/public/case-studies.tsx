@@ -87,7 +87,7 @@ export function CaseStudies() {
               </p>
               <Link
                 href={`/case-studies/${c.slug}`}
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-white border-2 border-primary h-11 ml-auto px-5 py-2 text-xs font-semibold uppercase tracking-wider text-primary transition hover:bg-primary hover:text-white"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary border-2 border-primary h-11 ml-auto px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-white hover:text-primary"
               >
                 View Case Study
               </Link>
