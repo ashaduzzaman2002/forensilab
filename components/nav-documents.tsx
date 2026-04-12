@@ -24,7 +24,7 @@ export function NavDocuments({
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Inquiries</SidebarGroupLabel>
-      <SidebarMenu className="gap-1.5">
+      <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton size="lg" isActive={pathname === item.url} asChild>

@@ -30,7 +30,7 @@ export function NavSecondary({
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
-        <SidebarMenu className="gap-1.5">
+        <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton size="lg" isActive={pathname === item.url} asChild>
