@@ -9,10 +9,10 @@ import { Menu, X } from "lucide-react";
 const links = [
   { href: "/", label: "HOME" },
   { href: "/services", label: "SERVICES" },
+  { href: "/products", label: "PRODUCTS" },
   { href: "/gallery", label: "GALLERY" },
   { href: "/about", label: "ABOUT" },
   { href: "/team", label: "MEET OUR TEAM" },
-  { href: "/faqs", label: "FAQS" },
   { href: "/contact-us", label: "CONTACT US" },
 ];
 

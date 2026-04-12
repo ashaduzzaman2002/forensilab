@@ -1,3 +1,93 @@
+import Image from "next/image";
+import { ShieldCheck, Cpu, Users, Lock } from "lucide-react";
+
+const highlights = [
+  { icon: <ShieldCheck className="size-5" />, label: "Certified & Accredited Lab" },
+  { icon: <Cpu className="size-5" />, label: "Advanced Technology" },
+  { icon: <Users className="size-5" />, label: "Experienced Analysts" },
+  { icon: <Lock className="size-5" />, label: "Confidential & Secure" },
+];
+
+const stats = [
+  { value: "500+", label: "Cases Solved" },
+  { value: "10+", label: "Years Experience" },
+  { value: "50+", label: "Expert Analysts" },
+  { value: "99%", label: "Client Satisfaction" },
+];
+
 export default function AboutPage() {
-  return <div>About</div>;
+  return (
+    <section className="relative overflow-hidden py-24 bg-gradient-to-b from-gray-50 to-white">
+      {/* Fingerprint bg */}
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%232563EB' stroke-width='0.4'%3E%3Cellipse cx='60' cy='60' rx='15' ry='20'/%3E%3Cellipse cx='60' cy='60' rx='25' ry='33'/%3E%3Cellipse cx='60' cy='60' rx='35' ry='46'/%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        {/* Two-column layout */}
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          {/* Left — Image */}
+          <div className="relative h-[400px] overflow-hidden rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.1)] lg:h-[520px]">
+            <Image
+              src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=1200&auto=format&fit=crop"
+              alt="ForensiLabs Team"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          {/* Right — Content */}
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#2563EB]">About Us</span>
+            <h2 className="mt-3 font-heading text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
+              Trusted Experts in Forensic &amp; Digital Investigation
+            </h2>
+
+            <div className="mt-6 space-y-4 text-sm leading-relaxed text-gray-600">
+              <p>
+                ForensiLabs is a premier forensic science laboratory dedicated to delivering accurate, reliable, and court-admissible results. With over a decade of experience, our team of certified analysts combines scientific rigor with cutting-edge technology.
+              </p>
+              <p>
+                From DNA profiling and toxicology to cyber forensics and ballistics, we provide comprehensive investigative support to law enforcement agencies, legal professionals, and corporate clients worldwide.
+              </p>
+              <p>
+                Our mission is to empower justice through scientific analysis — ensuring every piece of evidence is handled with the highest standards of integrity and confidentiality.
+              </p>
+            </div>
+
+            {/* Highlights */}
+            <div className="mt-8 grid grid-cols-2 gap-4">
+              {highlights.map((h) => (
+                <div
+                  key={h.label}
+                  className="flex items-center gap-3 rounded-xl border border-white/60 bg-white/70 backdrop-blur-md px-4 py-3 shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(37,99,235,0.1)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#2563EB] transition-transform hover:scale-110">
+                    {h.icon}
+                  </div>
+                  <span className="text-sm font-medium text-gray-800">{h.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-20 grid grid-cols-2 gap-6 md:grid-cols-4">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md py-8 text-center shadow-[0_8px_32px_rgba(0,0,0,0.06)]"
+            >
+              <p className="font-heading text-3xl font-bold text-[#2563EB]">{s.value}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
