@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -19,14 +20,16 @@ export function NavMain({
     icon?: React.ReactNode
   }[]
 }) {
+  const pathname = usePathname()
+
   return (
     <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
+      <SidebarGroupContent className="flex flex-col gap-1">
         <SidebarGroupLabel>Pages</SidebarGroupLabel>
-        <SidebarMenu>
+        <SidebarMenu className="gap-1.5">
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} asChild>
+              <SidebarMenuButton size="lg" tooltip={item.title} isActive={pathname === item.url} asChild>
                 <Link href={item.url}>
                   {item.icon}
                   <span>{item.title}</span>

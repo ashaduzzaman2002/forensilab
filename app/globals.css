@@ -76,13 +76,13 @@
   --chart-4: #93C5FD;
   --chart-5: #BFDBFE;
   --radius: 0.625rem;
-  --sidebar: #FFFFFF;
+  --sidebar: rgba(255, 255, 255, 0.7);
   --sidebar-foreground: #111827;
   --sidebar-primary: #0060DF;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F8FAFC;
-  --sidebar-accent-foreground: #111827;
-  --sidebar-border: #E5E7EB;
+  --sidebar-accent: rgba(0, 96, 223, 0.08);
+  --sidebar-accent-foreground: #0060DF;
+  --sidebar-border: rgba(229, 231, 235, 0.6);
   --sidebar-ring: #60A5FA;
   --text-body: #4B5563;
   --text-muted: #9CA3AF;
@@ -143,6 +143,29 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* Glassmorphism for admin sidebar */
+[data-slot="sidebar"] {
+  background: rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right-color: rgba(229, 231, 235, 0.5) !important;
+}
+
+/* Active sidebar item: primary blue pill */
+[data-sidebar="menu-button"][data-active="true"] {
+  background: rgba(0, 96, 223, 0.1) !important;
+  color: #0060DF !important;
+  font-weight: 600;
+}
+
+/* Glass header */
+.glass-header {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom-color: rgba(229, 231, 235, 0.5);
 }
 
 @keyframes marquee {

@@ -1,3 +1,13 @@
+import { PageHeader } from "@/components/admin/page-header";
+import { UsersIcon } from "lucide-react";
+
 export default function AdminTeamPage() {
-  return <div><h1 className="text-2xl font-bold">Manage Team Page</h1></div>;
+  return (
+    <>
+      <PageHeader title="Team" description="Manage team members and profiles." icon={UsersIcon} />
+      <div className="rounded-xl border border-dashed border-white/60 bg-white/60 backdrop-blur-md p-12 text-center shadow-sm">
+        <p className="text-muted-foreground">Team management coming soon.</p>
+      </div>
+    </>
+  );
 }

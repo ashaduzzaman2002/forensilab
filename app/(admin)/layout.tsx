@@ -26,7 +26,9 @@ export default async function AdminLayout({
         <AppSidebar variant="inset" />
         <SidebarInset>
           <SiteHeader />
-          <main className="p-6">{children}</main>
+          <main className="min-h-[calc(100vh-var(--header-height))] bg-gradient-to-br from-background via-blue-50/30 to-background p-6">
+            {children}
+          </main>
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
