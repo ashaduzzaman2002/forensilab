@@ -1,5 +1,7 @@
 import { SectionHeading } from "./section-heading";
 import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { MotionCard } from "./motion-card";
+import { AnimatedSection } from "./animated-section";
 
 const address = "123 Lab Street, Science City, CA 90210";
 const phone = "+1 (555) 000-0000";
@@ -10,6 +12,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${maps
 
 export function Locations() {
   return (
+    <AnimatedSection>
     <section className="relative overflow-hidden py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
@@ -19,6 +22,7 @@ export function Locations() {
 
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Map */}
+          <MotionCard index={0}>
           <div className="relative overflow-hidden rounded-2xl border border-gray-100 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
             <iframe
               src={embedUrl}
@@ -36,8 +40,10 @@ export function Locations() {
               Get Directions <ExternalLink className="size-3" />
             </a>
           </div>
+          </MotionCard>
 
           {/* Info */}
+          <MotionCard index={1}>
           <div className="flex flex-col gap-8">
             {/* Address */}
             <div className="rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
@@ -71,8 +77,10 @@ export function Locations() {
               </div>
             </div>
           </div>
+          </MotionCard>
         </div>
       </div>
     </section>
+    </AnimatedSection>
   );
 }

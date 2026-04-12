@@ -2,6 +2,7 @@
 
 import { SectionHeading } from "./section-heading";
 import { CheckCircle } from "lucide-react";
+import { AnimatedSection } from "./animated-section";
 
 const testimonials = [
   {
@@ -41,6 +42,7 @@ const doubled = [...testimonials, ...testimonials];
 
 export function Testimonials() {
   return (
+    <AnimatedSection>
     <section className="relative overflow-hidden pt-24 pb-14 bg-white">
       {/* Floating glow dots */}
       <div className="absolute top-20 left-[10%] size-3 rounded-full bg-blue-400/30 blur-sm animate-pulse" />
@@ -80,5 +82,6 @@ export function Testimonials() {
         </div>
       </div>
     </section>
+    </AnimatedSection>
   );
 }

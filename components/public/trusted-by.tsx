@@ -1,4 +1,5 @@
 import { SectionHeading } from "./section-heading";
+import { AnimatedSection } from "./animated-section";
 
 const logos = [
   { name: "CipherTrace", color: "#2563EB" },
@@ -15,6 +16,7 @@ const doubled = [...logos, ...logos];
 
 export function TrustedBy() {
   return (
+    <AnimatedSection>
     <section className="relative overflow-hidden pb-24">
       {/* Circuit pattern bg */}
       <div
@@ -49,5 +51,6 @@ export function TrustedBy() {
         </div>
       </div>
     </section>
+    </AnimatedSection>
   );
 }

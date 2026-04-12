@@ -1,5 +1,7 @@
 import { SectionHeading } from "./section-heading";
 import { ShieldCheck, Award, BadgeCheck, Globe } from "lucide-react";
+import { MotionCard } from "./motion-card";
+import { AnimatedSection } from "./animated-section";
 
 const certifications = [
   {
@@ -26,6 +28,7 @@ const certifications = [
 
 export function Certifications() {
   return (
+    <AnimatedSection>
     <section className="relative overflow-hidden py-24 ">
       {/* Forensic line illustrations bg */}
       <div
@@ -47,9 +50,9 @@ export function Certifications() {
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {certifications.map((c) => (
+          {certifications.map((c, i) => (
+            <MotionCard key={c.title} index={i}>
             <div
-              key={c.title}
               className="group flex flex-col items-center rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md px-6 py-10 text-center shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(37,99,235,0.12)]"
             >
               <div className="mb-5 flex size-16 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB] transition-colors group-hover:bg-[#2563EB] group-hover:text-white">
@@ -64,9 +67,11 @@ export function Certifications() {
                 </p>
               )}
             </div>
+            </MotionCard>
           ))}
         </div>
       </div>
     </section>
+    </AnimatedSection>
   );
 }

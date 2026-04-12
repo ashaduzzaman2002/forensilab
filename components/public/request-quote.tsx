@@ -2,6 +2,7 @@
 
 import { SectionHeading } from "./section-heading";
 import { User, ChevronDown, ShieldCheck } from "lucide-react";
+import { AnimatedSection } from "./animated-section";
 
 const services = [
   "DNA Analysis",
@@ -15,6 +16,7 @@ const services = [
 
 export function RequestQuote() {
   return (
+    <AnimatedSection>
     <section className="relative overflow-hidden py-24 bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40">
       {/* Fingerprint pattern bg */}
       <div
@@ -86,5 +88,6 @@ export function RequestQuote() {
         </form>
       </div>
     </section>
+    </AnimatedSection>
   );
 }

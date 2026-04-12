@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { SectionHeading } from "./section-heading";
+import { MotionCard } from "./motion-card";
+import { AnimatedSection } from "./animated-section";
 
 const caseStudies = [
   {
@@ -54,6 +56,7 @@ const caseStudies = [
 
 export function CaseStudies() {
   return (
+    <AnimatedSection>
     <section className="relative overflow-hidden py-20">
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40" />
@@ -73,9 +76,9 @@ export function CaseStudies() {
         />
 
         <div className="grid gap-6 sm:grid-cols-2">
-          {caseStudies.map((c) => (
+          {caseStudies.map((c, i) => (
+            <MotionCard key={c.slug} index={i}>
             <div
-              key={c.slug}
               className="group flex flex-col justify-between rounded-2xl border border-white/60 bg-white/70 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.12)] hover:-translate-y-1"
             >
               <div className="mb-4 flex size-14 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
@@ -92,6 +95,7 @@ export function CaseStudies() {
                 View Case Study
               </Link>
             </div>
+            </MotionCard>
           ))}
         </div>
 
@@ -105,5 +109,6 @@ export function CaseStudies() {
         </div>
       </div>
     </section>
+    </AnimatedSection>
   );
 }
