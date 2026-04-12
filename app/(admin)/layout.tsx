@@ -1,13 +1,18 @@
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getSession();
+  if (!session) redirect("/admin/login");
+
   return (
     <TooltipProvider>
       <SidebarProvider
