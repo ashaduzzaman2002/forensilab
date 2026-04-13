@@ -8,7 +8,6 @@ import { revalidatePath } from "next/cache";
 export async function getHero() {
   await dbConnect();
   const hero = await Hero.findOne().lean();
-  console.log("Hero from DB:", hero);
   return hero ? JSON.parse(JSON.stringify(hero)) : null;
 }
 
