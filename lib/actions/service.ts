@@ -38,6 +38,7 @@ async function uploadFileIfPresent(file: { key: string } | null | undefined, old
 export async function createService(data: {
   slug: string; title: string; description: string; content: string; details: string[];
   icon?: { key: string } | null; thumbnail?: { key: string } | null;
+  metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
   await dbConnect();
   const count = await Service.countDocuments();
@@ -50,6 +51,7 @@ export async function createService(data: {
     details: data.details,
     icon: data.icon?.key ? getFileUrl(data.icon.key) : "",
     thumbnail: data.thumbnail?.key ? getFileUrl(data.thumbnail.key) : "",
+    metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
     order: count,
   });
   revalidate();
@@ -59,6 +61,7 @@ export async function createService(data: {
 export async function updateService(id: string, data: {
   slug: string; title: string; description: string; content: string; details: string[];
   icon?: { key: string } | null; thumbnail?: { key: string } | null;
+  metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
   await dbConnect();
   const existing = await Service.findById(id);
@@ -69,6 +72,7 @@ export async function updateService(id: string, data: {
   await Service.findByIdAndUpdate(id, {
     slug: data.slug, title: data.title, description: data.description,
     content: data.content || "", details: data.details, icon, thumbnail,
+    metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
   });
   const after = await Service.findById(id).lean();
   console.log("After update:", { content: (after as any)?.content?.slice(0, 50), thumbnail: (after as any)?.thumbnail, icon: (after as any)?.icon });

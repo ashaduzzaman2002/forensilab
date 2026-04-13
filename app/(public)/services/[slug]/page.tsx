@@ -4,6 +4,18 @@ import { SectionHeading } from "@/components/public/section-heading";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  await dbConnect();
+  const service = await Service.findOne({ slug }).lean();
+  if (!service) return {};
+  const s = service as any;
+  return { title: s.metaTitle || s.title, description: s.metaDescription || s.description, keywords: s.metaKeywords || undefined };
+}
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

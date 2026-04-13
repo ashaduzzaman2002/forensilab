@@ -123,6 +123,9 @@ export function ServiceForm({ service }: { service?: ServiceData | null }) {
           details: (formData.get("details") as string || "").split("\n").map(d => d.trim()).filter(Boolean),
           icon: iconUpload || undefined,
           thumbnail: thumbUpload || undefined,
+          metaTitle: formData.get("metaTitle") as string,
+          metaDescription: formData.get("metaDescription") as string,
+          metaKeywords: formData.get("metaKeywords") as string,
         };
 
         const res = isEdit
@@ -171,6 +174,16 @@ export function ServiceForm({ service }: { service?: ServiceData | null }) {
           <ImagePicker label="Icon" preview={iconPreview} onFile={pickFile(setIconFile, setIconPreview)} onClear={clearFile(setIconFile, setIconPreview)} aspect="square" />
           <ImagePicker label="Thumbnail" preview={thumbPreview} onFile={pickFile(setThumbFile, setThumbPreview)} onClear={clearFile(setThumbFile, setThumbPreview)} />
         </div>
+      </div>
+
+      {/* SEO */}
+      <div className={`${cardClass} p-6 space-y-5`}>
+        <h3 className="text-sm font-semibold">SEO Settings</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div><label className={labelClass}>Meta Title</label><input name="metaTitle" defaultValue={(service as any)?.metaTitle || ""} className={inputClass} placeholder="Page title for search engines" /></div>
+          <div><label className={labelClass}>Meta Keywords</label><input name="metaKeywords" defaultValue={(service as any)?.metaKeywords || ""} className={inputClass} placeholder="keyword1, keyword2" /></div>
+        </div>
+        <div><label className={labelClass}>Meta Description</label><textarea name="metaDescription" defaultValue={(service as any)?.metaDescription || ""} rows={2} className={`${inputClass} resize-none`} placeholder="Brief description for search engines" /></div>
       </div>
 
       {/* Save */}

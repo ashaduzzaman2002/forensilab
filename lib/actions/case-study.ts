@@ -26,12 +26,14 @@ export async function getCaseStudyUploadUrl(fileName: string, contentType: strin
 
 export async function createCaseStudy(data: {
   slug: string; title: string; description: string; icon?: { key: string } | null;
+  metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
   await dbConnect();
   const count = await CaseStudy.countDocuments();
   await CaseStudy.create({
     slug: data.slug, title: data.title, description: data.description,
     icon: data.icon?.key ? getFileUrl(data.icon.key) : "",
+    metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
     order: count,
   });
   revalidate();
@@ -40,6 +42,7 @@ export async function createCaseStudy(data: {
 
 export async function updateCaseStudy(id: string, data: {
   slug: string; title: string; description: string; icon?: { key: string } | null;
+  metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
   await dbConnect();
   const existing = await CaseStudy.findById(id);
@@ -50,7 +53,7 @@ export async function updateCaseStudy(id: string, data: {
     }
     icon = getFileUrl(data.icon.key);
   }
-  await CaseStudy.findByIdAndUpdate(id, { slug: data.slug, title: data.title, description: data.description, icon });
+  await CaseStudy.findByIdAndUpdate(id, { slug: data.slug, title: data.title, description: data.description, icon, metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "" });
   revalidate();
   return { success: true };
 }

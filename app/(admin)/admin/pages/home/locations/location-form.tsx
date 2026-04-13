@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
 
-interface Data { _id: string; name: string; address: string; phone: string; email: string; isHeadquarters: boolean; }
+interface Data { _id: string; name: string; address: string; phone: string; email: string; isHeadquarters: boolean; mapEmbed: string; }
 
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 const inputClass = "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary/40 focus:ring-2 focus:ring-primary/20";

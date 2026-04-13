@@ -1,4 +1,7 @@
 import { getPageMetadata } from "@/lib/actions/seo";
+
+export const revalidate = 60;
+
 import { Hero } from "@/components/public/hero";
 import { Equipment } from "@/components/public/equipment";
 import { CaseStudies } from "@/components/public/case-studies";

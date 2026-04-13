@@ -1,4 +1,7 @@
 import { getPageMetadata } from "@/lib/actions/seo";
+
+export const revalidate = 60;
+
 import { dbConnect } from "@/lib/db";
 import { About } from "@/lib/models/about";
 import Image from "next/image";

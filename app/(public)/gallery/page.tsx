@@ -1,4 +1,7 @@
 import { getPageMetadata } from "@/lib/actions/seo";
+
+export const revalidate = 60;
+
 import { dbConnect } from "@/lib/db";
 import { Gallery } from "@/lib/models/gallery";
 import { GalleryClient } from "./gallery-client";

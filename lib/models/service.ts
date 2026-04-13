@@ -9,6 +9,9 @@ const ServiceSchema = new Schema({
   thumbnail: { type: String, default: "" },
   content: { type: String, default: "" },
   details: [{ type: String }],
+  metaTitle: { type: String, default: "" },
+  metaDescription: { type: String, default: "" },
+  metaKeywords: { type: String, default: "" },
   order: { type: Number, default: 0 },
 }, { timestamps: true });
 

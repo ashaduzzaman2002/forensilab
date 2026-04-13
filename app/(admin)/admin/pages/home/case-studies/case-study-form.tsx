@@ -41,6 +41,9 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
           title: formData.get("title") as string,
           description: formData.get("description") as string,
           icon: iconUpload,
+          metaTitle: formData.get("metaTitle") as string,
+          metaDescription: formData.get("metaDescription") as string,
+          metaKeywords: formData.get("metaKeywords") as string,
         };
         const res = isEdit ? await updateCaseStudy(caseStudy!._id, payload) : await createCaseStudy(payload);
         if (res.success) { toast.success(isEdit ? "Updated" : "Created"); router.push("/admin/pages/home/case-studies"); }
@@ -64,6 +67,14 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
         <div>
           <label className={labelClass}>Description</label>
           <textarea name="description" defaultValue={caseStudy?.description || ""} rows={3} className={`${inputClass} resize-none`} required />
+        </div>
+        <div className="border-t border-border/30 pt-5 mt-5 space-y-4">
+          <h4 className="text-xs font-semibold uppercase tracking-wider text-primary">SEO Settings</h4>
+          <div className="grid grid-cols-2 gap-4">
+            <div><label className={labelClass}>Meta Title</label><input name="metaTitle" defaultValue={(caseStudy as any)?.metaTitle || ""} className={inputClass} /></div>
+            <div><label className={labelClass}>Meta Keywords</label><input name="metaKeywords" defaultValue={(caseStudy as any)?.metaKeywords || ""} className={inputClass} /></div>
+          </div>
+          <div><label className={labelClass}>Meta Description</label><textarea name="metaDescription" defaultValue={(caseStudy as any)?.metaDescription || ""} rows={2} className={`${inputClass} resize-none`} /></div>
         </div>
         <div className="flex items-center gap-3">
           <button type="submit" disabled={isPending} className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-2.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-50">
