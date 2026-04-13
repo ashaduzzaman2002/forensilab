@@ -26,6 +26,7 @@ import {
   UsersIcon,
   MessageSquareQuoteIcon,
   PanelBottomIcon,
+  FileTextIcon,
   SearchIcon,
 } from "lucide-react"
 
@@ -48,6 +49,8 @@ const data = {
   ],
   navContent: [
     { title: "Footer", url: "/admin/sections/footer", icon: <PanelBottomIcon /> },
+    { title: "Privacy Policy", url: "/admin/sections/privacy-policy", icon: <FileTextIcon /> },
+    { title: "Terms of Service", url: "/admin/sections/terms-of-service", icon: <FileTextIcon /> },
   ],
   navSecondary: [
     { title: "SEO", url: "/admin/seo", icon: <SearchIcon /> },

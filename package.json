@@ -19,7 +19,8 @@
     "seed:gallery": "npx tsx -r dotenv/config scripts/seed-gallery.ts dotenv_config_path=.env.local",
     "seed:team": "npx tsx -r dotenv/config scripts/seed-team.ts dotenv_config_path=.env.local",
     "seed:about": "npx tsx -r dotenv/config scripts/seed-about.ts dotenv_config_path=.env.local",
-    "seed:footer": "npx tsx -r dotenv/config scripts/seed-footer.ts dotenv_config_path=.env.local"
+    "seed:footer": "npx tsx -r dotenv/config scripts/seed-footer.ts dotenv_config_path=.env.local",
+    "seed:pages": "npx tsx -r dotenv/config scripts/seed-pages.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1029.0",
