@@ -83,6 +83,11 @@ export function ServiceForm({ service }: { service?: ServiceData | null }) {
   const [content, setContent] = useState(service?.content || "");
   const router = useRouter();
   const isEdit = !!service;
+  const [slug, setSlug] = useState(service?.slug || "");
+
+  function onTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!isEdit) setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
+  }
 
   // File state: null = no change, File = new file, "remove" = clear
   const [iconFile, setIconFile] = useState<File | null>(null);
@@ -142,11 +147,11 @@ export function ServiceForm({ service }: { service?: ServiceData | null }) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>Title</label>
-              <input name="title" defaultValue={service?.title || ""} className={inputClass} required />
+              <input name="title" defaultValue={service?.title || ""} className={inputClass} required onChange={onTitleChange} />
             </div>
             <div>
               <label className={labelClass}>Slug</label>
-              <input name="slug" defaultValue={service?.slug || ""} className={inputClass} required placeholder="e.g. dna-analysis" />
+              <input name="slug" value={slug} onChange={(e) => setSlug(e.target.value)} className={inputClass} required placeholder="e.g. dna-analysis" />
             </div>
           </div>
           <div>
