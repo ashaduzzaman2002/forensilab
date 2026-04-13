@@ -1,13 +1,14 @@
+import { getTrustedBys } from "@/lib/actions/trusted-by";
 import { PageHeader } from "@/components/admin/page-header";
 import { BuildingIcon } from "lucide-react";
+import { TrustedByList } from "./trusted-by-list";
 
-export default function AdminTrustedBySection() {
+export default async function AdminTrustedByPage() {
+  const items = await getTrustedBys();
   return (
     <>
       <PageHeader title="Trusted By" description="Manage partner and client logos." icon={BuildingIcon} />
-      <div className="rounded-xl border border-dashed border-white/60 bg-white/60 backdrop-blur-md p-12 text-center shadow-sm">
-        <p className="text-muted-foreground">Trusted By editor coming soon.</p>
-      </div>
+      <TrustedByList items={items} />
     </>
   );
 }
