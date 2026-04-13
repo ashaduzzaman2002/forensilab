@@ -1,5 +1,8 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { dbConnect } from "@/lib/db";
 import { Service } from "@/lib/models/service";
+
+export async function generateMetadata() { return getPageMetadata("services", { title: "Services — ForensiLabs", description: "Comprehensive forensic solutions powered by cutting-edge technology" }); }
 import { SectionHeading } from "@/components/public/section-heading";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";

@@ -1,6 +1,9 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { dbConnect } from "@/lib/db";
 import { About } from "@/lib/models/about";
 import Image from "next/image";
+
+export async function generateMetadata() { return getPageMetadata("about", { title: "About — ForensiLabs", description: "Trusted experts in forensic and digital investigation" }); }
 
 const fallback = {
   title: "Trusted Experts in Forensic & Digital Investigation",

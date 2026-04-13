@@ -1,5 +1,8 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { dbConnect } from "@/lib/db";
 import { PageContent } from "@/lib/models/page-content";
+
+export async function generateMetadata() { return getPageMetadata("privacy-policy", { title: "Privacy Policy — ForensiLabs", description: "How we collect, use, and protect your information" }); }
 
 export default async function PrivacyPolicyPage() {
   await dbConnect();

@@ -1,5 +1,8 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { dbConnect } from "@/lib/db";
 import { PageContent } from "@/lib/models/page-content";
+
+export async function generateMetadata() { return getPageMetadata("terms-of-service", { title: "Terms of Service — ForensiLabs", description: "Terms and conditions for using ForensiLabs services" }); }
 
 export default async function TermsOfServicePage() {
   await dbConnect();

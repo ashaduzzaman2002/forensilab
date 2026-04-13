@@ -1,3 +1,4 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { Hero } from "@/components/public/hero";
 import { Equipment } from "@/components/public/equipment";
 import { CaseStudies } from "@/components/public/case-studies";
@@ -6,6 +7,8 @@ import { Certifications } from "@/components/public/certifications";
 import { TrustedBy } from "@/components/public/trusted-by";
 import { Locations } from "@/components/public/locations";
 import { RequestQuote } from "@/components/public/request-quote";
+
+export async function generateMetadata() { return getPageMetadata("home", { title: "ForensiLabs — Forensic Science Laboratory", description: "Empowering justice through scientific analysis" }); }
 
 export default function HomePage() {
   return (

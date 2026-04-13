@@ -1,5 +1,8 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { dbConnect } from "@/lib/db";
 import { Team } from "@/lib/models/team";
+
+export async function generateMetadata() { return getPageMetadata("team", { title: "Team — ForensiLabs", description: "Meet our world-class forensic professionals" }); }
 import Image from "next/image";
 import { SectionHeading } from "@/components/public/section-heading";
 import { Mail } from "lucide-react";

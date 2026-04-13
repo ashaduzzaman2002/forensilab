@@ -1,5 +1,8 @@
+import { getPageMetadata } from "@/lib/actions/seo";
 import { dbConnect } from "@/lib/db";
 import { Location } from "@/lib/models/location";
+
+export async function generateMetadata() { return getPageMetadata("locations", { title: "Locations — ForensiLabs", description: "Find a ForensiLabs facility near you" }); }
 import { SectionHeading } from "@/components/public/section-heading";
 import { MapPin, Phone, Mail, ExternalLink, StarIcon } from "lucide-react";
 
