@@ -27,7 +27,6 @@ import {
   MessageSquareQuoteIcon,
   PanelBottomIcon,
   SearchIcon,
-  Settings2Icon,
 } from "lucide-react"
 
 const data = {
@@ -52,7 +51,6 @@ const data = {
   ],
   navSecondary: [
     { title: "SEO", url: "/admin/seo", icon: <SearchIcon /> },
-    { title: "Settings", url: "#", icon: <Settings2Icon /> },
   ],
 }
 
