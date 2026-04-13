@@ -24,7 +24,6 @@ import {
   ImageIcon,
   InfoIcon,
   UsersIcon,
-  MailIcon,
   MessageSquareQuoteIcon,
   PanelBottomIcon,
   SearchIcon,
@@ -47,7 +46,6 @@ const data = {
   ],
   navInquiries: [
     { name: "Quotes", url: "/admin/sections/request-quote", icon: <MessageSquareQuoteIcon /> },
-    { name: "Contact Us", url: "/admin/sections/contact-us", icon: <MailIcon /> },
   ],
   navContent: [
     { title: "Footer", url: "/admin/sections/footer", icon: <PanelBottomIcon /> },

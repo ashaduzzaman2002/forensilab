@@ -13,7 +13,6 @@ const links = [
   { href: "/gallery", label: "GALLERY" },
   { href: "/about", label: "ABOUT" },
   { href: "/team", label: "MEET OUR TEAM" },
-  { href: "/contact-us", label: "CONTACT US" },
 ];
 
 export function Navbar() {
