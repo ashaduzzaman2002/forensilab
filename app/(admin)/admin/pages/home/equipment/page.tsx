@@ -1,13 +1,14 @@
+import { getEquipments } from "@/lib/actions/equipment";
 import { PageHeader } from "@/components/admin/page-header";
-import { BuildingIcon } from "lucide-react";
+import { WrenchIcon } from "lucide-react";
+import { EquipmentList } from "./equipment-list";
 
-export default function AdminEquipmentSection() {
+export default async function AdminEquipmentPage() {
+  const items = await getEquipments();
   return (
     <>
-      <PageHeader title="Equipment & Departments" description="Manage lab equipment and department listings." icon={BuildingIcon} />
-      <div className="rounded-xl border border-dashed border-white/60 bg-white/60 backdrop-blur-md p-12 text-center shadow-sm">
-        <p className="text-muted-foreground">Equipment editor coming soon.</p>
-      </div>
+      <PageHeader title="Equipment & Departments" description="Manage lab equipment and department listings." icon={WrenchIcon} />
+      <EquipmentList items={items} />
     </>
   );
 }
