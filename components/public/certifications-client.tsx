@@ -1,0 +1,42 @@
+import { SectionHeading } from "./section-heading";
+import { MotionCard } from "./motion-card";
+import { AnimatedSection } from "./animated-section";
+
+interface Item { title: string; text: string; icon: string; }
+
+export function CertificationsClient({ items }: { items: Item[] }) {
+  return (
+    <AnimatedSection>
+      <section className="relative overflow-hidden py-24">
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%232563EB' stroke-width='0.6'%3E%3Ccircle cx='40' cy='20' r='6'/%3E%3Cline x1='40' y1='26' x2='40' y2='50'/%3E%3Ccircle cx='40' cy='56' r='4'/%3E%3Cline x1='20' y1='40' x2='60' y2='40'/%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        <div className="absolute top-16 left-[12%] size-3 rounded-full bg-blue-400/25 blur-sm animate-pulse" />
+        <div className="absolute bottom-20 right-[18%] size-2.5 rounded-full bg-blue-500/20 blur-sm animate-pulse [animation-delay:1s]" />
+        <div className="absolute top-1/2 right-[8%] size-2 rounded-full bg-blue-400/30 blur-sm animate-pulse [animation-delay:2s]" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <SectionHeading title="Certifications & Standards" subtitle="Accredited by leading national and international forensic bodies" />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {items.map((c, i) => (
+              <MotionCard key={c.title} index={i}>
+                <div className="group flex flex-col items-center rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md px-6 py-10 text-center shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(37,99,235,0.12)]">
+                  {c.icon && (
+                    <div className="mb-5 flex size-16 items-center justify-center rounded-xl bg-blue-50 transition-colors group-hover:bg-[#2563EB]">
+                      <img src={c.icon} alt="" className="size-10 object-contain transition duration-300 [filter:brightness(0)_saturate(100%)_invert(26%)_sepia(95%)_saturate(2500%)_hue-rotate(215deg)] group-hover:[filter:brightness(0)_invert(1)_brightness(100)]" />
+                    </div>
+                  )}
+                  <h3 className="font-heading text-base font-bold text-gray-900">{c.title}</h3>
+                  {c.text && <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{c.text}</p>}
+                </div>
+              </MotionCard>
+            ))}
+          </div>
+        </div>
+      </section>
+    </AnimatedSection>
+  );
+}

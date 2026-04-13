@@ -12,7 +12,8 @@
     "seed:testimonials": "npx tsx -r dotenv/config scripts/seed-testimonials.ts dotenv_config_path=.env.local",
     "seed:services": "npx tsx -r dotenv/config scripts/seed-services.ts dotenv_config_path=.env.local",
     "seed:equipment": "npx tsx -r dotenv/config scripts/seed-equipment.ts dotenv_config_path=.env.local",
-    "seed:case-studies": "npx tsx -r dotenv/config scripts/seed-case-studies.ts dotenv_config_path=.env.local"
+    "seed:case-studies": "npx tsx -r dotenv/config scripts/seed-case-studies.ts dotenv_config_path=.env.local",
+    "seed:certifications": "npx tsx -r dotenv/config scripts/seed-certifications.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1029.0",

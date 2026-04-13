@@ -1,13 +1,14 @@
+import { getCertifications } from "@/lib/actions/certification";
 import { PageHeader } from "@/components/admin/page-header";
 import { ShieldCheckIcon } from "lucide-react";
+import { CertificationList } from "./certification-list";
 
-export default function AdminCertificationsSection() {
+export default async function AdminCertificationsPage() {
+  const items = await getCertifications();
   return (
     <>
       <PageHeader title="Certifications" description="Manage accreditation and certification badges." icon={ShieldCheckIcon} />
-      <div className="rounded-xl border border-dashed border-white/60 bg-white/60 backdrop-blur-md p-12 text-center shadow-sm">
-        <p className="text-muted-foreground">Certifications editor coming soon.</p>
-      </div>
+      <CertificationList items={items} />
     </>
   );
 }
