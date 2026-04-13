@@ -1,13 +1,9 @@
+import { getGalleryItems } from "@/lib/actions/gallery";
 import { PageHeader } from "@/components/admin/page-header";
 import { ImageIcon } from "lucide-react";
+import { GalleryList } from "./gallery-list";
 
-export default function AdminGalleryPage() {
-  return (
-    <>
-      <PageHeader title="Gallery" description="Upload and manage gallery images." icon={ImageIcon} />
-      <div className="rounded-xl border border-dashed border-white/60 bg-white/60 backdrop-blur-md p-12 text-center shadow-sm">
-        <p className="text-muted-foreground">Gallery management coming soon.</p>
-      </div>
-    </>
-  );
+export default async function AdminGalleryPage() {
+  const items = await getGalleryItems();
+  return (<><PageHeader title="Gallery" description="Upload and manage gallery images." icon={ImageIcon} /><GalleryList items={items} /></>);
 }

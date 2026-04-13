@@ -1,13 +1,9 @@
+import { getAbout } from "@/lib/actions/about";
 import { PageHeader } from "@/components/admin/page-header";
 import { InfoIcon } from "lucide-react";
+import { AboutForm } from "./about-form";
 
-export default function AdminAboutPage() {
-  return (
-    <>
-      <PageHeader title="About" description="Edit the about page content." icon={InfoIcon} />
-      <div className="rounded-xl border border-dashed border-white/60 bg-white/60 backdrop-blur-md p-12 text-center shadow-sm">
-        <p className="text-muted-foreground">About page management coming soon.</p>
-      </div>
-    </>
-  );
+export default async function AdminAboutPage() {
+  const about = await getAbout();
+  return (<><PageHeader title="About" description="Edit the about page content." icon={InfoIcon} /><AboutForm about={about} /></>);
 }
