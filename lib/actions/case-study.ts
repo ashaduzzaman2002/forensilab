@@ -19,13 +19,19 @@ export async function getCaseStudyById(id: string) {
   return item ? JSON.parse(JSON.stringify(item)) : null;
 }
 
+export async function getCaseStudyBySlug(slug: string) {
+  await dbConnect();
+  const item = await CaseStudy.findOne({ slug }).lean();
+  return item ? JSON.parse(JSON.stringify(item)) : null;
+}
+
 export async function getCaseStudyUploadUrl(fileName: string, contentType: string) {
   const key = `casestudies-${Date.now()}-${fileName}`;
   return { url: await getUploadUrl(key, contentType), key };
 }
 
 export async function createCaseStudy(data: {
-  slug: string; tag: string; badge: string; title: string; description: string;
+  slug: string; tag: string; badge: string; title: string; description: string; content?: string;
   gradient: string; image?: { key: string } | null;
   metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
@@ -33,6 +39,7 @@ export async function createCaseStudy(data: {
   const count = await CaseStudy.countDocuments();
   await CaseStudy.create({
     slug: data.slug, tag: data.tag, badge: data.badge, title: data.title, description: data.description,
+    content: data.content || "",
     gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)",
     image: data.image?.key ? getFileUrl(data.image.key) : "",
     metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
@@ -43,7 +50,7 @@ export async function createCaseStudy(data: {
 }
 
 export async function updateCaseStudy(id: string, data: {
-  slug: string; tag: string; badge: string; title: string; description: string;
+  slug: string; tag: string; badge: string; title: string; description: string; content?: string;
   gradient: string; image?: { key: string } | null;
   metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
@@ -58,6 +65,7 @@ export async function updateCaseStudy(id: string, data: {
   }
   await CaseStudy.findByIdAndUpdate(id, {
     slug: data.slug, tag: data.tag, badge: data.badge, title: data.title, description: data.description,
+    content: data.content || "",
     gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)", image,
     metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
   });

@@ -6,6 +6,7 @@ const CaseStudySchema = new Schema({
   badge: { type: String, default: "" },
   title: { type: String, required: true },
   description: { type: String, required: true },
+  content: { type: String, default: "" },
   image: { type: String, default: "" },
   gradient: { type: String, default: "linear-gradient(135deg,#0A1A40,#0057FF)" },
   metaTitle: { type: String, default: "" },
