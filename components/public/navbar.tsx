@@ -12,7 +12,6 @@ const links = [
   { href: "/products", label: "Products" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
-  { href: "/team", label: "Team" },
 ];
 
 export function Navbar() {

@@ -5,5 +5,5 @@ import { TeamList } from "./team-list";
 
 export default async function AdminTeamPage() {
   const items = await getTeamMembers();
-  return (<><PageHeader title="Team" description="Manage team members and profiles." icon={UsersIcon} /><TeamList items={items} /></>);
+  return (<><PageHeader title="Team" description="Manage team members displayed on the About page." icon={UsersIcon} /><TeamList items={items} /></>);
 }

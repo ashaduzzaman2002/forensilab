@@ -39,10 +39,10 @@ export function TeamForm({ member }: { member?: Data | null }) {
           <div><label className={labelClass}>Name</label><input name="name" defaultValue={member?.name || ""} className={inputClass} required /></div>
           <div><label className={labelClass}>Role</label><input name="role" defaultValue={member?.role || ""} className={inputClass} required /></div>
         </div>
-        <div><label className={labelClass}>Description</label><textarea name="description" defaultValue={member?.description || ""} rows={3} className={`${inputClass} resize-none`} /></div>
+        <div><label className={labelClass}>Description</label><textarea name="description" defaultValue={member?.description || ""} className={`${inputClass} min-h-[80px]`} rows={3} /></div>
         <div className="grid grid-cols-2 gap-4">
-          <div><label className={labelClass}>Email</label><input name="email" defaultValue={member?.email || ""} className={inputClass} /></div>
-          <div><label className={labelClass}>LinkedIn URL</label><input name="linkedin" defaultValue={member?.linkedin || ""} className={inputClass} placeholder="https://linkedin.com/in/..." /></div>
+          <div><label className={labelClass}>Email</label><input name="email" type="email" defaultValue={member?.email || ""} className={inputClass} /></div>
+          <div><label className={labelClass}>LinkedIn</label><input name="linkedin" defaultValue={member?.linkedin || ""} className={inputClass} placeholder="https://linkedin.com/in/..." /></div>
         </div>
         <div className="flex items-center gap-3">
           <button type="submit" disabled={isPending} className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-2.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-50">{isPending && <Loader2Icon className="size-4 animate-spin" />}{isEdit ? "Save Changes" : "Create"}</button>
@@ -51,10 +51,10 @@ export function TeamForm({ member }: { member?: Data | null }) {
       </div>
       <div className={`${cardClass} p-6 space-y-3`}>
         <label className={labelClass}>Photo</label>
-        <div onClick={() => fileRef.current?.click()} className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-full mx-auto w-40 border-2 border-dashed border-muted-foreground/20 bg-muted/30 transition hover:border-primary/40">
-          {preview ? (<><Image src={preview} alt="Photo" fill unoptimized className="object-cover" /><div className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/30 rounded-full"><span className="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-semibold opacity-0 shadow-lg backdrop-blur-sm transition group-hover:opacity-100">Replace</span></div></>) : (<div className="flex flex-col items-center gap-1 text-muted-foreground"><ImageIcon className="size-5" /><p className="text-xs">Upload</p></div>)}
+        <div onClick={() => fileRef.current?.click()} className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/30 transition hover:border-primary/40">
+          {preview ? (<><Image src={preview} alt="Photo" fill unoptimized className="object-cover" /><div className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/30"><span className="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-semibold opacity-0 shadow-lg backdrop-blur-sm transition group-hover:opacity-100">Replace</span></div></>) : (<div className="flex flex-col items-center gap-1 text-muted-foreground"><ImageIcon className="size-5" /><p className="text-xs">Upload</p></div>)}
         </div>
-        {preview && <div className="text-center"><button type="button" onClick={() => { setImageFile(null); setPreview(""); }} className="inline-flex items-center gap-1 text-xs text-destructive hover:underline"><XIcon className="size-3" /> Remove</button></div>}
+        {preview && <button type="button" onClick={() => { setImageFile(null); setPreview(""); }} className="inline-flex items-center gap-1 text-xs text-destructive hover:underline"><XIcon className="size-3" /> Remove</button>}
         <input ref={fileRef} type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) { setImageFile(f); setPreview(URL.createObjectURL(f)); } }} className="hidden" />
       </div>
     </form>

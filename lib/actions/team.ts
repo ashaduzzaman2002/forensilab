@@ -4,7 +4,7 @@ import { Team } from "@/lib/models/team";
 import { getUploadUrl, deleteFile, getFileUrl } from "@/lib/s3";
 import { revalidatePath } from "next/cache";
 
-const paths = ["/team", "/admin/pages/team"];
+const paths = ["/about", "/admin/pages/team"];
 function revalidate() { paths.forEach(p => revalidatePath(p)); }
 
 export async function getTeamMembers() { await dbConnect(); return JSON.parse(JSON.stringify(await Team.find().sort({ order: 1 }).lean())); }
