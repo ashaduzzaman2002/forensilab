@@ -1,55 +1,54 @@
-import Link from "next/link";
-import { SectionHeading } from "./section-heading";
-import { MotionCard } from "./motion-card";
-import { AnimatedSection } from "./animated-section";
+"use client";
 
-interface Item { slug: string; title: string; description: string; icon: string; }
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+
+interface Item { slug: string; tag?: string; badge?: string; title: string; description: string; image?: string; gradient?: string }
 
 export function CaseStudiesClient({ items }: { items: Item[] }) {
   return (
-    <AnimatedSection>
-      <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40" />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%232563EB' stroke-width='0.5'%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Cline x1='0' y1='30' x2='60' y2='30'/%3E%3Cline x1='30' y1='0' x2='30' y2='60'/%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-        <div className="relative z-10 mx-auto max-w-7xl px-6">
-          <SectionHeading title="Case Studies & Industry Insights" subtitle="Explore how our forensic expertise has delivered critical results across high-profile investigations" />
-          <div className="grid gap-6 sm:grid-cols-2">
-            {items.map((c, i) => (
-              <MotionCard key={c.slug} index={i}>
-                <div className="group flex flex-col justify-between rounded-2xl border border-white/60 bg-white/70 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] backdrop-blur-md transition-all duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.12)] hover:-translate-y-1">
-                  {c.icon && (
-                    <div className="mb-4 flex size-14 items-center justify-center rounded-xl bg-blue-50">
-                      {c.icon.startsWith("<") ? (
-                        <div className="text-[#2563EB] [&>svg]:size-8" dangerouslySetInnerHTML={{ __html: c.icon }} />
-                      ) : (
-                        <img src={c.icon} alt="" className="size-8 object-contain transition duration-300 [filter:brightness(0)_saturate(100%)_invert(26%)_sepia(95%)_saturate(2500%)_hue-rotate(215deg)]" />
-                      )}
-                    </div>
-                  )}
-                  <h3 className="text-lg font-bold text-gray-900">{c.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-500">{c.description}</p>
-                  <Link
-                    href={`/case-studies/${c.slug}`}
-                    className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary border-2 border-primary h-11 ml-auto px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-white hover:text-primary"
-                  >
-                    View Case Study
-                  </Link>
-                </div>
-              </MotionCard>
-            ))}
+    <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
+        className="mb-14 flex flex-wrap items-end justify-between gap-5"
+      >
+        <div>
+          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
+            <span className="block h-[2px] w-[22px] bg-primary" />Our Work
           </div>
-          <div className="mt-12 text-center">
-            <Link href="/case-studies" className="inline-flex items-center gap-2 rounded-full border-2 border-[#2563EB] px-8 py-3 text-sm font-semibold uppercase tracking-wider text-[#2563EB] transition hover:bg-[#2563EB] hover:text-white">
-              View More
-            </Link>
-          </div>
+          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
+            Case Studies &amp;<br />Industry Insights
+          </h2>
         </div>
-      </section>
-    </AnimatedSection>
+        <p className="max-w-[340px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
+          Explore how our forensic expertise has delivered critical results across high-profile investigations.
+        </p>
+      </motion.div>
+
+      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+        className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1"
+      >
+        {items.map((c, i) => (
+          <div key={i} className="group flex flex-col overflow-hidden rounded-lg border border-border bg-white transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,87,255,.1)]">
+            <div className="relative flex h-[180px] items-center justify-center" style={{ background: c.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)" }}>
+              {c.image && <Image src={c.image} alt={c.title} fill unoptimized className="object-cover" />}
+              {c.badge && (
+                <span className="absolute left-3 top-3 rounded-full border border-white/25 bg-white/15 px-[10px] py-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-white backdrop-blur-[4px]">
+                  {c.badge}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-1 flex-col p-6">
+              {c.tag && <div className="mb-[10px] text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">{c.tag}</div>}
+              <h3 className="font-heading text-[17px] font-bold tracking-[-0.3px] text-foreground">{c.title}</h3>
+              <p className="mt-[10px] flex-1 text-[13px] leading-[1.65] text-gray-500">{c.description}</p>
+              <Link href={`/case-studies/${c.slug}`} className="mt-[18px] inline-flex items-center gap-[6px] text-[12px] font-semibold tracking-[0.02em] text-primary transition-[gap] duration-200 hover:gap-[10px]">
+                View Case Study →
+              </Link>
+            </div>
+          </div>
+        ))}
+      </motion.div>
+    </section>
   );
 }

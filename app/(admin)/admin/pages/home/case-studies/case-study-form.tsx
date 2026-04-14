@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Loader2Icon, ImageIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 
-interface Data { _id: string; slug: string; title: string; description: string; icon: string; }
+interface Data { _id: string; slug: string; tag: string; badge: string; title: string; description: string; image: string; gradient: string }
 
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 const inputClass = "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary/40 focus:ring-2 focus:ring-primary/20";
@@ -21,8 +21,8 @@ async function uploadFile(file: File) {
 
 export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
   const [isPending, startTransition] = useTransition();
-  const [iconFile, setIconFile] = useState<File | null>(null);
-  const [iconPreview, setIconPreview] = useState(caseStudy?.icon || "");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState(caseStudy?.image || "");
   const fileRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [slug, setSlug] = useState(caseStudy?.slug || "");
@@ -35,12 +35,15 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
       try {
-        const iconUpload = iconFile ? await uploadFile(iconFile) : undefined;
+        const imageUpload = imageFile ? await uploadFile(imageFile) : undefined;
         const payload = {
           slug: formData.get("slug") as string,
+          tag: formData.get("tag") as string,
+          badge: formData.get("badge") as string,
           title: formData.get("title") as string,
           description: formData.get("description") as string,
-          icon: iconUpload,
+          gradient: "",
+          image: imageUpload,
           metaTitle: formData.get("metaTitle") as string,
           metaDescription: formData.get("metaDescription") as string,
           metaKeywords: formData.get("metaKeywords") as string,
@@ -61,14 +64,24 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
           </div>
           <div>
             <label className={labelClass}>Slug</label>
-            <input name="slug" value={slug} onChange={(e) => setSlug(e.target.value)} className={inputClass} required placeholder="e.g. fingerprint-analysis" />
+            <input name="slug" value={slug} onChange={(e) => setSlug(e.target.value)} className={inputClass} required />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Tag</label>
+            <input name="tag" defaultValue={caseStudy?.tag || ""} className={inputClass} placeholder="e.g. Trace Evidence" />
+          </div>
+          <div>
+            <label className={labelClass}>Badge</label>
+            <input name="badge" defaultValue={caseStudy?.badge || ""} className={inputClass} placeholder="e.g. Fingerprint" />
           </div>
         </div>
         <div>
           <label className={labelClass}>Description</label>
           <textarea name="description" defaultValue={caseStudy?.description || ""} rows={3} className={`${inputClass} resize-none`} required />
         </div>
-        <div className="border-t border-border/30 pt-5 mt-5 space-y-4">
+        <div className="border-t border-border/30 pt-5 space-y-4">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-primary">SEO Settings</h4>
           <div className="grid grid-cols-2 gap-4">
             <div><label className={labelClass}>Meta Title</label><input name="metaTitle" defaultValue={(caseStudy as any)?.metaTitle || ""} className={inputClass} /></div>
@@ -86,11 +99,11 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
       </div>
 
       <div className={`${cardClass} p-6 space-y-3`}>
-        <label className={labelClass}>Icon</label>
-        <div onClick={() => fileRef.current?.click()} className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/30 transition hover:border-primary/40">
-          {iconPreview ? (
+        <label className={labelClass}>Cover Image</label>
+        <div onClick={() => fileRef.current?.click()} className="group relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/30 transition hover:border-primary/40">
+          {preview ? (
             <>
-              <Image src={iconPreview} alt="Icon" fill unoptimized className="object-cover" />
+              <Image src={preview} alt="Cover" fill unoptimized className="object-cover" />
               <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/30">
                 <span className="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-semibold opacity-0 shadow-lg backdrop-blur-sm transition group-hover:opacity-100">Replace</span>
               </div>
@@ -99,12 +112,12 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
             <div className="flex flex-col items-center gap-1 text-muted-foreground"><ImageIcon className="size-5" /><p className="text-xs">Upload</p></div>
           )}
         </div>
-        {iconPreview && (
-          <button type="button" onClick={() => { setIconFile(null); setIconPreview(""); }} className="inline-flex items-center gap-1 text-xs text-destructive hover:underline">
+        {preview && (
+          <button type="button" onClick={() => { setImageFile(null); setPreview(""); }} className="inline-flex items-center gap-1 text-xs text-destructive hover:underline">
             <XIcon className="size-3" /> Remove
           </button>
         )}
-        <input ref={fileRef} type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) { setIconFile(f); setIconPreview(URL.createObjectURL(f)); } }} className="hidden" />
+        <input ref={fileRef} type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) { setImageFile(f); setPreview(URL.createObjectURL(f)); } }} className="hidden" />
       </div>
     </form>
   );

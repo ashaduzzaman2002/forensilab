@@ -25,14 +25,16 @@ export async function getCaseStudyUploadUrl(fileName: string, contentType: strin
 }
 
 export async function createCaseStudy(data: {
-  slug: string; title: string; description: string; icon?: { key: string } | null;
+  slug: string; tag: string; badge: string; title: string; description: string;
+  gradient: string; image?: { key: string } | null;
   metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
   await dbConnect();
   const count = await CaseStudy.countDocuments();
   await CaseStudy.create({
-    slug: data.slug, title: data.title, description: data.description,
-    icon: data.icon?.key ? getFileUrl(data.icon.key) : "",
+    slug: data.slug, tag: data.tag, badge: data.badge, title: data.title, description: data.description,
+    gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)",
+    image: data.image?.key ? getFileUrl(data.image.key) : "",
     metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
     order: count,
   });
@@ -41,19 +43,24 @@ export async function createCaseStudy(data: {
 }
 
 export async function updateCaseStudy(id: string, data: {
-  slug: string; title: string; description: string; icon?: { key: string } | null;
+  slug: string; tag: string; badge: string; title: string; description: string;
+  gradient: string; image?: { key: string } | null;
   metaTitle?: string; metaDescription?: string; metaKeywords?: string;
 }) {
   await dbConnect();
   const existing = await CaseStudy.findById(id);
-  let icon = existing?.icon || "";
-  if (data.icon?.key) {
-    if (icon?.includes(".amazonaws.com/")) {
-      try { const k = icon.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {}
+  let image = existing?.image || "";
+  if (data.image?.key) {
+    if (image?.includes(".amazonaws.com/")) {
+      try { const k = image.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {}
     }
-    icon = getFileUrl(data.icon.key);
+    image = getFileUrl(data.image.key);
   }
-  await CaseStudy.findByIdAndUpdate(id, { slug: data.slug, title: data.title, description: data.description, icon, metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "" });
+  await CaseStudy.findByIdAndUpdate(id, {
+    slug: data.slug, tag: data.tag, badge: data.badge, title: data.title, description: data.description,
+    gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)", image,
+    metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
+  });
   revalidate();
   return { success: true };
 }
@@ -61,8 +68,8 @@ export async function updateCaseStudy(id: string, data: {
 export async function deleteCaseStudy(id: string) {
   await dbConnect();
   const item = await CaseStudy.findById(id);
-  if (item?.icon?.includes(".amazonaws.com/")) {
-    try { const k = item.icon.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {}
+  if (item?.image?.includes(".amazonaws.com/")) {
+    try { const k = item.image.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {}
   }
   await CaseStudy.findByIdAndDelete(id);
   revalidate();
