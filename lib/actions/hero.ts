@@ -2,7 +2,6 @@
 
 import { dbConnect } from "@/lib/db";
 import { Hero } from "@/lib/models/hero";
-import { getUploadUrl, deleteFile, getFileUrl } from "@/lib/s3";
 import { revalidatePath } from "next/cache";
 
 export async function getHero() {
@@ -14,41 +13,27 @@ export async function getHero() {
 export async function updateHero(formData: FormData) {
   await dbConnect();
 
+  const statsValues = formData.getAll("statValue") as string[];
+  const statsLabels = formData.getAll("statLabel") as string[];
+  const stats = statsValues
+    .map((value, i) => ({ value, label: statsLabels[i] || "" }))
+    .filter((s) => s.value && s.label);
+
   const data = {
-    heading: formData.get("heading") as string,
-    subheading: formData.get("subheading") as string,
-    subtitle: formData.get("subtitle") as string,
+    badge: formData.get("badge") as string,
+    headingLine1: formData.get("headingLine1") as string,
+    headingLine2: formData.get("headingLine2") as string,
+    headingLine3: formData.get("headingLine3") as string,
+    description: formData.get("description") as string,
     primaryBtnText: formData.get("primaryBtnText") as string,
     primaryBtnLink: formData.get("primaryBtnLink") as string,
     secondaryBtnText: formData.get("secondaryBtnText") as string,
     secondaryBtnLink: formData.get("secondaryBtnLink") as string,
+    stats,
   };
 
   await Hero.findOneAndUpdate({}, data, { upsert: true });
   revalidatePath("/");
   revalidatePath("/admin/pages/home/hero");
   return { success: true };
-}
-
-export async function getHeroBgUploadUrl(fileName: string, contentType: string) {
-  const key = `hero-${Date.now()}-${fileName}`;
-  const url = await getUploadUrl(key, contentType);
-  return { url, key };
-}
-
-export async function saveHeroBgImage(key: string) {
-  await dbConnect();
-  const hero = await Hero.findOne();
-  if (hero?.bgImage) {
-    try {
-      const oldKey = hero.bgImage.split(".amazonaws.com/")[1];
-      if (oldKey) await deleteFile(oldKey);
-    } catch {}
-  }
-  const fileUrl = getFileUrl(key);
-  console.log("Saving hero bgImage to DB:", fileUrl);
-  await Hero.findOneAndUpdate({}, { bgImage: fileUrl }, { upsert: true });
-  revalidatePath("/");
-  revalidatePath("/admin/pages/home/hero");
-  return { success: true, url: fileUrl };
 }
