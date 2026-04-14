@@ -10,7 +10,7 @@ export function EquipmentClient({ items }: { items: Item[] }) {
   const track = [...items, ...items];
 
   return (
-    <section className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="glimpses" className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
         className="mb-14 flex flex-wrap items-end justify-between gap-5"
       >

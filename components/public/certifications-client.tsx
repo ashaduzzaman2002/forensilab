@@ -7,7 +7,7 @@ interface Item { title: string; text: string; icon: string }
 
 export function CertificationsClient({ items }: { items: Item[] }) {
   return (
-    <section className="px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="certs" className="px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
         className="mb-14 flex flex-wrap items-end justify-between gap-5"
       >

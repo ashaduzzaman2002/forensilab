@@ -7,7 +7,7 @@ interface Sector { image?: string; name: string; description: string }
 
 export function SectorsClient({ items }: { items: Sector[] }) {
   return (
-    <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="sectors" className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
         className="mb-14 flex flex-wrap items-end justify-between gap-5"
       >

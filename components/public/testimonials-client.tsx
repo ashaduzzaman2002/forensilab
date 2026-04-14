@@ -8,7 +8,7 @@ export function TestimonialsClient({ testimonials }: { testimonials: Testimonial
   const doubled = [...testimonials, ...testimonials];
 
   return (
-    <section className="overflow-hidden bg-[#111] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="testimonials" className="overflow-hidden bg-[#111] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
         className="mb-14 flex flex-wrap items-end justify-between gap-5"
       >

@@ -8,7 +8,7 @@ interface Item { slug: string; tag?: string; badge?: string; title: string; desc
 
 export function CaseStudiesClient({ items }: { items: Item[] }) {
   return (
-    <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="cases" className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
         className="mb-14 flex flex-wrap items-end justify-between gap-5"
       >

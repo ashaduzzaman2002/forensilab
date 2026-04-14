@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import { dbConnect } from "@/lib/db";
 import { Footer as FooterModel } from "@/lib/models/footer";
+import { FooterLinks } from "./footer-links";
 
 const fallback = {
   description: "Trusted forensic science laboratory delivering accurate and reliable results.",
@@ -21,7 +22,7 @@ export async function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div>
-            <Link href="/"><Image src="/logo.svg" alt="ForensiLabs Logo"  width={150} height={48} className="h-16 w-auto"  /></Link>
+            <FooterLinks />
             <p className="mt-3 text-sm text-white/60">{data.description}</p>
           </div>
 
@@ -29,7 +30,7 @@ export async function Footer() {
             <h3 className="font-heading font-semibold mb-4 text-white text-xl">Quick Links</h3>
             <ul className="space-y-2">
               {data.quickLinks.map((link: any) => (
-                <li key={link.label}><Link href={link.href} className="text-sm text-white/60 hover:text-white">{link.label}</Link></li>
+                <li key={link.label}><FooterLinks href={link.href} label={link.label} /></li>
               ))}
             </ul>
           </div>

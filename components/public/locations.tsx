@@ -9,7 +9,7 @@ export async function Locations() {
   if (locations.length === 0) return null;
 
   return (
-    <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="locations" className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
         <div>
           <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">

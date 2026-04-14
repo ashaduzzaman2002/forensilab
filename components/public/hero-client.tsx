@@ -56,7 +56,7 @@ interface HeroData {
 
 export function HeroClient({ data }: { data: HeroData }) {
   return (
-    <section className="relative -mt-[60px] flex h-screen items-center overflow-hidden px-[60px] pb-[100px] pt-[120px] max-md:px-6 max-md:pb-[90px]"
+    <section id="hero" className="relative -mt-[60px] flex h-screen items-center overflow-hidden px-[60px] pb-[100px] pt-[120px] max-md:px-6 max-md:pb-[90px]"
       style={{ background: "linear-gradient(135deg, #0A0A1A 0%, #0A1A40 45%, #0557EE 100%)" }}
     >
       {/* Radial glow */}

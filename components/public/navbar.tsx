@@ -13,7 +13,6 @@ const links = [
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
-  { href: "/locations", label: "Locations" },
 ];
 
 export function Navbar() {
@@ -25,6 +24,7 @@ export function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false);
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
@@ -47,11 +47,18 @@ export function Navbar() {
     ? scrolled ? "bg-primary/95 backdrop-blur-md shadow-lg" : "bg-transparent"
     : "bg-primary";
 
+  function handleHomeClick(e: React.MouseEvent) {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[60px] h-[60px] max-md:px-6 transition-all duration-300 ${
       visible ? "translate-y-0" : "-translate-y-full"
     } ${bgClass}`}>
-      <Link href="/" className="flex items-center">
+      <Link href="/" onClick={handleHomeClick} className="flex items-center">
         <Image src="/logo.svg" alt="ForensiLabs" width={150} height={48} className="h-16 w-auto" />
       </Link>
 
@@ -61,6 +68,7 @@ export function Navbar() {
           <li key={href}>
             <Link
               href={href}
+              onClick={href === "/" ? handleHomeClick : undefined}
               className={`text-[11px] font-medium tracking-[0.08em] uppercase transition-colors ${
                 isActive(href) ? "text-white" : "text-white/80 hover:text-white"
               }`}
@@ -85,6 +93,7 @@ export function Navbar() {
             <Link
               key={href}
               href={href}
+              onClick={href === "/" ? handleHomeClick : undefined}
               className={`text-[11px] font-medium tracking-[0.08em] uppercase py-2 px-3 rounded transition-colors ${
                 isActive(href) ? "text-white bg-white/10" : "text-white/80 hover:text-white hover:bg-white/5"
               }`}

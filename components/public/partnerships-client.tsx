@@ -10,7 +10,7 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
   const filtered = items.filter(i => i.type === tab);
 
   return (
-    <section className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+    <section id="partners" className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
           <span className="block h-[2px] w-[22px] bg-primary" />Academic Partnerships

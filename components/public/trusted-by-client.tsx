@@ -9,7 +9,7 @@ export function TrustedByClient({ items }: { items: Item[] }) {
   const doubled = [...items, ...items];
 
   return (
-    <section className="overflow-hidden px-[60px] pb-[100px] pt-10 max-md:px-6 max-md:pb-[72px]">
+    <section id="trusted" className="overflow-hidden px-[60px] pb-[100px] pt-10 max-md:px-6 max-md:pb-[72px]">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
         className="mb-14 flex flex-wrap items-end justify-between gap-5"
       >
