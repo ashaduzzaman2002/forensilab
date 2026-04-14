@@ -1,0 +1,493 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#111;overflow-x:hidden;}
+:root{--blue:#0057FF;--blue-light:#3378FF;--blue-pale:#E8F0FF;--dark:#111;--mid:#2A2A2A;--white:#fff;--gray:#6B7280;--gray-light:#F5F7FA;--border:#E5E9F2;}
+
+nav{background:var(--blue);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;position:sticky;top:0;z-index:99;}
+.n-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;display:flex;align-items:center;gap:8px;}
+.n-links{display:flex;gap:24px;list-style:none;}
+.n-links a{font-size:11px;font-weight:500;letter-spacing:.08em;color:rgba(255,255,255,.8);text-decoration:none;text-transform:uppercase;}
+.n-links a:hover{color:#fff;}
+.n-right{font-size:11px;color:rgba(255,255,255,.6);}
+
+.hero{background:linear-gradient(135deg,#0A0A1A 0%,#0A1A40 45%,#0557EE 100%);min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:60px 60px 100px;}
+.hero::before{content:'';position:absolute;top:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,87,255,.35) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:5px 14px;margin-bottom:28px;font-size:11px;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:#4AFF8C;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(44px,6vw,82px);font-weight:800;line-height:1;letter-spacing:-2px;color:#fff;margin-bottom:20px;}
+.hero h1 span{color:var(--blue-light);}
+.hero p{font-size:17px;font-weight:300;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:36px;max-width:460px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-w{background:#fff;color:var(--blue);padding:12px 28px;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;}
+.btn-w:hover{background:#f0f4ff;transform:translateY(-1px);}
+.btn-o{background:transparent;color:#fff;padding:12px 28px;border-radius:4px;border:1.5px solid rgba(255,255,255,.4);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;}
+.btn-o:hover{border-color:rgba(255,255,255,.8);background:rgba(255,255,255,.07);}
+.hero-stats{position:absolute;right:60px;bottom:60px;display:flex;gap:44px;}
+.h-stat{text-align:right;}
+.h-stat-n{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:#fff;line-height:1;}
+.h-stat-l{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+
+.lbl{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:9px;}
+.lbl::before{content:'';display:block;width:22px;height:2px;background:var(--blue);}
+.lbl-light{color:rgba(255,255,255,.5);}
+.lbl-light::before{background:rgba(255,255,255,.3);}
+
+/* SECTORS */
+.sectors{padding:100px 60px;background:#fff;}
+.s-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.s-header h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;line-height:1;letter-spacing:-2px;color:var(--blue);}
+.s-header p{font-size:15px;color:var(--gray);max-width:320px;line-height:1.7;text-align:right;}
+.sectors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);}
+.sc{background:#fff;padding:36px 28px;position:relative;overflow:hidden;transition:all .3s;cursor:default;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+.sc:hover::before{transform:scaleX(1);}
+.sc:hover{background:var(--blue);}
+.sc:hover .sc-icon{background:rgba(255,255,255,.15);}
+.sc:hover .sc-name,.sc:hover .sc-desc,.sc:hover .sc-num{color:rgba(255,255,255,.9);}
+.sc:hover .sc-desc{color:rgba(255,255,255,.6);}
+.sc:hover .sc-num{color:rgba(255,255,255,.15);}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.sc-icon{width:48px;height:48px;background:var(--blue-pale);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;}
+.sc-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--border);line-height:1;transition:color .3s;}
+.sc-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-top:20px;letter-spacing:-.3px;transition:color .3s;}
+.sc-desc{font-size:12px;color:var(--gray);line-height:1.6;margin-top:7px;transition:color .3s;}
+
+/* GLIMPSES */
+.glimpses{background:var(--gray-light);padding:100px 60px;}
+.g-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.g-header h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;letter-spacing:-2px;line-height:1;color:var(--blue);}
+.g-header p{font-size:14px;color:var(--gray);max-width:300px;line-height:1.7;text-align:right;}
+.eq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.eq-card{background:#fff;border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:all .3s;}
+.eq-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 10px 36px rgba(0,87,255,.1);}
+.eq-img{width:100%;aspect-ratio:4/3;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;position:relative;}
+.eq-emoji{font-size:46px;opacity:.5;}
+.eq-badge{position:absolute;top:10px;left:10px;background:var(--blue);color:#fff;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;}
+.eq-info{padding:18px 20px 22px;}
+.eq-cat{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:5px;}
+.eq-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:5px;}
+.eq-use{font-size:11px;color:var(--gray);line-height:1.5;}
+
+/* ── CASE STUDIES ── */
+.cases{padding:100px 60px;background:#fff;}
+.cases-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.cases-header h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;line-height:1;letter-spacing:-2px;color:var(--blue);}
+.cases-header p{font-size:15px;color:var(--gray);max-width:340px;line-height:1.7;text-align:right;}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.case-card{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all .3s;display:flex;flex-direction:column;}
+.case-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,87,255,.1);}
+.case-img{width:100%;height:180px;background:linear-gradient(135deg,#0A1A40,#0057FF);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;}
+.case-cat-badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;backdrop-filter:blur(4px);}
+.case-body{padding:24px 24px 28px;flex:1;display:flex;flex-direction:column;}
+.case-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
+.case-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;}
+.case-desc{font-size:13px;color:var(--gray);line-height:1.65;flex:1;}
+.case-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;margin-top:18px;letter-spacing:.02em;transition:gap .2s;}
+.case-link:hover{gap:10px;}
+
+/* ── TESTIMONIALS ── */
+.testi{background:var(--dark);padding:100px 60px;overflow:hidden;}
+.testi-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.testi-header h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;line-height:1;letter-spacing:-2px;color:#fff;}
+.testi-header p{font-size:15px;color:rgba(255,255,255,.5);max-width:300px;line-height:1.7;text-align:right;}
+.testi-track-wrap{overflow:hidden;position:relative;}
+.testi-track-wrap::before,.testi-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+.testi-track-wrap::before{left:0;background:linear-gradient(to right,var(--dark),transparent);}
+.testi-track-wrap::after{right:0;background:linear-gradient(to left,var(--dark),transparent);}
+.testi-track{display:flex;gap:24px;animation:slide 30s linear infinite;}
+.testi-track:hover{animation-play-state:paused;}
+@keyframes slide{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}.testi-card{flex:0 0 360px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:32px 28px;}
+.testi-quote{font-size:28px;color:var(--blue);line-height:1;margin-bottom:16px;font-family:'Syne',sans-serif;font-weight:800;}
+.testi-text{font-size:14px;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:24px;}
+.testi-author{display:flex;align-items:center;gap:14px;}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.testi-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;}
+.testi-role{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.testi-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:#4AFF8C;font-weight:600;letter-spacing:.06em;margin-top:6px;}
+.testi-badge::before{content:'✓';font-size:9px;}
+
+/* ── CERTIFICATIONS ── */
+.certs{padding:100px 60px;background:var(--gray-light);}
+.certs-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.certs-header h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;line-height:1;letter-spacing:-2px;color:var(--blue);}
+.certs-header p{font-size:15px;color:var(--gray);max-width:320px;line-height:1.7;text-align:right;}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.cert-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:36px 32px;display:flex;flex-direction:column;align-items:flex-start;transition:all .3s;position:relative;overflow:hidden;}
+.cert-box::after{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--blue);border-radius:0;}
+.cert-box:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,87,255,.1);}
+.cert-cat-tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:20px;}
+.cert-cat-tag.certification{background:#E8F0FF;color:var(--blue);}
+.cert-cat-tag.recognition{background:#FEF3C7;color:#92400E;}
+.cert-cat-tag.standard{background:#D1FAE5;color:#065F46;}
+.cert-icon-wrap{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;}
+.cert-icon-wrap.certification{background:#E8F0FF;}
+.cert-icon-wrap.recognition{background:#FEF3C7;}
+.cert-icon-wrap.standard{background:#D1FAE5;}
+.cert-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:8px;letter-spacing:-.3px;}
+.cert-desc{font-size:13px;color:var(--gray);line-height:1.65;}
+
+/* ── TRUSTED BY ── */
+.trusted{padding:100px 60px;background:#fff;}
+.trusted-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.trusted-header h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;line-height:1;letter-spacing:-2px;color:var(--blue);}
+.trusted-header p{font-size:15px;color:var(--gray);max-width:320px;line-height:1.7;text-align:right;}
+.trusted-category{margin-bottom:48px;}
+.trusted-cat-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.trusted-cat-label{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;white-space:nowrap;}
+.trusted-cat-label.insurance{background:#E8F0FF;color:var(--blue);}
+.trusted-cat-label.govt{background:#FEF3C7;color:#92400E;}
+.trusted-cat-label.corporate{background:#D1FAE5;color:#065F46);}
+.trusted-cat-line{flex:1;height:1px;background:var(--border);}
+.trusted-logos{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);}
+.tl-cell{background:#fff;padding:24px 20px;display:flex;align-items:center;justify-content:center;min-height:80px;transition:all .2s;cursor:default;}
+.tl-cell:hover{background:var(--blue-pale);}
+.tl-cell:hover .tl-name{color:var(--blue);}
+.tl-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--dark);text-align:center;transition:color .2s;}
+
+/* CLIENTS / MOUs */
+.mous{background:var(--gray-light);padding:100px 60px;}
+.mous h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;letter-spacing:-2px;color:var(--blue);margin-bottom:56px;}
+.mou-tabs{display:flex;gap:2px;margin-bottom:36px;}
+.mou-tab{padding:9px 22px;font-size:12px;font-weight:500;background:#fff;color:var(--gray);border:none;cursor:pointer;transition:all .2s;}
+.mou-tab.active{background:var(--blue);color:#fff;}
+.mou-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.mou-cell{background:#fff;padding:36px;display:flex;align-items:center;justify-content:center;min-height:110px;border:1px solid var(--border);}
+.mou-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);text-align:center;}
+.mou-sub{font-size:10px;color:var(--gray);text-align:center;margin-top:4px;}
+
+/* CTA */
+.cta{background:var(--dark);padding:100px 60px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.cta h2{font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,58px);font-weight:800;letter-spacing:-1.5px;color:#fff;line-height:1.05;margin-bottom:20px;}
+.cta h2 span{color:var(--blue-light);}
+.cta-p{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:36px;}
+.c-contacts{display:flex;flex-direction:column;gap:14px;}
+.c-item{display:flex;align-items:center;gap:14px;color:rgba(255,255,255,.7);font-size:14px;text-decoration:none;transition:color .2s;}
+.c-item:hover{color:#fff;}
+.c-icon{width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.cta-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:44px;}
+.f-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:28px;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.fg{margin-bottom:14px;}
+.fg label{display:block;font-size:11px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;}
+.fg input,.fg select,.fg textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:11px 14px;font-size:13px;color:#fff;outline:none;font-family:'DM Sans',sans-serif;}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.2);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);}
+.fg select option{background:#1a1a2e;}
+.fg textarea{resize:vertical;min-height:90px;}
+.btn-sub{width:100%;background:var(--blue);color:#fff;border:none;padding:13px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em;transition:background .2s;margin-top:6px;}
+.btn-sub:hover{background:var(--blue-light);}
+
+footer{background:var(--blue);padding:44px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.f-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;}
+.f-links{display:flex;gap:28px;list-style:none;flex-wrap:wrap;}
+.f-links a{font-size:12px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-right{text-align:right;}
+.f-loc{font-size:12px;color:rgba(255,255,255,.6);}
+.f-copy{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px;}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:0 20px;}.n-links,.n-right{display:none;}
+  .hero{padding:48px 24px 90px;}.hero-stats{right:24px;bottom:40px;gap:24px;}.h-stat-n{font-size:28px;}
+  .sectors,.glimpses,.cases,.testi,.certs,.trusted,.mous,.cta{padding:72px 24px;}
+  .sectors-grid{grid-template-columns:repeat(2,1fr);}
+  .eq-grid,.cases-grid,.certs-grid{grid-template-columns:repeat(2,1fr);}
+  .trusted-logos{grid-template-columns:repeat(3,1fr);}
+  .mou-grid{grid-template-columns:repeat(2,1fr);}
+  .cta{grid-template-columns:1fr;}
+  footer{padding:36px 24px;flex-direction:column;align-items:flex-start;}.f-right{text-align:left;}
+  .s-header p,.g-header p,.cases-header p,.testi-header p,.certs-header p,.trusted-header p{text-align:left;}
+}
+@media(max-width:600px){
+  .eq-grid,.cases-grid,.certs-grid{grid-template-columns:1fr;}
+  .trusted-logos{grid-template-columns:repeat(2,1fr);}
+  .mou-grid{grid-template-columns:1fr 1fr;}
+  .f-row{grid-template-columns:1fr;}
+}
+</style>
+
+<!-- NAV -->
+<nav>
+  <div class="n-logo">
+    <svg width="30" height="30" viewBox="0 0 36 36" fill="none"><circle cx="12" cy="10" r="7" fill="white"/><circle cx="24" cy="10" r="5" fill="white" opacity=".8"/><circle cx="12" cy="26" r="8" fill="white" opacity=".9"/><circle cx="24" cy="24" r="4" fill="white" opacity=".6"/><line x1="12" y1="10" x2="24" y2="10" stroke="white" stroke-width="2"/><line x1="12" y1="10" x2="12" y2="26" stroke="white" stroke-width="2"/><line x1="12" y1="26" x2="24" y2="24" stroke="white" stroke-width="2"/></svg>
+    forensilabs
+  </div>
+  <ul class="n-links">
+    <li><a href="#sectors">Sectors</a></li>
+    <li><a href="#glimpses">Lab</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#trusted">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="n-right">A unit of forensi</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-badge"><span class="hero-dot"></span>DPIIT Recognized · ISO 9001:2015 Certified</div>
+    <h1>Forensic<br/><span>Solutions</span><br/>&amp; Lab Services</h1>
+    <p>Empowering justice through scientific analysis. A multidisciplinary forensic agency delivering precise, court-admissible results.</p>
+    <div class="hero-ctas">
+      <a href="#glimpses" class="btn-w">Explore Lab →</a>
+      <a href="#contact" class="btn-o">Request a Quote</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="h-stat-n">12+</div><div class="h-stat-l">Corporate Clients</div></div>
+    <div class="h-stat"><div class="h-stat-n">4</div><div class="h-stat-l">University MOUs</div></div>
+    <div class="h-stat"><div class="h-stat-n">3</div><div class="h-stat-l">City Offices</div></div>
+  </div>
+</section>
+
+<!-- SECTORS WE SERVE -->
+<section class="sectors" id="sectors">
+  <div class="s-header fade-up">
+    <div><div class="lbl">Our Reach</div><h2>Sectors We<br/>Serve</h2></div>
+    <p>From law enforcement to corporate boardrooms, our expertise spans every critical industry.</p>
+  </div>
+  <div class="sectors-grid fade-up">
+    <div class="sc"><div class="sc-top"><div class="sc-icon">🏦</div><div class="sc-num">01</div></div><div><div class="sc-name">Banking &amp; Finance</div><div class="sc-desc">Fraud detection, document forgery analysis, and signature verification for banks.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">🛡️</div><div class="sc-num">02</div></div><div><div class="sc-name">Insurance</div><div class="sc-desc">Claim investigation, evidence analysis, and expert testimony support for insurers.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">⚖️</div><div class="sc-num">03</div></div><div><div class="sc-name">Legal &amp; Judiciary</div><div class="sc-desc">Court-admissible forensic reports and expert witness services for lawyers.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">👮</div><div class="sc-num">04</div></div><div><div class="sc-name">Law Enforcement</div><div class="sc-desc">Crime scene investigation and forensic support for police &amp; government agencies.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">🏢</div><div class="sc-num">05</div></div><div><div class="sc-name">Corporate</div><div class="sc-desc">Internal fraud investigation, background verification, and digital forensics.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">🎓</div><div class="sc-num">06</div></div><div><div class="sc-name">Academic &amp; Research</div><div class="sc-desc">Internship programs, MOU partnerships, and forensic training for universities.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">🏥</div><div class="sc-num">07</div></div><div><div class="sc-name">Healthcare &amp; Medical</div><div class="sc-desc">Biological evidence analysis, toxicology reports, and medico-legal services.</div></div></div>
+    <div class="sc"><div class="sc-top"><div class="sc-icon">🪖</div><div class="sc-num">08</div></div><div><div class="sc-name">Defence &amp; Army</div><div class="sc-desc">Specialized forensic support, ballistic analysis, and identity verification.</div></div></div>
+  </div>
+</section>
+
+<!-- GLIMPSES TO LABORATORY -->
+<section class="glimpses" id="glimpses">
+  <div class="g-header fade-up">
+    <div><div class="lbl">Our Laboratory</div><h2>Glimpses to<br/>Laboratory</h2></div>
+    <p>State-of-the-art instruments and equipment powering every investigation we undertake.</p>
+  </div>
+  <div class="eq-grid fade-up">
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🔭</div><div class="eq-badge">Microscopy</div></div><div class="eq-info"><div class="eq-cat">Imaging</div><div class="eq-name">Digital Microscope</div><div class="eq-use">High-resolution digital imaging of trace evidence, documents, and biological samples.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🔬</div><div class="eq-badge">Microscopy</div></div><div class="eq-info"><div class="eq-cat">Imaging</div><div class="eq-name">Portable Microscope</div><div class="eq-use">Field-deployable microscope for on-site crime scene evidence examination.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🧫</div><div class="eq-badge">Microscopy</div></div><div class="eq-info"><div class="eq-cat">Imaging</div><div class="eq-name">Compound Microscope</div><div class="eq-use">Detailed examination of biological specimens, fibres, hair, and micro-evidence.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🔎</div><div class="eq-badge">Microscopy</div></div><div class="eq-info"><div class="eq-cat">Imaging</div><div class="eq-name">Stereoscopic Microscope</div><div class="eq-use">3D surface imaging for tool marks, fingerprints, and physical evidence analysis.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🌡️</div><div class="eq-badge">Thermal</div></div><div class="eq-info"><div class="eq-cat">Lab Equipment</div><div class="eq-name">Hot-air Oven</div><div class="eq-use">Sterilisation and drying of forensic samples and laboratory glassware.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🧪</div><div class="eq-badge">Biology</div></div><div class="eq-info"><div class="eq-cat">Lab Equipment</div><div class="eq-name">Incubator</div><div class="eq-use">Controlled environment for biological sample cultivation and analysis.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">⚗️</div><div class="eq-badge">Separation</div></div><div class="eq-info"><div class="eq-cat">Lab Equipment</div><div class="eq-name">Centrifuge</div><div class="eq-use">Separation of blood components, DNA extraction, and fluid analysis.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🌀</div><div class="eq-badge">Mixing</div></div><div class="eq-info"><div class="eq-cat">Lab Equipment</div><div class="eq-name">Vortex Shaker</div><div class="eq-use">Homogeneous mixing of forensic reagents and biological sample preparation.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">💡</div><div class="eq-badge">Visualisation</div></div><div class="eq-info"><div class="eq-cat">Crime Scene</div><div class="eq-name">Light Chamber</div><div class="eq-use">UV and alternate light source examination for latent evidence and documents.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">📡</div><div class="eq-badge">Portable</div></div><div class="eq-info"><div class="eq-cat">Portable</div><div class="eq-name">Pocket Microscope</div><div class="eq-use">Compact field microscope for rapid preliminary examination at crime scenes.</div></div></div>
+    <div class="eq-card"><div class="eq-img"><div class="eq-emoji">🖥️</div><div class="eq-badge">Digital</div></div><div class="eq-info"><div class="eq-cat">Digital Forensics</div><div class="eq-name">Forensics Workstation</div><div class="eq-use">Dedicated system for cyber evidence recovery, data extraction, and analysis.</div></div></div>
+    <div class="eq-card" style="background:var(--blue);border-color:var(--blue);"><div class="eq-img" style="background:rgba(255,255,255,.1);"><div class="eq-emoji" style="opacity:.5;">➕</div></div><div class="eq-info"><div class="eq-cat" style="color:rgba(255,255,255,.55);">And More</div><div class="eq-name" style="color:#fff;">More Equipment</div><div class="eq-use" style="color:rgba(255,255,255,.55);">Contact us to learn about our full range of specialized instruments.</div></div></div>
+  </div>
+</section>
+
+<!-- ① CASE STUDIES & INDUSTRY INSIGHTS -->
+<section class="cases" id="cases">
+  <div class="cases-header fade-up">
+    <div><div class="lbl">Our Work</div><h2>Case Studies &amp;<br/>Industry Insights</h2></div>
+    <p>Explore how our forensic expertise has delivered critical results across high-profile investigations.</p>
+  </div>
+  <div class="cases-grid fade-up">
+    <div class="case-card">
+      <div class="case-img" style="background:linear-gradient(135deg,#0A1A40,#0057FF);">🔍<div class="case-cat-badge">Fingerprint</div></div>
+      <div class="case-body"><div class="case-tag">Trace Evidence</div><div class="case-title">Fingerprint Analysis in Property Dispute</div><div class="case-desc">Latent print identification using advanced chemical and digital enhancement techniques resolved a multi-crore property fraud case.</div><a href="#" class="case-link">View Case Study →</a></div>
+    </div>
+    <div class="case-card">
+      <div class="case-img" style="background:linear-gradient(135deg,#0F2A1A,#0F6E56);">🧬<div class="case-cat-badge">DNA Profiling</div></div>
+      <div class="case-body"><div class="case-tag">Biological Analysis</div><div class="case-title">DNA Profiling for Identity Verification</div><div class="case-desc">Genetic marker extraction and STR analysis provided precise individual identification in a complex insurance fraud investigation.</div><a href="#" class="case-link">View Case Study →</a></div>
+    </div>
+    <div class="case-card">
+      <div class="case-img" style="background:linear-gradient(135deg,#2A0A0A,#993C1D);">🔫<div class="case-cat-badge">Ballistics</div></div>
+      <div class="case-body"><div class="case-tag">Physical Evidence</div><div class="case-title">Ballistics Analysis — Shooting Incident</div><div class="case-desc">Firearm discharge residue testing and projectile trajectory reconstruction provided critical evidence for law enforcement.</div><a href="#" class="case-link">View Case Study →</a></div>
+    </div>
+    <div class="case-card">
+      <div class="case-img" style="background:linear-gradient(135deg,#0A1A2A,#185FA5);">💻<div class="case-cat-badge">Cyber Forensics</div></div>
+      <div class="case-body"><div class="case-tag">Digital Forensics</div><div class="case-title">Cyber Forensics — Encrypted Device Recovery</div><div class="case-desc">Digital evidence recovery from encrypted devices and network intrusion analysis delivered actionable intelligence for prosecution.</div><a href="#" class="case-link">View Case Study →</a></div>
+    </div>
+    <div class="case-card">
+      <div class="case-img" style="background:linear-gradient(135deg,#1A1A0A,#3B6D11);">✍️<div class="case-cat-badge">Graphology</div></div>
+      <div class="case-body"><div class="case-tag">Document Examination</div><div class="case-title">Signature Forgery in Banking Fraud</div><div class="case-desc">Expert handwriting analysis and signature comparison uncovered a systematic banking fraud scheme worth several crores.</div><a href="#" class="case-link">View Case Study →</a></div>
+    </div>
+    <div class="case-card">
+      <div class="case-img" style="background:linear-gradient(135deg,#1A0A1A,#533AB7);">🩸<div class="case-cat-badge">Blood Analysis</div></div>
+      <div class="case-body"><div class="case-tag">Biological Forensics</div><div class="case-title">Blood Pattern Analysis — Crime Scene</div><div class="case-desc">Comprehensive blood spatter and pattern analysis at a crime scene provided key evidence in a high-profile investigation.</div><a href="#" class="case-link">View Case Study →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ② CLIENT TESTIMONIALS — AUTO SLIDER -->
+<section class="testi" id="testimonials">
+  <div class="testi-header fade-up">
+    <div><div class="lbl lbl-light">What They Say</div><h2>Client<br/>Testimonials</h2></div>
+    <p>Trusted feedback from our partners across insurance, law enforcement, and corporate India.</p>
+  </div>
+  <div class="testi-track-wrap fade-up">
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">Forensilabs delivered exceptional DNA analysis results that were instrumental in closing a high-profile case. Their precision is truly unmatched.</div><div class="testi-author"><div class="testi-avatar">SM</div><div><div class="testi-name">Dr. Sarah Mitchell</div><div class="testi-role">Chief Forensic Officer, National Crime Lab</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">The ballistics team provided critical evidence within 48 hours. Their turnaround time and accuracy exceeded all our expectations.</div><div class="testi-author"><div class="testi-avatar">JC</div><div><div class="testi-name">James Carter</div><div class="testi-role">Senior Detective, Metro PD</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">We've partnered with Forensilabs for three years. Their chemical analysis capabilities and professionalism set the industry standard.</div><div class="testi-author"><div class="testi-avatar">PS</div><div><div class="testi-name">Dr. Priya Sharma</div><div class="testi-role">Director, Toxicology Institute</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">Their digital forensics division recovered encrypted data that other labs couldn't. Truly cutting-edge technology and deep expertise.</div><div class="testi-author"><div class="testi-avatar">MT</div><div><div class="testi-name">Michael Torres</div><div class="testi-role">Cybercrime Unit Lead</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">Court-admissible reports, clear documentation, and expert testimony support. Forensilabs is our go-to forensic partner for every case.</div><div class="testi-author"><div class="testi-avatar">EZ</div><div><div class="testi-name">Emily Zhang</div><div class="testi-role">Legal Counsel, Morrison &amp; Associates</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">The trace evidence analysis was thorough and delivered ahead of schedule. Their team communicates clearly at every step of the process.</div><div class="testi-author"><div class="testi-avatar">RO</div><div><div class="testi-name">Robert Okafor</div><div class="testi-role">Lab Manager, State Forensic Services</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <!-- Duplicated for infinite loop -->
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">Forensilabs delivered exceptional DNA analysis results that were instrumental in closing a high-profile case. Their precision is truly unmatched.</div><div class="testi-author"><div class="testi-avatar">SM</div><div><div class="testi-name">Dr. Sarah Mitchell</div><div class="testi-role">Chief Forensic Officer, National Crime Lab</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">The ballistics team provided critical evidence within 48 hours. Their turnaround time and accuracy exceeded all our expectations.</div><div class="testi-author"><div class="testi-avatar">JC</div><div><div class="testi-name">James Carter</div><div class="testi-role">Senior Detective, Metro PD</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">We've partnered with Forensilabs for three years. Their chemical analysis capabilities and professionalism set the industry standard.</div><div class="testi-author"><div class="testi-avatar">PS</div><div><div class="testi-name">Dr. Priya Sharma</div><div class="testi-role">Director, Toxicology Institute</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">Their digital forensics division recovered encrypted data that other labs couldn't. Truly cutting-edge technology and deep expertise.</div><div class="testi-author"><div class="testi-avatar">MT</div><div><div class="testi-name">Michael Torres</div><div class="testi-role">Cybercrime Unit Lead</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">Court-admissible reports, clear documentation, and expert testimony support. Forensilabs is our go-to forensic partner for every case.</div><div class="testi-author"><div class="testi-avatar">EZ</div><div><div class="testi-name">Emily Zhang</div><div class="testi-role">Legal Counsel, Morrison &amp; Associates</div><div class="testi-badge">Verified Client</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">The trace evidence analysis was thorough and delivered ahead of schedule. Their team communicates clearly at every step of the process.</div><div class="testi-author"><div class="testi-avatar">RO</div><div><div class="testi-name">Robert Okafor</div><div class="testi-role">Lab Manager, State Forensic Services</div><div class="testi-badge">Verified Client</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ CERTIFICATIONS & STANDARDS — 3 SEPARATE BOXES BY CATEGORY -->
+<section class="certs" id="certs">
+  <div class="certs-header fade-up">
+    <div><div class="lbl">Credentials</div><h2>Certifications &amp;<br/>Standards</h2></div>
+    <p>Accredited, recognised, and compliant with leading national and international bodies.</p>
+  </div>
+  <div class="certs-grid fade-up">
+    <div class="cert-box">
+      <div class="cert-cat-tag certification">Certification</div>
+      <div class="cert-icon-wrap certification">🏅</div>
+      <div class="cert-name">ISO 9001:2015</div>
+      <div class="cert-desc">International standard for quality management systems. Ensures our forensic processes consistently meet client and regulatory requirements.</div>
+    </div>
+    <div class="cert-box">
+      <div class="cert-cat-tag recognition">Recognition</div>
+      <div class="cert-icon-wrap recognition">⭐</div>
+      <div class="cert-name">STARTUP INDIA</div>
+      <div class="cert-desc">Recognised by the Government of India's Startup India initiative under the Department for Promotion of Industry and Internal Trade (DPIIT).</div>
+    </div>
+    <div class="cert-box">
+      <div class="cert-cat-tag standard">Standard</div>
+      <div class="cert-icon-wrap standard">🔬</div>
+      <div class="cert-name">ASTM</div>
+      <div class="cert-desc">Compliant with ASTM International standards for forensic science testing, ensuring globally accepted methodologies and evidence integrity.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ TRUSTED BY — CLIENTS CATEGORISED IN SEPARATE BOXES -->
+<section class="trusted" id="trusted">
+  <div class="trusted-header fade-up">
+    <div><div class="lbl">Our Network</div><h2>Trusted By</h2></div>
+    <p>Partnering with leading organisations in insurance, government, and corporate India.</p>
+  </div>
+
+  <div class="trusted-category fade-up">
+    <div class="trusted-cat-header">
+      <div class="trusted-cat-label insurance">Insurance &amp; Financial</div>
+      <div class="trusted-cat-line"></div>
+    </div>
+    <div class="trusted-logos">
+      <div class="tl-cell"><div class="tl-name">HDFC ERGO</div></div>
+      <div class="tl-cell"><div class="tl-name">IFFCO-TOKIO</div></div>
+      <div class="tl-cell"><div class="tl-name">Future Generali</div></div>
+      <div class="tl-cell"><div class="tl-name">ICICI Lombard</div></div>
+      <div class="tl-cell"><div class="tl-name">Universal Sompo</div></div>
+      <div class="tl-cell"><div class="tl-name">Royal Sundaram</div></div>
+      <div class="tl-cell"><div class="tl-name">Liberty General</div></div>
+      <div class="tl-cell"><div class="tl-name">Chola MS General</div></div>
+      <div class="tl-cell"><div class="tl-name">Digit Insurance</div></div>
+      <div class="tl-cell"><div class="tl-name">TCS</div></div>
+      <div class="tl-cell"><div class="tl-name">ESK3 Electronics</div></div>
+      <div class="tl-cell"><div class="tl-name">Assam Company India</div></div>
+    </div>
+  </div>
+
+  <div class="trusted-category fade-up">
+    <div class="trusted-cat-header">
+      <div class="trusted-cat-label govt">Government &amp; Public Bodies</div>
+      <div class="trusted-cat-line"></div>
+    </div>
+    <div class="trusted-logos">
+      <div class="tl-cell"><div class="tl-name">Indian Army</div></div>
+      <div class="tl-cell"><div class="tl-name">Enforcement Directorate</div></div>
+      <div class="tl-cell"><div class="tl-name">Bose Institute</div></div>
+      <div class="tl-cell"><div class="tl-name">National Insurance</div></div>
+      <div class="tl-cell"><div class="tl-name">United India Insurance</div></div>
+      <div class="tl-cell"><div class="tl-name">Oriental Insurance</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MOUs & MOAs -->
+<section class="mous" id="partners">
+  <div class="lbl">Academic Partnerships</div>
+  <h2 class="fade-up">MOUs &amp; MOAs</h2>
+  <div class="mou-tabs">
+    <button class="mou-tab active" onclick="showTab(this,'mt1')">MOUs</button>
+    <button class="mou-tab" onclick="showTab(this,'mt2')">MOAs</button>
+  </div>
+  <div id="mt1" class="mou-grid fade-up">
+    <div class="mou-cell"><div><div class="mou-name">Adamas University</div></div></div>
+    <div class="mou-cell"><div><div class="mou-name">Kalinga University</div><div class="mou-sub">Raipur, India</div></div></div>
+    <div class="mou-cell"><div><div class="mou-name">Sandip University</div><div class="mou-sub">UGC Recognised</div></div></div>
+    <div class="mou-cell"><div><div class="mou-name">Usha Martin University</div></div></div>
+  </div>
+  <div id="mt2" class="mou-grid fade-up" style="display:none;">
+    <div class="mou-cell"><div><div class="mou-name">IEML Labs</div></div></div>
+    <div class="mou-cell"><div><div class="mou-name">Aryaman Detection of Truth</div></div></div>
+    <div class="mou-cell"><div><div class="mou-name">Sandip University</div><div class="mou-sub">UGC Recognised</div></div></div>
+    <div class="mou-cell"><div><div class="mou-name">Usha Martin University</div></div></div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta" id="contact">
+  <div class="fade-up">
+    <h2>Get in<br/><span>Touch</span><br/>With Us</h2>
+    <p class="cta-p">Reach out to discuss your forensic needs. We respond within 24 hours and offer tailored solutions.</p>
+    <div class="c-contacts">
+      <a href="tel:8670790730" class="c-item"><div class="c-icon">📞</div>8670790730</a>
+      <a href="mailto:forensibusindia@gmail.com" class="c-item"><div class="c-icon">✉️</div>forensibusindia@gmail.com</a>
+      <a href="#" class="c-item"><div class="c-icon">🌐</div>www.forensilabs.in</a>
+      <span class="c-item"><div class="c-icon">📍</div>Kolkata · Raiganj · Patna</span>
+    </div>
+  </div>
+  <div class="cta-form fade-up">
+    <div class="f-title">Request a Quote</div>
+    <div class="f-row">
+      <div class="fg"><label>Name</label><input type="text" placeholder="Your full name"/></div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+    </div>
+    <div class="fg"><label>Service</label><select><option value="">Choose a service...</option><option>Forensic Services</option><option>Corporate Investigation</option><option>Insurance Investigation</option><option>Background Verification</option><option>Training Programs</option><option>Other</option></select></div>
+    <div class="fg"><label>Requirement</label><textarea placeholder="Describe your requirements..."></textarea></div>
+    <button class="btn-sub">Submit Request →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">forensilabs</div>
+  <ul class="f-links">
+    <li><a href="#sectors">Sectors</a></li>
+    <li><a href="#glimpses">Lab</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#trusted">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="f-right">
+    <div class="f-loc">Kolkata · Raiganj · Patna</div>
+    <div class="f-copy">© 2026 ForensiLabs. A unit of forensi.</div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(i=>{if(i.isIntersecting)i.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+function showTab(btn,id){
+  document.querySelectorAll('.mou-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('mt1').style.display='none';
+  document.getElementById('mt2').style.display='none';
+  document.getElementById(id).style.display='grid';
+}
+</script>

@@ -3,35 +3,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { href: "/", label: "HOME" },
-  { href: "/services", label: "SERVICES" },
-  { href: "/products", label: "PRODUCTS" },
-  { href: "/gallery", label: "GALLERY" },
-  { href: "/about", label: "ABOUT" },
-  { href: "/team", label: "MEET OUR TEAM" },
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/products", label: "Products" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/about", label: "About" },
+  { href: "/team", label: "Team" },
+  { href: "/locations", label: "Locations" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const lastScrollY = useRef(0);
 
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setVisible(y < lastScrollY.current || y < 10);
-      lastScrollY.current = y;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -40,66 +28,51 @@ export function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 p-2 transition-transform duration-300 ${
-        visible ? "translate-y-0" : "-translate-y-full"
-      }`}
-    >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] rounded-[100px]">
-        <Link href="/">
-          <Image
-            src="/fL logo-01.png"
-            alt="ForensiLabs Logo"
-            width={120}
-            height={80}
-          />
-        </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary flex items-center justify-between px-10 h-[60px] max-md:px-5">
+      <Link href="/" className="flex items-center gap-2">
+        <Image src="/fL logo-01.png" alt="ForensiLabs" width={120} height={40} className=" h-8 w-auto" />
+      </Link>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-6">
-          {links.map(({ href, label }) => (
+      {/* Desktop links */}
+      <ul className="hidden md:flex items-center gap-6">
+        {links.map(({ href, label }) => (
+          <li key={href}>
             <Link
-              key={href}
               href={href}
-              className={`text-sm tracking-[0.1em] transition-colors ${
-                isActive(href)
-                  ? "text-primary font-bold"
-                  : "hover:text-primary"
+              className={`text-[11px] font-medium tracking-[0.08em] uppercase transition-colors ${
+                isActive(href) ? "text-white" : "text-white/80 hover:text-white"
               }`}
             >
               {label}
             </Link>
-          ))}
-        </div>
+          </li>
+        ))}
+      </ul>
 
-        {/* Mobile toggle */}
-        <button
-          className="lg:hidden p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </nav>
+      <span className="hidden md:block text-[11px] text-white/60">A unit of forensi</span>
+
+      {/* Mobile toggle */}
+      <button className="md:hidden p-2 text-white" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
+        {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+      </button>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden mt-2 mx-2 rounded-2xl bg-white shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-4 flex flex-col gap-3">
+        <div className="absolute top-[60px] left-0 right-0 bg-primary border-t border-white/10 flex flex-col p-4 gap-1 md:hidden">
           {links.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className={`text-sm tracking-[0.1em] py-2 px-3 rounded-lg transition-colors ${
-                isActive(href)
-                  ? "text-primary font-bold bg-primary/5"
-                  : "hover:text-primary hover:bg-muted"
+              className={`text-[11px] font-medium tracking-[0.08em] uppercase py-2 px-3 rounded transition-colors ${
+                isActive(href) ? "text-white bg-white/10" : "text-white/80 hover:text-white hover:bg-white/5"
               }`}
             >
               {label}
             </Link>
           ))}
+          <span className="text-[11px] text-white/60 mt-2 px-3">A unit of forensi</span>
         </div>
       )}
-    </header>
+    </nav>
   );
 }
