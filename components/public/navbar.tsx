@@ -46,7 +46,7 @@ export function Navbar() {
       visible ? "translate-y-0" : "-translate-y-full"
     } ${scrolled ? "bg-primary/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`}>
       <Link href="/" className="flex items-center">
-        <Image src="/fL logo-01.png" alt="ForensiLabs" width={120} height={40} className="h-8 w-auto" />
+        <Image src="/logo.svg" alt="ForensiLabs" width={150} height={48} className="h-16 w-auto" />
       </Link>
 
       {/* Desktop links */}
