@@ -11,6 +11,7 @@ import { Certifications } from "@/components/public/certifications";
 import { TrustedBy } from "@/components/public/trusted-by";
 import { Locations } from "@/components/public/locations";
 import { RequestQuote } from "@/components/public/request-quote";
+import { Partnerships } from "@/components/public/partnerships";
 
 export async function generateMetadata() { return getPageMetadata("home", { title: "ForensiLabs — Forensic Science Laboratory", description: "Empowering justice through scientific analysis" }); }
 
@@ -22,7 +23,7 @@ export default function HomePage() {
       <Equipment />
       <CaseStudies />
       <Testimonials />
-      <div className="relative bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40">
+      <div className="relative ">
         <div
           className="absolute inset-0 opacity-55 bg-repeat bg-center"
           style={{ backgroundImage: "url('/fingerprint.png')" }}
@@ -32,6 +33,7 @@ export default function HomePage() {
           <TrustedBy />
         </div>
       </div>
+      <Partnerships />
       <Locations />
       <RequestQuote />
     </>

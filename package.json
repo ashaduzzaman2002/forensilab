@@ -13,6 +13,7 @@
     "seed:services": "npx tsx -r dotenv/config scripts/seed-services.ts dotenv_config_path=.env.local",
     "seed:equipment": "npx tsx -r dotenv/config scripts/seed-equipment.ts dotenv_config_path=.env.local",
     "seed:sectors": "npx tsx -r dotenv/config scripts/seed-sectors.ts dotenv_config_path=.env.local",
+    "seed:partnerships": "npx tsx -r dotenv/config scripts/seed-partnerships.ts dotenv_config_path=.env.local",
     "seed:case-studies": "npx tsx -r dotenv/config scripts/seed-case-studies.ts dotenv_config_path=.env.local",
     "seed:certifications": "npx tsx -r dotenv/config scripts/seed-certifications.ts dotenv_config_path=.env.local",
     "seed:trusted-by": "npx tsx -r dotenv/config scripts/seed-trusted-by.ts dotenv_config_path=.env.local",

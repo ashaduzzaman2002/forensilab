@@ -9,6 +9,7 @@ import {
   ShieldCheckIcon,
   BuildingIcon,
   MapPinIcon,
+  HandshakeIcon,
   ArrowRightIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -21,6 +22,7 @@ const sections = [
   { label: "Testimonials", icon: MessageCircleIcon, href: "/admin/pages/home/testimonials", description: "Client testimonials" },
   { label: "Certifications", icon: ShieldCheckIcon, href: "/admin/pages/home/certifications", description: "Accreditations & certifications" },
   { label: "Trusted By", icon: BuildingIcon, href: "/admin/pages/home/trusted-by", description: "Partner logos & trust badges" },
+  { label: "MOUs & MOAs", icon: HandshakeIcon, href: "/admin/pages/home/partnerships", description: "Academic partnerships" },
   { label: "Locations", icon: MapPinIcon, href: "/admin/pages/home/locations", description: "Office locations" },
 ];
 
