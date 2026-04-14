@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PlusIcon, Trash2Icon, PencilIcon, WrenchIcon } from "lucide-react";
 
-interface Item { _id: string; name: string; category: string; description: string; image: string; }
+interface Item { _id: string; badge?: string; name: string; category: string; description: string; image: string }
 
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 
@@ -39,11 +39,16 @@ export function EquipmentList({ items }: { items: Item[] }) {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {items.map((item) => (
             <div key={item._id} className={`${cardClass} overflow-hidden`}>
-              {item.image && (
-                <div className="relative h-36">
+              <div className="relative flex h-28 items-center justify-center bg-[#E8F0FF]">
+                {item.image ? (
                   <Image src={item.image} alt={item.name} fill unoptimized className="object-cover" />
-                </div>
-              )}
+                ) : (
+                  <WrenchIcon className="size-8 text-muted-foreground/30" />
+                )}
+                {item.badge && (
+                  <span className="absolute left-2 top-2 rounded-full bg-primary px-2 py-0.5 text-[9px] font-semibold uppercase text-white">{item.badge}</span>
+                )}
+              </div>
               <div className="p-4">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">{item.category}</span>
                 <h3 className="text-sm font-semibold text-gray-900">{item.name}</h3>

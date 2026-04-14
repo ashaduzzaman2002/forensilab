@@ -3,6 +3,7 @@ import { getPageMetadata } from "@/lib/actions/seo";
 export const revalidate = 60;
 
 import { Hero } from "@/components/public/hero";
+import { Sectors } from "@/components/public/sectors";
 import { Equipment } from "@/components/public/equipment";
 import { CaseStudies } from "@/components/public/case-studies";
 import { Testimonials } from "@/components/public/testimonials";
@@ -17,6 +18,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Sectors />
       <Equipment />
       <CaseStudies />
       <Testimonials />

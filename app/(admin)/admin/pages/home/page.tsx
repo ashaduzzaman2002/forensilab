@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/admin/page-header";
 import {
   HomeIcon,
   SparklesIcon,
+  LayoutGridIcon,
   WrenchIcon,
   BookOpenIcon,
   MessageCircleIcon,
@@ -14,7 +15,8 @@ import Link from "next/link";
 
 const sections = [
   { label: "Hero", icon: SparklesIcon, href: "/admin/pages/home/hero", description: "Banner, headline & CTA" },
-  { label: "Equipment", icon: WrenchIcon, href: "/admin/pages/home/equipment", description: "Lab equipment showcase" },
+  { label: "Sectors", icon: LayoutGridIcon, href: "/admin/pages/home/sectors", description: "Sectors we serve" },
+  { label: "Equipment", icon: WrenchIcon, href: "/admin/pages/home/equipment", description: "Glimpses to laboratory" },
   { label: "Case Studies", icon: BookOpenIcon, href: "/admin/pages/home/case-studies", description: "Featured case studies" },
   { label: "Testimonials", icon: MessageCircleIcon, href: "/admin/pages/home/testimonials", description: "Client testimonials" },
   { label: "Certifications", icon: ShieldCheckIcon, href: "/admin/pages/home/certifications", description: "Accreditations & certifications" },

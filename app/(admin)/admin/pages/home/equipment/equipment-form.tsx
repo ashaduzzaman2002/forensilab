@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Loader2Icon, ImageIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 
-interface EquipmentData { _id: string; name: string; category: string; description: string; image: string; }
+interface EquipmentData { _id: string; badge: string; name: string; category: string; description: string; image: string }
 
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 const inputClass = "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary/40 focus:ring-2 focus:ring-primary/20";
@@ -32,16 +32,14 @@ export function EquipmentForm({ equipment }: { equipment?: EquipmentData | null 
       try {
         const imageUpload = imageFile ? await uploadFile(imageFile) : undefined;
         const payload = {
+          badge: formData.get("badge") as string,
           name: formData.get("name") as string,
           category: formData.get("category") as string,
           description: formData.get("description") as string,
           image: imageUpload,
         };
         const res = isEdit ? await updateEquipment(equipment!._id, payload) : await createEquipment(payload);
-        if (res.success) {
-          toast.success(isEdit ? "Updated" : "Created");
-          router.push("/admin/pages/home/equipment");
-        }
+        if (res.success) { toast.success(isEdit ? "Updated" : "Created"); router.push("/admin/pages/home/equipment"); }
       } catch { toast.error("Something went wrong"); }
     });
   }
@@ -56,8 +54,12 @@ export function EquipmentForm({ equipment }: { equipment?: EquipmentData | null 
           </div>
           <div>
             <label className={labelClass}>Category</label>
-            <input name="category" defaultValue={equipment?.category || ""} className={inputClass} required placeholder="e.g. Biological, Chemical, Digital" />
+            <input name="category" defaultValue={equipment?.category || ""} className={inputClass} required placeholder="e.g. Imaging, Lab Equipment" />
           </div>
+        </div>
+        <div>
+          <label className={labelClass}>Badge</label>
+          <input name="badge" defaultValue={equipment?.badge || ""} className={inputClass} placeholder="e.g. Microscopy" />
         </div>
         <div>
           <label className={labelClass}>Description</label>

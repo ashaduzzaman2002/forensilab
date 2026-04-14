@@ -27,12 +27,12 @@ export async function getEquipmentUploadUrl(fileName: string, contentType: strin
 }
 
 export async function createEquipment(data: {
-  name: string; category: string; description: string; image?: { key: string } | null;
+  badge: string; name: string; category: string; description: string; image?: { key: string } | null;
 }) {
   await dbConnect();
   const count = await Equipment.countDocuments();
   await Equipment.create({
-    name: data.name, category: data.category, description: data.description,
+    badge: data.badge, name: data.name, category: data.category, description: data.description,
     image: data.image?.key ? getFileUrl(data.image.key) : "",
     order: count,
   });
@@ -41,7 +41,7 @@ export async function createEquipment(data: {
 }
 
 export async function updateEquipment(id: string, data: {
-  name: string; category: string; description: string; image?: { key: string } | null;
+  badge: string; name: string; category: string; description: string; image?: { key: string } | null;
 }) {
   await dbConnect();
   const existing = await Equipment.findById(id);
@@ -53,7 +53,7 @@ export async function updateEquipment(id: string, data: {
     image = getFileUrl(data.image.key);
   }
   await Equipment.findByIdAndUpdate(id, {
-    name: data.name, category: data.category, description: data.description, image,
+    badge: data.badge, name: data.name, category: data.category, description: data.description, image,
   });
   revalidate();
   return { success: true };

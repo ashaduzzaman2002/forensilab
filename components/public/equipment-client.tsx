@@ -1,49 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { AnimatedSection } from "./animated-section";
-import { SectionHeading } from "./section-heading";
 
-interface Item { name: string; category: string; description: string; image: string; }
+interface Item { badge?: string; category: string; name: string; description: string; image?: string }
 
 export function EquipmentClient({ items }: { items: Item[] }) {
-  const categories = ["All", ...Array.from(new Set(items.map(i => i.category)))];
-  const [active, setActive] = useState("All");
-  const filtered = active === "All" ? items : items.filter(d => d.category === active);
-
   return (
-    <AnimatedSection>
-      <section className="relative overflow-hidden py-20 bg-white">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading title="Forensic Divisions & Equipment" subtitle="State-of-the-art laboratories equipped with cutting-edge technology across all forensic disciplines" />
+    <section className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
+        className="mb-14 flex flex-wrap items-end justify-between gap-5"
+      >
+        <div>
+          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
+            <span className="block h-[2px] w-[22px] bg-primary" />Our Laboratory
+          </div>
+          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
+            Glimpses to<br />Laboratory
+          </h2>
+        </div>
+        <p className="max-w-[300px] text-[14px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
+          State-of-the-art instruments and equipment powering every investigation we undertake.
+        </p>
+      </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }} className="mb-10 flex flex-wrap justify-center gap-3">
-            {categories.map(cat => (
-              <button key={cat} onClick={() => setActive(cat)} className={`rounded-full px-6 py-2 text-sm font-medium tracking-wide transition-all ${active === cat ? "bg-primary text-primary-foreground shadow-md" : "bg-white text-gray-600 border border-gray-200 hover:border-primary hover:text-primary"}`}>
-                {cat}
-              </button>
-            ))}
-          </motion.div>
+      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+        className="grid grid-cols-4 gap-[18px] max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1"
+      >
+        {items.map((item, i) => (
+          <div key={i} className="group overflow-hidden rounded-lg border border-border bg-white transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-[0_10px_36px_rgba(0,87,255,.1)]">
+            <div className="relative flex aspect-[4/3] items-center justify-center bg-[#E8F0FF]">
+              {item.image && <Image src={item.image} alt={item.name} fill unoptimized className="object-cover" />}
+              {item.badge && (
+                <span className="absolute left-[10px] top-[10px] rounded-full bg-primary px-[9px] py-[3px] text-[9px] font-semibold uppercase tracking-[0.08em] text-white">
+                  {item.badge}
+                </span>
+              )}
+            </div>
+            <div className="px-5 py-[18px]">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-primary">{item.category}</div>
+              <h3 className="mt-[5px] font-heading text-sm font-bold text-foreground">{item.name}</h3>
+              <p className="mt-[5px] text-[11px] leading-[1.5] text-gray-500">{item.description}</p>
+            </div>
+          </div>
+        ))}
 
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((d, i) => (
-                <motion.div key={d.name} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.3, delay: i * 0.05 }} className="group overflow-hidden rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.12)] hover:-translate-y-1">
-                  <div className="relative h-44 overflow-hidden">
-                    <Image src={d.image} alt={d.name} fill unoptimized className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-heading text-sm font-semibold">{d.name}</h3>
-                    {d.description && <p className="mt-1 text-xs text-muted-foreground">{d.description}</p>}
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+        {/* More Equipment CTA card */}
+        <div className="flex overflow-hidden rounded-lg border border-primary bg-primary flex-col">
+          <div className="flex aspect-[4/3] items-center justify-center bg-white/10">
+            <span className="text-[46px] opacity-50">➕</span>
+          </div>
+          <div className="px-5 py-[18px]">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-white/55">And More</div>
+            <h3 className="mt-[5px] font-heading text-sm font-bold text-white">More Equipment</h3>
+            <p className="mt-[5px] text-[11px] leading-[1.5] text-white/55">Contact us to learn about our full range of specialized instruments.</p>
           </div>
         </div>
-      </section>
-    </AnimatedSection>
+      </motion.div>
+    </section>
   );
 }

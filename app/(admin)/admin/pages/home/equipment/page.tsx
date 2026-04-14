@@ -7,7 +7,7 @@ export default async function AdminEquipmentPage() {
   const items = await getEquipments();
   return (
     <>
-      <PageHeader title="Equipment & Departments" description="Manage lab equipment and department listings." icon={WrenchIcon} />
+      <PageHeader title="Glimpses to Laboratory" description="Manage lab equipment shown in the Glimpses section." icon={WrenchIcon} />
       <EquipmentList items={items} />
     </>
   );
