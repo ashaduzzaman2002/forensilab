@@ -75,7 +75,7 @@ export function HeroClient({ data }: { data: HeroData }) {
         )}
 
         <motion.h1 initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}
-          className="font-heading text-[clamp(44px,6vw,82px)] font-[800] leading-none tracking-[-2px] text-white"
+          className="font-heading text-[clamp(56px,8vw,100px)] font-[800] leading-none tracking-[-2px] text-white"
         >
           {data.headingLine1}<br />
           <span className="text-[#3378FF]">{data.headingLine2}</span>

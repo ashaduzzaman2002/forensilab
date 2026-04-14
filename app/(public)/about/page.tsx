@@ -10,19 +10,11 @@ import { Mail } from "lucide-react";
 
 export async function generateMetadata() { return getPageMetadata("about", { title: "About — ForensiLabs", description: "Trusted experts in forensic and digital investigation" }); }
 
-const fallback = {
-  title: "Trusted Experts in Forensic & Digital Investigation",
-  subtitle: "About Us",
-  content: "<p>ForensiLabs is a premier forensic science laboratory dedicated to delivering accurate, reliable, and court-admissible results.</p>",
-  image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=1200&auto=format&fit=crop",
-  highlights: ["Certified & Accredited Lab", "Advanced Technology", "Experienced Analysts", "Confidential & Secure"],
-  stats: [{ value: "500+", label: "Cases Solved" }, { value: "10+", label: "Years Experience" }, { value: "50+", label: "Expert Analysts" }, { value: "99%", label: "Client Satisfaction" }],
-};
-
 export default async function AboutPage() {
   await dbConnect();
   const doc = await About.findOne().lean();
-  const data = doc ? { ...fallback, ...JSON.parse(JSON.stringify(doc)) } : fallback;
+  if (!doc) return <section className="px-[60px] py-[100px] text-center text-gray-500 max-md:px-6">No content yet.</section>;
+  const data = JSON.parse(JSON.stringify(doc));
   const team = JSON.parse(JSON.stringify(await Team.find().sort({ order: 1 }).lean()));
 
   return (
@@ -41,9 +33,11 @@ export default async function AboutPage() {
         </div>
 
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="relative h-[400px] overflow-hidden rounded-lg border border-border lg:h-[480px]">
-            <Image src={data.image} alt="ForensiLabs" fill unoptimized className="object-cover" />
-          </div>
+          {data.image && (
+            <div className="relative h-[400px] overflow-hidden rounded-lg border border-border lg:h-[480px]">
+              <Image src={data.image} alt="ForensiLabs" fill unoptimized className="object-cover" />
+            </div>
+          )}
           <div>
             <h3 className="font-heading text-2xl font-bold text-foreground md:text-3xl">{data.title}</h3>
             {data.content && <div className="mt-6 prose prose-sm prose-gray max-w-none text-gray-500" dangerouslySetInnerHTML={{ __html: data.content }} />}

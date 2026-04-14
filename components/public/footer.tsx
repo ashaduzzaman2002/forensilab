@@ -5,17 +5,17 @@ import { dbConnect } from "@/lib/db";
 import { Footer as FooterModel } from "@/lib/models/footer";
 import { FooterLinks } from "./footer-links";
 
-const fallback = {
-  description: "Trusted forensic science laboratory delivering accurate and reliable results.",
-  phone: "+1 (555) 000-0000", email: "info@forensilabs.com", address: "123 Lab Street, Science City",
-  quickLinks: [{ label: "About Us", href: "/about" }, { label: "Services", href: "/services" }, { label: "Case Studies", href: "/#case-studies" }, { label: "Careers", href: "/careers" }],
-  socialLinks: { facebook: "#", twitter: "#", linkedin: "#", instagram: "#" },
+const defaults = {
+  description: "", phone: "", email: "", address: "",
+  quickLinks: [] as { label: string; href: string }[],
+  socialLinks: {} as Record<string, string>,
 };
 
 export async function Footer() {
   await dbConnect();
   const doc = await FooterModel.findOne().lean();
-  const data = doc ? { ...fallback, ...JSON.parse(JSON.stringify(doc)) } : fallback;
+  if (!doc) return null;
+  const data = { ...defaults, ...JSON.parse(JSON.stringify(doc)) };
 
   return (
     <footer className="bg-primary text-white">
