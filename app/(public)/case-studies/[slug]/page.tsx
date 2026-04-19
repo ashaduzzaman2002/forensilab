@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { SectionHeading } from "@/components/public/section-heading";
 
 export const revalidate = 60;
 
@@ -27,21 +28,11 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
     <>
       {/* Hero */}
       <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-          <div>
-            {s.tag && (
-              <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-                <span className="block h-[2px] w-[22px] bg-primary" />{s.tag}
-              </div>
-            )}
-            <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-              {s.title}
-            </h2>
-          </div>
-          <p className="max-w-[380px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-            {s.description}
-          </p>
-        </div>
+        <SectionHeading
+          label={s.tag || "Case Study"}
+          title={<>{s.title}</>}
+          description={s.description}
+        />
 
         {s.image && (
           <div className="relative mb-16 h-[360px] overflow-hidden rounded-[10px] border border-border max-md:h-[240px]">

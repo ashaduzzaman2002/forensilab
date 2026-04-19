@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Loader2Icon, ImageIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 
-interface Data { _id: string; caseId: string; scene: string; date: string; image: string; }
+interface Data { _id: string; title: string; description: string; image: string; }
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 const inputClass = "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary/40 focus:ring-2 focus:ring-primary/20";
 const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground";
@@ -25,7 +25,7 @@ export function GalleryForm({ item }: { item?: Data | null }) {
     startTransition(async () => {
       try {
         const imageUpload = imageFile ? await uploadFile(imageFile) : undefined;
-        const payload = { caseId: formData.get("caseId") as string, scene: formData.get("scene") as string, date: formData.get("date") as string, image: imageUpload };
+        const payload = { title: formData.get("title") as string, description: formData.get("description") as string, image: imageUpload };
         const res = isEdit ? await updateGalleryItem(item!._id, payload) : await createGalleryItem(payload);
         if (res.success) { toast.success(isEdit ? "Updated" : "Created"); router.push("/admin/pages/gallery"); }
       } catch { toast.error("Something went wrong"); }
@@ -35,11 +35,8 @@ export function GalleryForm({ item }: { item?: Data | null }) {
   return (
     <form action={handleSubmit} className="grid gap-6 lg:grid-cols-3 max-w-4xl">
       <div className={`${cardClass} space-y-5 p-6 lg:col-span-2`}>
-        <div className="grid grid-cols-2 gap-4">
-          <div><label className={labelClass}>Case ID</label><input name="caseId" defaultValue={item?.caseId || ""} className={inputClass} required placeholder="e.g. 2024-FMG003" /></div>
-          <div><label className={labelClass}>Scene</label><input name="scene" defaultValue={item?.scene || ""} className={inputClass} required /></div>
-        </div>
-        <div><label className={labelClass}>Date</label><input name="date" defaultValue={item?.date || ""} className={inputClass} required placeholder="e.g. Jan 08, 2024 — 11:30 AM" /></div>
+        <div><label className={labelClass}>Title</label><input name="title" defaultValue={item?.title || ""} className={inputClass} required /></div>
+        <div><label className={labelClass}>Short Description</label><textarea name="description" defaultValue={item?.description || ""} rows={3} className={`${inputClass} resize-none`} /></div>
         <div className="flex items-center gap-3">
           <button type="submit" disabled={isPending} className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-2.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-50">{isPending && <Loader2Icon className="size-4 animate-spin" />}{isEdit ? "Save Changes" : "Create"}</button>
           <button type="button" onClick={() => router.push("/admin/pages/gallery")} className="rounded-lg border px-6 py-2.5 text-sm font-semibold transition hover:bg-muted/50">Cancel</button>

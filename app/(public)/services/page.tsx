@@ -8,6 +8,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
+import { SectionHeading } from "@/components/public/section-heading";
+
 export async function generateMetadata() { return getPageMetadata("services", { title: "Services — ForensiLabs", description: "Comprehensive forensic solutions powered by cutting-edge technology" }); }
 
 export default async function ServicesPage() {
@@ -17,19 +19,11 @@ export default async function ServicesPage() {
 
   return (
     <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-      <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-        <div>
-          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-            <span className="block h-[2px] w-[22px] bg-primary" />What We Do
-          </div>
-          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-            Our Forensic<br />Services
-          </h2>
-        </div>
-        <p className="max-w-[320px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-          Comprehensive forensic solutions powered by cutting-edge technology and expert analysis.
-        </p>
-      </div>
+      <SectionHeading
+        label="What We Do"
+        title={<>Our Forensic<br />Services</>}
+        description="Comprehensive forensic solutions powered by cutting-edge technology and expert analysis."
+      />
 
       <div className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {items.map((s: any, i: number) => (

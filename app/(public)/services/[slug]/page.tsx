@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { SectionHeading } from "@/components/public/section-heading";
 
 export const revalidate = 60;
 
@@ -32,19 +33,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <ArrowLeft className="size-3.5" /> All Services
         </Link>
 
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-          <div>
-            <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-              <span className="block h-[2px] w-[22px] bg-primary" />Service Detail
-            </div>
-            <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-              {s.title}
-            </h2>
-          </div>
-          <p className="max-w-[380px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-            {s.description}
-          </p>
-        </div>
+        <SectionHeading
+          label="Service Detail"
+          title={<>{s.title}</>}
+          description={s.description}
+        />
 
         {(s.thumbnail || s.image) && (
           <div className="relative mb-16 h-[360px] overflow-hidden rounded-[10px] border border-border max-md:h-[240px]">
@@ -60,14 +53,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       {/* Details Grid */}
       {s.details?.length > 0 && (
         <section className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-          <div className="mb-14">
-            <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-              <span className="block h-[2px] w-[22px] bg-primary" />Key Areas
-            </div>
-            <h2 className="font-heading text-[clamp(28px,4vw,48px)] font-[800] leading-none tracking-[-2px] text-primary">
-              What&apos;s Covered
-            </h2>
-          </div>
+          <SectionHeading
+            label="Key Areas"
+            title={<>What&apos;s Covered</>}
+            description=""
+          />
 
           <div className="grid grid-cols-4 gap-[2px] bg-border max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
             {s.details.map((d: string, i: number) => (

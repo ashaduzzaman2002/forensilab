@@ -7,6 +7,7 @@ import { About } from "@/lib/models/about";
 import { Team } from "@/lib/models/team";
 import Image from "next/image";
 import { Mail } from "lucide-react";
+import { SectionHeading } from "@/components/public/section-heading";
 
 export async function generateMetadata() { return getPageMetadata("about", { title: "About — ForensiLabs", description: "Trusted experts in forensic and digital investigation" }); }
 
@@ -21,16 +22,11 @@ export default async function AboutPage() {
     <>
       {/* About Section */}
       <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-          <div>
-            <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-              <span className="block h-[2px] w-[22px] bg-primary" />{data.subtitle}
-            </div>
-            <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-              About<br />ForensiLabs
-            </h2>
-          </div>
-        </div>
+        <SectionHeading
+          label={data.subtitle}
+          title={<>About<br />ForensiLabs</>}
+          description=""
+        />
 
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {data.image && (
@@ -68,19 +64,12 @@ export default async function AboutPage() {
       {/* Team Section */}
       {team.length > 0 && (
         <section className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-          <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-            <div>
-              <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-                <span className="block h-[2px] w-[22px] bg-primary" />Our People
-              </div>
-              <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-                Meet Our<br />Experts
-              </h2>
-            </div>
-            <p className="max-w-[320px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-              A world-class team of certified forensic professionals dedicated to delivering justice.
-            </p>
-          </div>
+          <SectionHeading
+            reversed
+            label="Our People"
+            title={<>Meet Our<br />Experts</>}
+            description="A world-class team of certified forensic professionals dedicated to delivering justice."
+          />
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((t: any) => (

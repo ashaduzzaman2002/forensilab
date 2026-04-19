@@ -21,6 +21,7 @@ import {
   LayoutDashboardIcon,
   HomeIcon,
   BriefcaseIcon,
+  GraduationCapIcon,
   ImageIcon,
   InfoIcon,
   UsersIcon,
@@ -43,6 +44,7 @@ const data = {
     { title: "Gallery", url: "/admin/pages/gallery", icon: <ImageIcon /> },
     { title: "About", url: "/admin/pages/about", icon: <InfoIcon /> },
     { title: "Team", url: "/admin/pages/team", icon: <UsersIcon /> },
+    { title: "Careers", url: "/admin/pages/careers", icon: <GraduationCapIcon /> },
   ],
   navInquiries: [
     { name: "Quotes", url: "/admin/sections/request-quote", icon: <MessageSquareQuoteIcon /> },

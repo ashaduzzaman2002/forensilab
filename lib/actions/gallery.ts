@@ -11,16 +11,16 @@ export async function getGalleryItems() { await dbConnect(); return JSON.parse(J
 export async function getGalleryItemById(id: string) { await dbConnect(); const i = await Gallery.findById(id).lean(); return i ? JSON.parse(JSON.stringify(i)) : null; }
 export async function getGalleryUploadUrl(fileName: string, contentType: string) { const key = `gallery-${Date.now()}-${fileName}`; return { url: await getUploadUrl(key, contentType), key }; }
 
-export async function createGalleryItem(data: { caseId: string; scene: string; date: string; image?: { key: string } | null }) {
+export async function createGalleryItem(data: { title: string; description: string; image?: { key: string } | null }) {
   await dbConnect(); const count = await Gallery.countDocuments();
-  await Gallery.create({ caseId: data.caseId, scene: data.scene, date: data.date, image: data.image?.key ? getFileUrl(data.image.key) : "", order: count });
+  await Gallery.create({ title: data.title, description: data.description, image: data.image?.key ? getFileUrl(data.image.key) : "", order: count });
   revalidate(); return { success: true };
 }
 
-export async function updateGalleryItem(id: string, data: { caseId: string; scene: string; date: string; image?: { key: string } | null }) {
+export async function updateGalleryItem(id: string, data: { title: string; description: string; image?: { key: string } | null }) {
   await dbConnect(); const existing = await Gallery.findById(id); let image = existing?.image || "";
   if (data.image?.key) { if (image?.includes(".amazonaws.com/")) { try { const k = image.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {} } image = getFileUrl(data.image.key); }
-  await Gallery.findByIdAndUpdate(id, { caseId: data.caseId, scene: data.scene, date: data.date, image });
+  await Gallery.findByIdAndUpdate(id, { title: data.title, description: data.description, image });
   revalidate(); return { success: true };
 }
 

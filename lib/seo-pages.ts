@@ -3,6 +3,7 @@ export const seoPages = [
   { page: "about", label: "About", path: "/about" },
   { page: "services", label: "Services", path: "/services" },
   { page: "gallery", label: "Gallery", path: "/gallery" },
+  { page: "careers", label: "Careers", path: "/careers" },
   { page: "locations", label: "Locations", path: "/locations" },
   { page: "privacy-policy", label: "Privacy Policy", path: "/privacy-policy" },
   { page: "terms-of-service", label: "Terms of Service", path: "/terms-of-service" },

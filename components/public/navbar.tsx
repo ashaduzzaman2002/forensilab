@@ -44,7 +44,9 @@ export function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   const bgClass = isHome
-    ? scrolled ? "bg-primary/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+    ? scrolled
+      ? "bg-primary/95 backdrop-blur-md shadow-lg"
+      : "bg-transparent"
     : "bg-primary";
 
   function handleHomeClick(e: React.MouseEvent) {
@@ -55,15 +57,22 @@ export function Navbar() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[60px] h-[60px] max-md:px-6 transition-all duration-300 ${
-      visible ? "translate-y-0" : "-translate-y-full"
-    } ${bgClass}`}>
- <div className="flex gap-5 items-center">
-       <Link href="/" onClick={handleHomeClick} className="flex items-center`">
-        <Image src="/logo.svg" alt="ForensiLabs" width={150} height={48} className="h-9 w-auto" />
-      </Link> 
-     
- </div>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[60px] h-[60px] max-md:px-6 transition-all duration-300 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      } ${bgClass}`}
+    >
+      <div className="flex gap-5 items-center">
+        <Link href="/" onClick={handleHomeClick} className="flex items-center`">
+          <Image
+            src="/logo.svg"
+            alt="ForensiLabs"
+            width={150}
+            height={48}
+            className="h-9 w-auto"
+          />
+        </Link>
+      </div>
 
       {/* Desktop links */}
       <ul className="hidden md:flex items-center gap-6">
@@ -82,12 +91,16 @@ export function Navbar() {
         ))}
       </ul>
 
-       <span className="hidden md:block text-[10px] text-white bg-white/10 px-4 py-1 border border-white/60 rounded-full">A unit of forensi</span>
-
-      
+      <span className="hidden md:block text-[10px] text-white bg-white/10 px-3 py-1 border border-white/60 rounded-full">
+        A unit of forensi
+      </span>
 
       {/* Mobile toggle */}
-      <button className="md:hidden p-2 text-white" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
+      <button
+        className="md:hidden p-2 text-white"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label="Toggle menu"
+      >
         {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
 
@@ -100,13 +113,17 @@ export function Navbar() {
               href={href}
               onClick={href === "/" ? handleHomeClick : undefined}
               className={`text-[11px] font-medium tracking-[0.08em] uppercase py-2 px-3 rounded transition-colors ${
-                isActive(href) ? "text-white bg-white/10" : "text-white/80 hover:text-white hover:bg-white/5"
+                isActive(href)
+                  ? "text-white bg-white/10"
+                  : "text-white/80 hover:text-white hover:bg-white/5"
               }`}
             >
               {label}
             </Link>
           ))}
-          <span className="text-[11px] text-white/60 mt-2 px-3">A unit of forensi</span>
+          <span className="text-[11px] text-white/60 mt-2 px-3">
+            A unit of forensi
+          </span>
         </div>
       )}
     </nav>
