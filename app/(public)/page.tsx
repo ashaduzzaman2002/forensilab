@@ -26,7 +26,7 @@ export default function HomePage() {
       <Suspense fallback={<CardGridSkeleton count={6} />}><CaseStudies /></Suspense>
       <Suspense fallback={<SectionSkeleton className="bg-[#F5F7FA]" rows={3} />}><Testimonials /></Suspense>
       <div className="relative">
-        <div className="absolute inset-0 opacity-55 bg-repeat bg-center" style={{ backgroundImage: "url('/fingerprint.png')" }} />
+        <div className="absolute inset-0 opacity-55 bg-repeat bg-center"  />
         <div className="relative z-10">
           <Suspense><Certifications /></Suspense>
           <Suspense><TrustedBy /></Suspense>

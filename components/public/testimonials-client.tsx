@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionHeading } from "./section-heading";
 
 interface Testimonial { name: string; role: string; text: string }
 
@@ -9,21 +10,13 @@ export function TestimonialsClient({ testimonials }: { testimonials: Testimonial
 
   return (
     <section id="testimonials" className="overflow-hidden bg-[#111] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-        className="mb-14 flex flex-wrap items-end justify-between gap-5"
-      >
-        <div>
-          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-white/50">
-            <span className="block h-[2px] w-[22px] bg-white/30" />What They Say
-          </div>
-          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-white">
-            Client<br />Testimonials
-          </h2>
-        </div>
-        <p className="max-w-[300px] text-[15px] leading-[1.7] text-white/50 max-md:text-left md:text-right">
-          Trusted feedback from our partners across insurance, law enforcement, and corporate India.
-        </p>
-      </motion.div>
+      <SectionHeading
+        // reversed
+        dark
+        label="What They Say"
+        title={<>Client<br />Testimonials</>}
+        description="Trusted feedback from our partners across insurance, law enforcement, and corporate India."
+      />
 
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
         className="relative"

@@ -31,7 +31,7 @@ function AnimatedStat({ value, label }: { value: string; label: string }) {
   return (
     <div ref={ref} className="text-right">
       <div className="font-heading text-[38px] font-[800] leading-none text-white max-md:text-[28px]">{display}</div>
-      <div className="mt-[3px] text-[11px] uppercase tracking-[0.06em] text-white/50">{label}</div>
+      <div className="mt-[3px] text-[11px] tracking-[0.06em] text-white/50">{label}</div>
     </div>
   );
 }
@@ -75,7 +75,7 @@ export function HeroClient({ data }: { data: HeroData }) {
         )}
 
         <motion.h1 initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}
-          className="font-heading text-[clamp(56px,8vw,100px)] font-[800] leading-none tracking-[-2px] text-white"
+          className="font-heading text-[clamp(56px,8vw,80px)] leading-none tracking-[-2px] text-white"
         >
           {data.headingLine1}<br />
           <span className="text-[#3378FF]">{data.headingLine2}</span>
@@ -92,12 +92,12 @@ export function HeroClient({ data }: { data: HeroData }) {
           className="flex flex-wrap gap-[14px]"
         >
           <Link href={data.primaryBtnLink}
-            className="rounded bg-white px-7 py-3 text-[13px] font-semibold text-[#0057FF] transition hover:-translate-y-px hover:bg-[#f0f4ff]"
+            className="rounded-full bg-white px-7 py-3 text-[13px] font-semibold text-[#0057FF] transition hover:-translate-y-px hover:bg-[#f0f4ff]"
           >
             {data.primaryBtnText}
           </Link>
           <Link href={data.secondaryBtnLink}
-            className="rounded border-[1.5px] border-white/40 bg-transparent px-7 py-3 text-[13px] font-medium text-white transition hover:border-white/80 hover:bg-white/[0.07]"
+            className="rounded-full border-[1.5px] border-white/40 bg-transparent px-7 py-3 text-[13px] font-medium text-white transition hover:border-white/80 hover:bg-white/[0.07]"
           >
             {data.secondaryBtnText}
           </Link>

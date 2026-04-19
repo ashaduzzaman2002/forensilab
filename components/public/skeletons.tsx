@@ -12,7 +12,7 @@ export function SectionSkeleton({ className = "bg-white", rows = 4 }: { classNam
       <div className="grid grid-cols-4 gap-[2px] max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {Array.from({ length: rows }).map((_, i) => (
           <div key={i} className="flex min-h-[200px] flex-col justify-between bg-gray-50 p-7">
-            <div className="h-12 w-12 rounded-lg bg-gray-200" />
+            <div className="h-12 w-12 rounded-[10px] bg-gray-200" />
             <div>
               <div className="h-4 w-32 rounded bg-gray-200" />
               <div className="mt-2 h-3 w-full rounded bg-gray-200" />
@@ -53,7 +53,7 @@ export function CardGridSkeleton({ className = "bg-white", count = 3 }: { classN
       </div>
       <div className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className="overflow-hidden rounded-lg border border-gray-100">
+          <div key={i} className="overflow-hidden rounded-[10px] border border-gray-100">
             <div className="h-[180px] bg-gray-200" />
             <div className="p-6 space-y-3">
               <div className="h-4 w-3/4 rounded bg-gray-200" />

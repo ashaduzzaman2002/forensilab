@@ -8,6 +8,7 @@ export async function submitQuoteRequest(formData: FormData) {
   await QuoteRequest.create({
     name: formData.get("name") as string,
     email: formData.get("email") as string,
+    phone: formData.get("phone") as string,
     service: formData.get("service") as string,
     requirement: formData.get("requirement") as string,
   });

@@ -23,7 +23,7 @@ export default function ProductsPage() {
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-        className="flex min-h-[320px] flex-col items-center justify-center rounded-lg border border-border bg-[#F5F7FA] text-center"
+        className="flex min-h-[320px] flex-col items-center justify-center rounded-[10px] border border-border bg-[#F5F7FA] text-center"
       >
         <FlaskConical className="size-12 text-primary/30" />
         <h3 className="mt-5 font-heading text-2xl font-[800] tracking-[-1px] text-primary">Coming Soon</h3>

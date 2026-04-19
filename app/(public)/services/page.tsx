@@ -34,7 +34,7 @@ export default async function ServicesPage() {
       <div className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {items.map((s: any, i: number) => (
           <Link key={s._id} href={`/services/${s.slug}`}
-            className="group flex flex-col overflow-hidden rounded-lg border border-border bg-white transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,87,255,.1)]"
+            className="group flex flex-col overflow-hidden rounded-[10px] border border-border bg-white transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,87,255,.1)]"
           >
             <div className="relative flex h-[180px] items-center justify-center bg-[#E8F0FF]">
               {(s.thumbnail || s.image) ? (

@@ -3,33 +3,24 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SectionHeading } from "./section-heading";
 
 interface Item { slug: string; tag?: string; badge?: string; title: string; description: string; image?: string; gradient?: string }
 
 export function CaseStudiesClient({ items }: { items: Item[] }) {
   return (
     <section id="cases" className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-        className="mb-14 flex flex-wrap items-end justify-between gap-5"
-      >
-        <div>
-          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-            <span className="block h-[2px] w-[22px] bg-primary" />Our Work
-          </div>
-          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-            Case Studies &amp;<br />Industry Insights
-          </h2>
-        </div>
-        <p className="max-w-[340px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-          Explore how our forensic expertise has delivered critical results across high-profile investigations.
-        </p>
-      </motion.div>
+      <SectionHeading
+        label="Our Work"
+        title={<>Case Studies &amp;<br />Industry Insights</>}
+        description="Explore how our forensic expertise has delivered critical results across high-profile investigations."
+      />
 
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
         className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1"
       >
         {items.map((c, i) => (
-          <div key={i} className="group flex flex-col overflow-hidden rounded-lg border border-border bg-white transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,87,255,.1)]">
+          <div key={i} className="group flex flex-col overflow-hidden rounded-[10px] border border-border bg-white transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,87,255,.1)]">
             <div className="relative flex h-[180px] items-center justify-center" style={{ background: c.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)" }}>
               {c.image && <Image src={c.image} alt={c.title} fill unoptimized className="object-cover" />}
               {c.badge && (

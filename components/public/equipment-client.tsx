@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { SectionHeading } from "./section-heading";
 
 interface Item { badge?: string; category: string; name: string; description: string; image?: string }
 
@@ -11,21 +12,11 @@ export function EquipmentClient({ items }: { items: Item[] }) {
 
   return (
     <section id="glimpses" className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-        className="mb-14 flex flex-wrap items-end justify-between gap-5"
-      >
-        <div>
-          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-            <span className="block h-[2px] w-[22px] bg-primary" />Our Laboratory
-          </div>
-          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-            Glimpses to<br />Laboratory
-          </h2>
-        </div>
-        <p className="max-w-[300px] text-[14px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-          State-of-the-art instruments and equipment powering every investigation we undertake.
-        </p>
-      </motion.div>
+      <SectionHeading
+        label="Our Laboratory"
+        title={<>Glimpses to<br />Laboratory</>}
+        description="State-of-the-art instruments and equipment powering every investigation we undertake."
+      />
 
       <div className="relative overflow-hidden">
         {/* Fade edges */}
@@ -34,7 +25,7 @@ export function EquipmentClient({ items }: { items: Item[] }) {
 
         <div className="marquee-track flex gap-[18px] hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
           {track.map((item, i) => (
-            <div key={i} className="w-[280px] shrink-0 overflow-hidden rounded-lg border border-border bg-white transition-colors duration-300 hover:border-primary">
+            <div key={i} className="w-[280px] shrink-0 overflow-hidden rounded-[10px] border border-border bg-white transition-colors duration-300 hover:border-primary">
               <div className="relative flex aspect-[4/3] items-center justify-center bg-[#E8F0FF]">
                 {item.image && <Image src={item.image} alt={item.name} fill unoptimized className="object-cover" />}
                 {item.badge && (

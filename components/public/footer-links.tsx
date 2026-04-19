@@ -24,13 +24,13 @@ export function FooterLinks({ href, label }: { href?: string; label?: string }) 
   if (!href) {
     return (
       <Link href="/" onClick={(e) => handleClick(e, "/")}>
-        <Image src="/logo.svg" alt="ForensiLabs Logo" width={150} height={48} className="h-16 w-auto" />
+        <Image src="/logo.svg" alt="ForensiLabs Logo" width={150} height={48} className="h-11 w-auto" />
       </Link>
     );
   }
 
   return (
-    <Link href={href} onClick={(e) => handleClick(e, href)} className="text-sm text-white/60 hover:text-white">
+    <Link href={href} onClick={(e) => handleClick(e, href)} className="text-sm hover:text-white/60 text-white">
       {label}
     </Link>
   );

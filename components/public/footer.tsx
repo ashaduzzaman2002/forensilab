@@ -19,7 +19,7 @@ export async function Footer() {
 
   return (
     <footer className="bg-primary text-white">
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div>
             <FooterLinks />
@@ -37,7 +37,7 @@ export async function Footer() {
 
           <div>
             <h3 className="font-heading font-semibold mb-4 text-white text-xl">Contact Us</h3>
-            <ul className="space-y-3 text-sm text-white/60">
+            <ul className="space-y-3 text-sm text-white">
               {data.phone && <li className="flex items-center gap-2"><Phone className="size-4 shrink-0" /><span>{data.phone}</span></li>}
               {data.email && <li className="flex items-center gap-2"><Mail className="size-4 shrink-0" /><span>{data.email}</span></li>}
               {data.address && <li className="flex items-start gap-2"><MapPin className="size-4 shrink-0 mt-0.5" /><span>{data.address}</span></li>}

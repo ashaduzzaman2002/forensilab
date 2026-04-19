@@ -1,6 +1,7 @@
 import { dbConnect } from "@/lib/db";
 import { Location } from "@/lib/models/location";
 import { MapPin, Phone, Mail, ExternalLink, StarIcon } from "lucide-react";
+import { SectionHeading } from "./section-heading";
 
 export async function Locations() {
   await dbConnect();
@@ -10,19 +11,11 @@ export async function Locations() {
 
   return (
     <section id="locations" className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-      <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-        <div>
-          <div className="mb-3.5 flex items-center gap-[9px] text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
-            <span className="block h-[2px] w-[22px] bg-primary" />Our Offices
-          </div>
-          <h2 className="font-heading text-[clamp(36px,5vw,66px)] font-[800] leading-none tracking-[-2px] text-primary">
-            Locate Us
-          </h2>
-        </div>
-        <p className="max-w-[320px] text-[15px] leading-[1.7] text-gray-500 max-md:text-left md:text-right">
-          Visit our state-of-the-art forensic laboratories across India.
-        </p>
-      </div>
+      <SectionHeading
+        label="Our Offices"
+        title={<>Locate Us</>}
+        description="Visit our state-of-the-art forensic laboratories across India."
+      />
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {locations.map((loc: any) => {
@@ -30,7 +23,7 @@ export async function Locations() {
           const embedUrl = `https://www.google.com/maps?q=${mapsQuery}&output=embed`;
           const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`;
           return (
-            <div key={loc._id} className="overflow-hidden rounded-lg border border-border bg-white transition-colors duration-300 hover:border-primary">
+            <div key={loc._id} className="overflow-hidden rounded-[10px] border border-border bg-white transition-colors duration-300 hover:border-primary">
               {loc.mapEmbed ? (
                 <div className="h-48 w-full [&>iframe]:h-full [&>iframe]:w-full" dangerouslySetInnerHTML={{ __html: loc.mapEmbed }} />
               ) : (

@@ -61,7 +61,7 @@ export function RequestQuoteClient({ contact }: { contact: Contact }) {
           </div>
         </div>
 
-        <form ref={formRef} action={handleSubmit} className="rounded-lg border border-white/[0.08] bg-white/[0.04] p-11 max-md:p-7">
+        <form ref={formRef} action={handleSubmit} className="rounded-[10px] border border-white/[0.08] bg-white/[0.04] p-11 max-md:p-7">
           <div className="font-heading text-[18px] font-bold text-white mb-7">Request a Quote</div>
           <div className="grid grid-cols-2 gap-[14px] mb-[14px] max-sm:grid-cols-1">
             <div>
@@ -72,6 +72,10 @@ export function RequestQuoteClient({ contact }: { contact: Contact }) {
               <label className={labelClass}>Email</label>
               <input name="email" type="email" required placeholder="your@email.com" className={inputClass} />
             </div>
+          </div>
+          <div className="mb-[14px]">
+            <label className={labelClass}>Phone</label>
+            <input name="phone" type="tel" required placeholder="+91 98765 43210" className={inputClass} />
           </div>
           <div className="mb-[14px]">
             <label className={labelClass}>Service</label>

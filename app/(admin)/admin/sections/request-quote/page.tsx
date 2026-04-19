@@ -12,7 +12,7 @@ export default async function AdminQuotesPage({ searchParams }: { searchParams: 
       <PageHeader title="Quote Requests" description="View and manage quote request submissions." icon={MessageSquareQuoteIcon} />
       <InboxList
         items={data.items}
-        columns={[{ key: "name", label: "Name" }, { key: "email", label: "Email" }, { key: "service", label: "Service" }]}
+        columns={[{ key: "name", label: "Name" }, { key: "email", label: "Email" }, { key: "phone", label: "Phone" }, { key: "service", label: "Service" }]}
         total={data.total}
         pages={data.pages}
         page={data.page}

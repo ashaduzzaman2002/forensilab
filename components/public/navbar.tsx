@@ -11,6 +11,7 @@ const links = [
   { href: "/services", label: "Services" },
   { href: "/products", label: "Products" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/careers", label: "Careers" },
   { href: "/about", label: "About" },
 ];
 
@@ -57,9 +58,12 @@ export function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[60px] h-[60px] max-md:px-6 transition-all duration-300 ${
       visible ? "translate-y-0" : "-translate-y-full"
     } ${bgClass}`}>
-      <Link href="/" onClick={handleHomeClick} className="flex items-center">
-        <Image src="/logo.svg" alt="ForensiLabs" width={150} height={48} className="h-16 w-auto" />
-      </Link>
+ <div className="flex gap-5 items-center">
+       <Link href="/" onClick={handleHomeClick} className="flex items-center`">
+        <Image src="/logo.svg" alt="ForensiLabs" width={150} height={48} className="h-9 w-auto" />
+      </Link> 
+     
+ </div>
 
       {/* Desktop links */}
       <ul className="hidden md:flex items-center gap-6">
@@ -68,7 +72,7 @@ export function Navbar() {
             <Link
               href={href}
               onClick={href === "/" ? handleHomeClick : undefined}
-              className={`text-[11px] font-medium tracking-[0.08em] uppercase transition-colors ${
+              className={`text-[11px] font-medium tracking-[0.08em] capitalize transition-colors ${
                 isActive(href) ? "text-white" : "text-white/80 hover:text-white"
               }`}
             >
@@ -78,7 +82,9 @@ export function Navbar() {
         ))}
       </ul>
 
-      <span className="hidden md:block text-[11px] text-white/60">A unit of forensi</span>
+       <span className="hidden md:block text-[10px] text-white bg-white/10 px-4 py-1 border border-white/60 rounded-full">A unit of forensi</span>
+
+      
 
       {/* Mobile toggle */}
       <button className="md:hidden p-2 text-white" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">

@@ -25,6 +25,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
         <div className="grid grid-cols-2 gap-4">
           <div><p className={labelClass}>Name</p><p className="mt-1 text-sm font-medium">{item.name}</p></div>
           <div><p className={labelClass}>Email</p><p className="mt-1 text-sm font-medium"><a href={`mailto:${item.email}`} className="text-primary hover:underline">{item.email}</a></p></div>
+          <div><p className={labelClass}>Phone</p><p className="mt-1 text-sm font-medium"><a href={`tel:${item.phone}`} className="text-primary hover:underline">{item.phone}</a></p></div>
         </div>
         <div><p className={labelClass}>Service</p><p className="mt-1 text-sm font-medium">{item.service}</p></div>
         <div><p className={labelClass}>Requirement</p><p className="mt-1 text-sm leading-relaxed text-gray-700 whitespace-pre-wrap">{item.requirement}</p></div>

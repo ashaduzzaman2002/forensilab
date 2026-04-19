@@ -44,7 +44,7 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
         </div>
 
         {s.image && (
-          <div className="relative mb-16 h-[360px] overflow-hidden rounded-lg border border-border max-md:h-[240px]">
+          <div className="relative mb-16 h-[360px] overflow-hidden rounded-[10px] border border-border max-md:h-[240px]">
             <Image src={s.image} alt={s.title} fill unoptimized className="object-cover" />
             {s.badge && (
               <span className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white backdrop-blur-[4px]">
@@ -55,7 +55,7 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
         )}
 
         {s.content && (
-          <div className="prose prose-sm prose-gray max-w-none [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content }} />
+          <div className="prose prose-sm prose-gray max-w-none break-words [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content }} />
         )}
       </section>
 

@@ -65,7 +65,7 @@ export function GalleryClient({ items }: { items: Item[] }) {
       {/* Lightbox */}
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-6" onClick={() => setSelected(null)}>
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="relative max-h-[85vh] max-w-4xl w-full overflow-hidden rounded-lg bg-white" onClick={e => e.stopPropagation()}>
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="relative max-h-[85vh] max-w-4xl w-full overflow-hidden rounded-[10px] bg-white" onClick={e => e.stopPropagation()}>
             {selected.image && (
               <div className="relative h-[60vh]">
                 <Image src={selected.image} alt={selected.scene} fill unoptimized className="object-contain bg-black" />

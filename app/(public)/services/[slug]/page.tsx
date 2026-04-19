@@ -47,13 +47,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
 
         {(s.thumbnail || s.image) && (
-          <div className="relative mb-16 h-[360px] overflow-hidden rounded-lg border border-border max-md:h-[240px]">
+          <div className="relative mb-16 h-[360px] overflow-hidden rounded-[10px] border border-border max-md:h-[240px]">
             <Image src={s.thumbnail || s.image} alt={s.title} fill unoptimized className="object-cover" />
           </div>
         )}
 
         {s.content && (
-          <div className="prose prose-sm prose-gray max-w-none [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content }} />
+          <div className="prose prose-sm prose-gray max-w-none break-words [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content }} />
         )}
       </section>
 
