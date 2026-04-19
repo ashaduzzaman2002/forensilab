@@ -74,7 +74,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {/* CTA */}
       <section className="bg-white px-[60px] py-[80px] text-center max-md:px-6 max-md:py-[60px]">
-        <Link href="/#request-quote" className="rounded bg-primary px-7 py-3 text-[13px] font-semibold text-white transition hover:-translate-y-px hover:bg-primary/90">
+        <Link href="/#request-quote" className="rounded-full bg-primary px-7 py-3 text-[13px] font-semibold text-white transition hover:-translate-y-px hover:bg-primary/90">
           Request a Quote →
         </Link>
       </section>

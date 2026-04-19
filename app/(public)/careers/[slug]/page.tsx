@@ -34,7 +34,7 @@ export default async function CareerDetailPage({ params }: { params: Promise<{ s
 
       {s.applyLink && (
         <div className="mb-14 flex justify-end max-md:justify-start">
-          <a href={s.applyLink} target="_blank" rel="noopener noreferrer" className="rounded bg-primary px-7 py-3 text-[13px] font-semibold text-white transition hover:-translate-y-px hover:bg-primary/90">
+          <a href={s.applyLink} target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary px-7 py-3 text-[13px] font-semibold text-white transition hover:-translate-y-px hover:bg-primary/90">
             Apply Now →
           </a>
         </div>

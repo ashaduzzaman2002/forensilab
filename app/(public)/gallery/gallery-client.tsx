@@ -16,8 +16,8 @@ export function GalleryClient({ items }: { items: Item[] }) {
     <>
       <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
         <SectionHeading
-          label="Case Files"
-          title={<>Evidence<br />Gallery</>}
+          label="Our Work"
+          title={<>Gallery</>}
           description="Documented forensic evidence and scene records from our investigations."
         />
 
