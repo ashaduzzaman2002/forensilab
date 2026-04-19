@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "/", label: "Home" },
@@ -59,8 +60,8 @@ export function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[60px] h-[60px] max-md:px-6 transition-all duration-300 ${
-        visible ? "translate-y-0" : "-translate-y-full"
-      } ${bgClass}`}
+        visible || mobileOpen ? "translate-y-0" : "-translate-y-full"
+      } ${mobileOpen ? "bg-primary" : bgClass}`}
     >
       <div className="flex gap-5 items-center">
         <Link href="/" onClick={handleHomeClick} className="flex items-center`">
@@ -97,35 +98,55 @@ export function Navbar() {
 
       {/* Mobile toggle */}
       <button
-        className="md:hidden p-2 text-white"
+        className="md:hidden z-50 flex size-9 items-center justify-center rounded-full bg-white/10 border border-white/20 text-white transition hover:bg-white/20"
         onClick={() => setMobileOpen(!mobileOpen)}
         aria-label="Toggle menu"
       >
-        {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+        {mobileOpen ? <X className="size-5" /> : <span className="flex flex-col gap-[5px]"><span className="block h-[2px] w-5 bg-white" /><span className="block h-[2px] w-5 bg-white" /></span>}
       </button>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="absolute top-[60px] left-0 right-0 bg-primary border-t border-white/10 flex flex-col p-4 gap-1 md:hidden">
-          {links.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={href === "/" ? handleHomeClick : undefined}
-              className={`text-[11px] font-medium tracking-[0.08em] uppercase py-2 px-3 rounded transition-colors ${
-                isActive(href)
-                  ? "text-white bg-white/10"
-                  : "text-white/80 hover:text-white hover:bg-white/5"
-              }`}
+      {/* Mobile fullscreen menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-primary md:hidden h-screen"
+          >
+            <nav className="flex flex-col items-center gap-2">
+              {links.map(({ href, label }, i) => (
+                <motion.div
+                  key={href}
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, delay: i * 0.07 }}
+                >
+                  <Link
+                    href={href}
+                    onClick={(e) => { setMobileOpen(false); if (href === "/" && pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
+                    className={`block text-[28px] font-heading font-[800] tracking-[-1px] py-2 transition-colors ${
+                      isActive(href) ? "text-white" : "text-white/50 hover:text-white"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: links.length * 0.07 }}
+              className="mt-10 text-[11px] text-white/30"
             >
-              {label}
-            </Link>
-          ))}
-          <span className="text-[11px] text-white/60 mt-2 px-3">
-            A unit of forensi
-          </span>
-        </div>
-      )}
+              A unit of forensi
+            </motion.span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
