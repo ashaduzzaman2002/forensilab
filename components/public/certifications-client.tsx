@@ -34,7 +34,7 @@ export function CertificationsClient({ items }: { items: Item[] }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-sm:hidden"
       >
         {items.map((c, i) => (
           <div
@@ -64,6 +64,23 @@ export function CertificationsClient({ items }: { items: Item[] }) {
           </div>
         ))}
       </motion.div>
+
+      {/* Mobile marquee */}
+      <div className="relative overflow-hidden sm:hidden -mx-6">
+        <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+          {[...items, ...items].map((c, i) => (
+            <div key={i} className="flex w-[260px] shrink-0 flex-col items-center rounded-[10px] border border-border bg-white px-6 py-10 text-center">
+              {c.icon && (
+                <div className="mb-5 flex size-16 items-center justify-center rounded-xl overflow-hidden">
+                  <Image src={c.icon} alt="" width={100} height={100} unoptimized className="object-contain w-full h-full" />
+                </div>
+              )}
+              <h3 className="font-heading text-base font-bold text-foreground">{c.title}</h3>
+              {c.text && <p className="mt-2 text-xs leading-relaxed text-gray-500">{c.text}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

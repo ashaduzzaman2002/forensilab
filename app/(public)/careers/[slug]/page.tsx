@@ -50,7 +50,7 @@ export default async function CareerDetailPage({ params }: { params: Promise<{ s
       )}
 
       {s.content && (
-        <div className="prose prose-sm prose-gray max-w-none break-words [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content }} />
+        <div className="prose prose-sm prose-gray max-w-none [overflow-wrap:anywhere] [word-break:break-word] [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content }} />
       )}
 
       {s.requirements && (

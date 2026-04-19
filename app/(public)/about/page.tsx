@@ -21,7 +21,7 @@ export default async function AboutPage() {
   return (
     <>
       {/* About Section */}
-      <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
+      <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px] overflow-hidden">
         <SectionHeading
           label={data.subtitle}
           title={<>About<br />ForensiLabs</>}
@@ -30,15 +30,15 @@ export default async function AboutPage() {
 
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {data.image && (
-            <div className="relative h-[400px] overflow-hidden rounded-[10px] border border-border lg:h-[480px]">
+            <div className="relative h-[400px] overflow-hidden rounded-[10px] border border-border lg:h-[480px] max-md:h-[250px]">
               <Image src={data.image} alt="ForensiLabs" fill unoptimized className="object-cover" />
             </div>
           )}
           <div>
             <h3 className="font-heading text-2xl font-bold text-foreground md:text-3xl">{data.title}</h3>
-            {data.content && <div className="mt-6 prose prose-sm prose-gray max-w-none text-gray-500 break-words" dangerouslySetInnerHTML={{ __html: data.content }} />}
+            {data.content && <div className="mt-6 prose prose-sm prose-gray max-w-none text-gray-500 [overflow-wrap:anywhere] [word-break:break-word]" dangerouslySetInnerHTML={{ __html: data.content }} />}
             {data.highlights?.length > 0 && (
-              <div className="mt-8 grid grid-cols-2 gap-3">
+              <div className="mt-8 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
                 {data.highlights.map((h: string) => (
                   <div key={h} className="flex items-center gap-3 rounded-[10px] border border-border bg-white px-4 py-3 transition-colors hover:border-primary">
                     <span className="text-sm font-medium text-foreground">{h}</span>
@@ -50,10 +50,10 @@ export default async function AboutPage() {
         </div>
 
         {data.stats?.length > 0 && (
-          <div className="mt-20 grid grid-cols-2 gap-[2px] bg-border md:grid-cols-4">
+          <div className="mt-20 grid grid-cols-2 gap-[2px] bg-border md:grid-cols-4 max-md:mt-12">
             {data.stats.map((s: any) => (
-              <div key={s.label} className="bg-white py-8 text-center">
-                <p className="font-heading text-[38px] font-[800] text-primary">{s.value}</p>
+              <div key={s.label} className="bg-white py-8 text-center max-md:py-5">
+                <p className="font-heading text-[38px] font-[800] text-primary max-md:text-[28px]">{s.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-[0.06em] text-gray-500">{s.label}</p>
               </div>
             ))}
@@ -71,7 +71,7 @@ export default async function AboutPage() {
             description="A world-class team of certified forensic professionals dedicated to delivering justice."
           />
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-sm:hidden">
             {team.map((t: any) => (
               <div key={t._id} className="group overflow-hidden rounded-[10px] border border-border bg-white text-center transition-colors duration-300 hover:border-primary">
                 {t.image && (
@@ -96,6 +96,25 @@ export default async function AboutPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Mobile marquee */}
+          <div className="relative overflow-hidden sm:hidden -mx-6">
+            <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+              {[...team, ...team].map((t: any, i: number) => (
+                <div key={i} className="w-[240px] shrink-0 overflow-hidden rounded-[10px] border border-border bg-white text-center">
+                  {t.image && (
+                    <div className="relative mx-auto mt-6 size-20 overflow-hidden rounded-full ring-4 ring-[#E8F0FF]">
+                      <Image src={t.image} alt={t.name} fill unoptimized className="object-cover" />
+                    </div>
+                  )}
+                  <div className="p-4 pt-3">
+                    <h3 className="font-heading text-sm font-bold text-foreground">{t.name}</h3>
+                    <p className="mt-1 text-xs font-medium text-primary">{t.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}

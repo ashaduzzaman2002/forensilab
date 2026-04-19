@@ -16,7 +16,7 @@ export default async function TermsOfServicePage() {
     <section className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="font-heading text-3xl font-bold">{data?.title || "Terms of Service"}</h1>
       {data?.content ? (
-        <div className="mt-8 prose prose-sm prose-gray max-w-none break-words" dangerouslySetInnerHTML={{ __html: data.content }} />
+        <div className="mt-8 prose prose-sm prose-gray max-w-none [overflow-wrap:anywhere] [word-break:break-word]" dangerouslySetInnerHTML={{ __html: data.content }} />
       ) : (
         <p className="mt-8 text-muted-foreground">Content coming soon.</p>
       )}

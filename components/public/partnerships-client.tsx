@@ -44,7 +44,7 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
           ))}
         </div>
 
-        <div className="grid grid-cols-4 gap-[2px] max-md:grid-cols-2 max-sm:grid-cols-1">
+        <div className="grid grid-cols-4 gap-[2px] max-md:grid-cols-2 max-sm:hidden">
           {filtered.map((item, i) => (
             <div
               key={i}
@@ -62,6 +62,20 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile marquee */}
+        <div className="relative overflow-hidden sm:hidden -mx-6">
+          <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+            {[...filtered, ...filtered].map((item, i) => (
+              <div key={i} className="flex min-h-[110px] w-[260px] shrink-0 items-center justify-center rounded-[10px] border border-border bg-white p-9">
+                <div className="text-center">
+                  <div className="font-heading text-[14px] font-bold text-foreground">{item.name}</div>
+                  {item.subtitle && <div className="mt-1 text-[10px] text-gray-500">{item.subtitle}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>

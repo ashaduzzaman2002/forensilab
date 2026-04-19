@@ -7,7 +7,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
   return (
     <>
       <Navbar />
-      <main className="flex-1 pt-[60px]">{children}</main>
+      <main className="flex-1 pt-[60px] overflow-x-hidden">{children}</main>
       <Suspense fallback={<FooterSkeleton />}><Footer /></Suspense>
     </>
   );

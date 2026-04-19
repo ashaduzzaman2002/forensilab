@@ -19,15 +19,15 @@ export async function Footer() {
 
   return (
     <footer className="bg-primary text-white">
-      <div className="px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <div className="px-[60px] py-[100px] max-md:px-6 max-md:py-10">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 max-md:grid-cols-2 max-md:gap-6">
           <div>
             <FooterLinks />
             <p className="mt-3 text-sm text-white/60">{data.description}</p>
           </div>
 
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-white text-xl">Quick Links</h3>
+            <h3 className="font-heading font-semibold mb-4 text-white text-xl max-md:text-base max-md:mb-2">Quick Links</h3>
             <ul className="space-y-2">
               {data.quickLinks.map((link: any) => (
                 <li key={link.label}><FooterLinks href={link.href} label={link.label} /></li>
@@ -36,7 +36,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-white text-xl">Contact Us</h3>
+            <h3 className="font-heading font-semibold mb-4 text-white text-xl max-md:text-base max-md:mb-2">Contact Us</h3>
             <ul className="space-y-3 text-sm text-white">
               {data.phone && <li className="flex items-center gap-2"><Phone className="size-4 shrink-0" /><span>{data.phone}</span></li>}
               {data.email && <li className="flex items-center gap-2"><Mail className="size-4 shrink-0" /><span>{data.email}</span></li>}
@@ -45,7 +45,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-white text-xl">Follow Us</h3>
+            <h3 className="font-heading font-semibold mb-4 text-white text-xl max-md:text-base max-md:mb-2">Follow Us</h3>
             <div className="flex gap-3">
               {data.socialLinks?.facebook && (
                 <a href={data.socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex size-9 items-center justify-center rounded-full border border-white/20 text-white/60 hover:bg-white/10 hover:text-white">
@@ -71,7 +71,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <hr className="my-8 border-white/15" />
+        <hr className="my-8 border-white/15 max-md:my-5" />
         <div className="flex flex-col items-center justify-between gap-4 text-sm text-white/35 sm:flex-row">
           <p>© {new Date().getFullYear()} ForensiLabs. A unit of forensi.</p>
           <div className="flex gap-4">
