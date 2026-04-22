@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Item { name: string; logo: string; link: string }
 
@@ -21,7 +22,7 @@ export function TrustedByClient({ items }: { items: Item[] }) {
         <div className="pointer-events-none absolute inset-y-0 left-[-60px] z-10 w-20 bg-gradient-to-r from-blue-50/80 to-transparent max-md:left-[-24px]" />
         <div className="pointer-events-none absolute inset-y-0 right-[-60px] z-10 w-20 bg-gradient-to-l from-blue-50/80 to-transparent max-md:right-[-24px]" />
 
-        <div className="marquee-track flex gap-[2px] hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-[2px]">
           {doubled.map((item, i) => {
             const content = (
               <div className="flex h-[80px] w-[200px] shrink-0 items-center justify-center border border-border bg-white px-5 transition-colors duration-200 hover:bg-[#E8F0FF]">
@@ -38,7 +39,7 @@ export function TrustedByClient({ items }: { items: Item[] }) {
               <div key={i}>{content}</div>
             );
           })}
-        </div>
+        </MarqueeWrapper>
       </div>
     </section>
   );

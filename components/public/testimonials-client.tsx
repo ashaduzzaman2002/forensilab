@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Testimonial { name: string; role: string; text: string }
 
@@ -25,7 +26,7 @@ export function TestimonialsClient({ testimonials }: { testimonials: Testimonial
         <div className="pointer-events-none absolute inset-y-0 left-[-60px] z-10 w-20 bg-gradient-to-r from-[#111] to-transparent max-md:left-[-24px]" />
         <div className="pointer-events-none absolute inset-y-0 right-[-60px] z-10 w-20 bg-gradient-to-l from-[#111] to-transparent max-md:right-[-24px]" />
 
-        <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-6" dark>
           {doubled.map((t, i) => (
             <div key={i} className="w-[360px] shrink-0 rounded-[10px] border border-white/[0.08] bg-white/[0.05] p-8">
               <div className="font-heading text-[28px] font-[800] leading-none text-primary">&ldquo;</div>
@@ -44,7 +45,7 @@ export function TestimonialsClient({ testimonials }: { testimonials: Testimonial
               </div>
             </div>
           ))}
-        </div>
+        </MarqueeWrapper>
       </motion.div>
     </section>
   );

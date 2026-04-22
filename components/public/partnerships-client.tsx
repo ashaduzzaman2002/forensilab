@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Item {
   name: string;
@@ -66,7 +67,7 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
 
         {/* Mobile marquee */}
         <div className="relative overflow-hidden sm:hidden -mx-6">
-          <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+          <MarqueeWrapper trackClassName="gap-4">
             {[...filtered, ...filtered].map((item, i) => (
               <div key={i} className="flex min-h-[110px] w-[260px] shrink-0 items-center justify-center rounded-[10px] border border-border bg-white p-9">
                 <div className="text-center">
@@ -75,7 +76,7 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
                 </div>
               </div>
             ))}
-          </div>
+          </MarqueeWrapper>
         </div>
       </motion.div>
     </section>

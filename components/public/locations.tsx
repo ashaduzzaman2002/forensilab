@@ -2,6 +2,7 @@ import { dbConnect } from "@/lib/db";
 import { Location } from "@/lib/models/location";
 import { MapPin, Phone, Mail, ExternalLink, StarIcon } from "lucide-react";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 export async function Locations() {
   await dbConnect();
@@ -59,7 +60,7 @@ export async function Locations() {
 
       {/* Mobile marquee */}
       <div className="relative overflow-hidden sm:hidden -mx-6">
-        <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-4">
           {[...locations, ...locations].map((loc: any, i: number) => {
             const mapsQuery = encodeURIComponent(loc.address);
             const embedUrl = `https://www.google.com/maps?q=${mapsQuery}&output=embed`;
@@ -97,7 +98,7 @@ export async function Locations() {
               </div>
             );
           })}
-        </div>
+        </MarqueeWrapper>
       </div>
     </section>
   );

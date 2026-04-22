@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Item { slug: string; tag?: string; badge?: string; title: string; description: string; image?: string; gradient?: string }
 
@@ -43,7 +44,7 @@ export function CaseStudiesClient({ items }: { items: Item[] }) {
 
       {/* Mobile marquee */}
       <div className="relative overflow-hidden md:hidden -mx-6">
-        <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-4">
           {[...items, ...items].map((c, i) => (
             <div key={i} className="flex w-[320px] shrink-0 flex-col overflow-hidden rounded-[10px] border border-border bg-white">
               <div className="relative flex h-[180px] items-center justify-center" style={{ background: c.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)" }}>
@@ -64,7 +65,7 @@ export function CaseStudiesClient({ items }: { items: Item[] }) {
               </div>
             </div>
           ))}
-        </div>
+        </MarqueeWrapper>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Item {
   title: string;
@@ -67,7 +68,7 @@ export function CertificationsClient({ items }: { items: Item[] }) {
 
       {/* Mobile marquee */}
       <div className="relative overflow-hidden sm:hidden -mx-6">
-        <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-4">
           {[...items, ...items].map((c, i) => (
             <div key={i} className="flex w-[260px] shrink-0 flex-col items-center rounded-[10px] border border-border bg-white px-6 py-10 text-center">
               {c.icon && (
@@ -79,7 +80,7 @@ export function CertificationsClient({ items }: { items: Item[] }) {
               {c.text && <p className="mt-2 text-xs leading-relaxed text-gray-500">{c.text}</p>}
             </div>
           ))}
-        </div>
+        </MarqueeWrapper>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Item { badge?: string; category: string; name: string; description: string; image?: string }
 
@@ -23,7 +24,7 @@ export function EquipmentClient({ items }: { items: Item[] }) {
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#F5F7FA] to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#F5F7FA] to-transparent" />
 
-        <div className="marquee-track flex gap-[18px] hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-[18px]">
           {track.map((item, i) => (
             <div key={i} className="w-[280px] shrink-0 overflow-hidden rounded-[10px] border border-border bg-white transition-colors duration-300 hover:border-primary">
               <div className="relative flex aspect-[4/3] items-center justify-center bg-[#E8F0FF]">
@@ -41,7 +42,7 @@ export function EquipmentClient({ items }: { items: Item[] }) {
               </div>
             </div>
           ))}
-        </div>
+        </MarqueeWrapper>
       </div>
     </section>
   );

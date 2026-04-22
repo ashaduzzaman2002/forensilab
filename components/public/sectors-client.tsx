@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "./section-heading";
+import { MarqueeWrapper } from "./marquee-wrapper";
 
 interface Sector { image?: string; name: string; description: string }
 
@@ -42,7 +43,7 @@ export function SectorsClient({ items }: { items: Sector[] }) {
 
       {/* Mobile marquee */}
       <div className="relative overflow-hidden md:hidden -mx-6">
-        <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
+        <MarqueeWrapper trackClassName="gap-4">
           {[...items, ...items].map((s, i) => (
             <div key={i} className="group flex min-h-[200px] w-[320px] shrink-0 cursor-default flex-col justify-between rounded-[10px] bg-[#F5F7FA] p-7">
               <div className="flex items-start justify-between">
@@ -59,7 +60,7 @@ export function SectorsClient({ items }: { items: Sector[] }) {
               </div>
             </div>
           ))}
-        </div>
+        </MarqueeWrapper>
       </div>
     </section>
   );
