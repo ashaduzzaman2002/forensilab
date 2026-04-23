@@ -1,11 +1,16 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { deleteEquipment } from "@/lib/actions/equipment";
 import { toast } from "sonner";
 import Link from "next/link";
 import Image from "next/image";
 import { PlusIcon, Trash2Icon, PencilIcon, WrenchIcon } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Item { _id: string; badge?: string; name: string; category: string; description: string; image: string }
 
@@ -13,12 +18,15 @@ const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-
 
 export function EquipmentList({ items }: { items: Item[] }) {
   const [isPending, startTransition] = useTransition();
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const router = useRouter();
 
-  function handleDelete(id: string) {
-    if (!confirm("Delete this item?")) return;
+  function handleDelete() {
+    if (!deleteId) return;
     startTransition(async () => {
-      const res = await deleteEquipment(id);
-      if (res.success) { toast.success("Deleted"); window.location.reload(); }
+      const res = await deleteEquipment(deleteId);
+      setDeleteId(null);
+      if (res.success) { toast.success("Deleted"); router.refresh(); }
     });
   }
 
@@ -57,7 +65,7 @@ export function EquipmentList({ items }: { items: Item[] }) {
                   <Link href={`/admin/pages/home/equipment/${item._id}/edit`} className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition hover:bg-muted/50">
                     <PencilIcon className="size-3" /> Edit
                   </Link>
-                  <button onClick={() => handleDelete(item._id)} disabled={isPending} className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/30 px-3 py-1.5 text-xs font-medium text-destructive transition hover:bg-destructive/10 disabled:opacity-50">
+                  <button onClick={() => setDeleteId(item._id)} disabled={isPending} className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/30 px-3 py-1.5 text-xs font-medium text-destructive transition hover:bg-destructive/10 disabled:opacity-50">
                     <Trash2Icon className="size-3" /> Delete
                   </button>
                 </div>
@@ -66,6 +74,21 @@ export function EquipmentList({ items }: { items: Item[] }) {
           ))}
         </div>
       )}
+
+      <AlertDialog open={!!deleteId} onOpenChange={(open) => { if (!open) setDeleteId(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Equipment</AlertDialogTitle>
+            <AlertDialogDescription>Are you sure you want to delete this equipment? This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} disabled={isPending} variant="destructive">
+              {isPending ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

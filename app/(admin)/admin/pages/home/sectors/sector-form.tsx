@@ -27,21 +27,19 @@ export function SectorForm({ sector }: { sector?: SectorData | null }) {
   const router = useRouter();
   const isEdit = !!sector;
 
-  function handleSubmit() {
+  function handleSubmit(fd: FormData) {
     startTransition(async () => {
       try {
-        const form = document.getElementById("sector-form") as HTMLFormElement;
-        const fd = new FormData(form);
         const imageUpload = imageFile ? await uploadFile(imageFile) : undefined;
         const payload = { name: fd.get("name") as string, description: fd.get("description") as string, image: imageUpload };
         const res = isEdit ? await updateSector(sector!._id, payload) : await createSector(payload);
-        if (res.success) { toast.success(isEdit ? "Updated" : "Created"); router.push("/admin/pages/home/sectors"); }
+        if (res.success) { toast.success(isEdit ? "Updated" : "Created"); router.push("/admin/pages/home/sectors"); router.refresh(); }
       } catch { toast.error("Something went wrong"); }
     });
   }
 
   return (
-    <form id="sector-form" action={handleSubmit} className={`${cardClass} max-w-xl space-y-5 p-6`}>
+    <form action={handleSubmit} className={`${cardClass} max-w-xl space-y-5 p-6`}>
       <div>
         <label className={labelClass}>Icon Image</label>
         <div className="flex items-center gap-4">

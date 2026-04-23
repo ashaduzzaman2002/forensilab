@@ -1,22 +1,30 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { deleteCaseStudy } from "@/lib/actions/case-study";
 import { toast } from "sonner";
 import Link from "next/link";
 import { PlusIcon, Trash2Icon, PencilIcon, BookOpenIcon } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Item { _id: string; slug: string; tag?: string; badge?: string; title: string; description: string; gradient?: string }
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 
 export function CaseStudyList({ items }: { items: Item[] }) {
   const [isPending, startTransition] = useTransition();
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const router = useRouter();
 
-  function handleDelete(id: string) {
-    if (!confirm("Delete this case study?")) return;
+  function handleDelete() {
+    if (!deleteId) return;
     startTransition(async () => {
-      const res = await deleteCaseStudy(id);
-      if (res.success) { toast.success("Deleted"); window.location.reload(); }
+      const res = await deleteCaseStudy(deleteId);
+      setDeleteId(null);
+      if (res.success) { toast.success("Deleted"); router.refresh(); }
     });
   }
 
@@ -37,9 +45,7 @@ export function CaseStudyList({ items }: { items: Item[] }) {
           {items.map((item) => (
             <div key={item._id} className={`${cardClass} overflow-hidden`}>
               <div className="h-24 w-full" style={{ background: item.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)" }}>
-                {item.badge && (
-                  <span className="m-2 inline-block rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-[9px] font-semibold uppercase text-white">{item.badge}</span>
-                )}
+                {item.badge && <span className="m-2 inline-block rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-[9px] font-semibold uppercase text-white">{item.badge}</span>}
               </div>
               <div className="p-5">
                 {item.tag && <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-primary">{item.tag}</div>}
@@ -49,7 +55,7 @@ export function CaseStudyList({ items }: { items: Item[] }) {
                   <Link href={`/admin/pages/home/case-studies/${item._id}/edit`} className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition hover:bg-muted/50">
                     <PencilIcon className="size-3" /> Edit
                   </Link>
-                  <button onClick={() => handleDelete(item._id)} disabled={isPending} className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/30 px-3 py-1.5 text-xs font-medium text-destructive transition hover:bg-destructive/10 disabled:opacity-50">
+                  <button onClick={() => setDeleteId(item._id)} disabled={isPending} className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/30 px-3 py-1.5 text-xs font-medium text-destructive transition hover:bg-destructive/10 disabled:opacity-50">
                     <Trash2Icon className="size-3" /> Delete
                   </button>
                 </div>
@@ -58,6 +64,18 @@ export function CaseStudyList({ items }: { items: Item[] }) {
           ))}
         </div>
       )}
+      <AlertDialog open={!!deleteId} onOpenChange={(open) => { if (!open) setDeleteId(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Case Study</AlertDialogTitle>
+            <AlertDialogDescription>Are you sure you want to delete this case study? This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} disabled={isPending} variant="destructive">{isPending ? "Deleting..." : "Delete"}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

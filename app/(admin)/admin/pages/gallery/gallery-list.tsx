@@ -1,17 +1,32 @@
 "use client";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { deleteGalleryItem } from "@/lib/actions/gallery";
 import { toast } from "sonner";
 import Link from "next/link";
 import Image from "next/image";
 import { PlusIcon, Trash2Icon, PencilIcon, ImageIcon } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Item { _id: string; title: string; description: string; image: string; }
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 
 export function GalleryList({ items }: { items: Item[] }) {
   const [isPending, startTransition] = useTransition();
-  function handleDelete(id: string) { if (!confirm("Delete?")) return; startTransition(async () => { const r = await deleteGalleryItem(id); if (r.success) { toast.success("Deleted"); window.location.reload(); } }); }
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const router = useRouter();
+
+  function handleDelete() {
+    if (!deleteId) return;
+    startTransition(async () => {
+      const r = await deleteGalleryItem(deleteId);
+      setDeleteId(null);
+      if (r.success) { toast.success("Deleted"); router.refresh(); }
+    });
+  }
 
   return (
     <div className="space-y-6">
@@ -30,13 +45,25 @@ export function GalleryList({ items }: { items: Item[] }) {
                 {item.description && <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{item.description}</p>}
                 <div className="mt-3 flex gap-2">
                   <Link href={`/admin/pages/gallery/${item._id}/edit`} className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition hover:bg-muted/50"><PencilIcon className="size-3" /> Edit</Link>
-                  <button onClick={() => handleDelete(item._id)} disabled={isPending} className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/30 px-3 py-1.5 text-xs font-medium text-destructive transition hover:bg-destructive/10 disabled:opacity-50"><Trash2Icon className="size-3" /> Delete</button>
+                  <button onClick={() => setDeleteId(item._id)} disabled={isPending} className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/30 px-3 py-1.5 text-xs font-medium text-destructive transition hover:bg-destructive/10 disabled:opacity-50"><Trash2Icon className="size-3" /> Delete</button>
                 </div>
               </div>
             </div>
           ))}
         </div>
       )}
+      <AlertDialog open={!!deleteId} onOpenChange={(open) => { if (!open) setDeleteId(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Record</AlertDialogTitle>
+            <AlertDialogDescription>Are you sure you want to delete this record? This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} disabled={isPending} variant="destructive">{isPending ? "Deleting..." : "Delete"}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

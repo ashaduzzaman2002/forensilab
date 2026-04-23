@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const SectorSchema = new Schema({
-  image: { type: String, required: true },
+  image: { type: String, default: "" },
   name: { type: String, required: true },
   description: { type: String, default: "" },
   order: { type: Number, default: 0 },
