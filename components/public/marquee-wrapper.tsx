@@ -7,7 +7,8 @@ export function MarqueeWrapper({ children, trackClassName = "", className = "" }
   const animRef = useRef<number>(0);
   const speedRef = useRef(0.5);
   const pausedRef = useRef(false);
-  const dragRef = useRef({ active: false, lastX: 0 });
+  const touchRef = useRef({ startX: 0, lastX: 0, velocity: 0, ts: 0 });
+  const momentumRef = useRef<number>(0);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -20,9 +21,16 @@ export function MarqueeWrapper({ children, trackClassName = "", className = "" }
       const tick = () => {
         if (!pausedRef.current) {
           el.scrollLeft += speedRef.current;
-          if (el.scrollLeft >= half) el.scrollLeft -= half;
-          if (el.scrollLeft <= 0) el.scrollLeft += half;
         }
+        // apply momentum decay
+        if (Math.abs(touchRef.current.velocity) > 0.2) {
+          el.scrollLeft -= touchRef.current.velocity;
+          touchRef.current.velocity *= 0.95;
+        } else {
+          touchRef.current.velocity = 0;
+        }
+        if (el.scrollLeft >= half) el.scrollLeft -= half;
+        if (el.scrollLeft <= 0) el.scrollLeft += half;
         animRef.current = requestAnimationFrame(tick);
       };
       animRef.current = requestAnimationFrame(tick);
@@ -34,20 +42,27 @@ export function MarqueeWrapper({ children, trackClassName = "", className = "" }
     };
   }, []);
 
-  function onPointerDown(e: React.PointerEvent) {
+  function onTouchStart(e: React.TouchEvent) {
     pausedRef.current = true;
-    dragRef.current = { active: true, lastX: e.clientX };
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    touchRef.current.velocity = 0;
+    touchRef.current.startX = e.touches[0].clientX;
+    touchRef.current.lastX = e.touches[0].clientX;
+    touchRef.current.ts = Date.now();
   }
 
-  function onPointerMove(e: React.PointerEvent) {
-    if (!dragRef.current.active || !scrollRef.current) return;
-    scrollRef.current.scrollLeft -= e.clientX - dragRef.current.lastX;
-    dragRef.current.lastX = e.clientX;
+  function onTouchMove(e: React.TouchEvent) {
+    if (!scrollRef.current) return;
+    const x = e.touches[0].clientX;
+    const dx = x - touchRef.current.lastX;
+    scrollRef.current.scrollLeft -= dx;
+    touchRef.current.lastX = x;
+    const now = Date.now();
+    const dt = now - touchRef.current.ts || 1;
+    touchRef.current.velocity = dx / dt * 16; // normalize to ~frame
+    touchRef.current.ts = now;
   }
 
-  function onPointerUp() {
-    dragRef.current.active = false;
+  function onTouchEnd() {
     pausedRef.current = false;
   }
 
@@ -55,11 +70,10 @@ export function MarqueeWrapper({ children, trackClassName = "", className = "" }
     <div className={className}>
       <div
         ref={scrollRef}
-        className="overflow-hidden cursor-grab active:cursor-grabbing select-none"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
+        className="overflow-hidden select-none"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <div className={`flex ${trackClassName}`} style={{ width: "max-content" }}>
           {children}
