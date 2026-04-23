@@ -8,10 +8,9 @@ const CaseStudySchema = new Schema({
   description: { type: String, required: true },
   content: { type: String, default: "" },
   image: { type: String, default: "" },
+  file: { type: String, default: "" },
+  fileName: { type: String, default: "" },
   gradient: { type: String, default: "linear-gradient(135deg,#0A1A40,#0057FF)" },
-  metaTitle: { type: String, default: "" },
-  metaDescription: { type: String, default: "" },
-  metaKeywords: { type: String, default: "" },
   order: { type: Number, default: 0 },
 }, { timestamps: true });
 

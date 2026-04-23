@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { DownloadIcon } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { MarqueeWrapper } from "./marquee-wrapper";
 
-interface Item { slug: string; tag?: string; badge?: string; title: string; description: string; image?: string; gradient?: string }
+interface Item { slug: string; tag?: string; badge?: string; title: string; description: string; image?: string; gradient?: string; file?: string; fileName?: string }
 
 export function CaseStudiesClient({ items }: { items: Item[] }) {
   return (
@@ -34,9 +34,11 @@ export function CaseStudiesClient({ items }: { items: Item[] }) {
               {c.tag && <div className="mb-[10px] text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">{c.tag}</div>}
               <h3 className="font-heading text-[17px] font-bold tracking-[-0.3px] text-foreground">{c.title}</h3>
               <p className="mt-[10px] flex-1 text-[13px] leading-[1.65] text-gray-500">{c.description}</p>
-              <Link href={`/case-studies/${c.slug}`} className="mt-[18px] inline-flex items-center gap-[6px] text-[12px] font-semibold tracking-[0.02em] text-primary transition-[gap] duration-200 hover:gap-[10px]">
-                View Case Study →
-              </Link>
+              {c.file && (
+                <a href={c.file} download={c.fileName || true} target="_blank" rel="noopener noreferrer" className="mt-[18px] inline-flex items-center gap-[6px] text-[12px] font-semibold tracking-[0.02em] text-primary transition-[gap] duration-200 hover:gap-[10px]">
+                  <DownloadIcon className="size-3" /> Download Case Study
+                </a>
+              )}
             </div>
           </div>
         ))}
@@ -59,9 +61,11 @@ export function CaseStudiesClient({ items }: { items: Item[] }) {
                 {c.tag && <div className="mb-[10px] text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">{c.tag}</div>}
                 <h3 className="font-heading text-[17px] font-bold tracking-[-0.3px] text-foreground">{c.title}</h3>
                 <p className="mt-[10px] flex-1 text-[13px] leading-[1.65] text-gray-500 line-clamp-3">{c.description}</p>
-                <Link href={`/case-studies/${c.slug}`} className="mt-[18px] inline-flex items-center gap-[6px] text-[12px] font-semibold tracking-[0.02em] text-primary">
-                  View Case Study →
-                </Link>
+                {c.file && (
+                  <a href={c.file} download={c.fileName || true} target="_blank" rel="noopener noreferrer" className="mt-[18px] inline-flex items-center gap-[6px] text-[12px] font-semibold tracking-[0.02em] text-primary">
+                    <DownloadIcon className="size-3" /> Download Case Study
+                  </a>
+                )}
               </div>
             </div>
           ))}

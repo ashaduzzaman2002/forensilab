@@ -4,19 +4,14 @@ import { useRef, useState, useTransition } from "react";
 import { createCaseStudy, updateCaseStudy, getCaseStudyUploadUrl } from "@/lib/actions/case-study";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Loader2Icon, ImageIcon, XIcon } from "lucide-react";
+import { Loader2Icon, ImageIcon, XIcon, FileIcon, UploadIcon } from "lucide-react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-import "react-quill-new/dist/quill.snow.css";
-
-interface Data { _id: string; slug: string; tag: string; badge: string; title: string; description: string; content: string; image: string; gradient: string; metaTitle?: string; metaDescription?: string; metaKeywords?: string }
+interface Data { _id: string; slug: string; tag: string; badge: string; title: string; description: string; image: string; gradient: string; file?: string; fileName?: string }
 
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 const inputClass = "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary/40 focus:ring-2 focus:ring-primary/20";
 const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground";
-const quillModules = { toolbar: [[{ header: [2, 3, false] }], ["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }], ["link"], ["clean"]] };
 
 async function uploadFile(file: File) {
   const { url, key } = await getCaseStudyUploadUrl(file.name, file.type);
@@ -28,8 +23,11 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
   const [isPending, startTransition] = useTransition();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [preview, setPreview] = useState(caseStudy?.image || "");
-  const [content, setContent] = useState(caseStudy?.content || "");
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [docFile, setDocFile] = useState<File | null>(null);
+  const [docName, setDocName] = useState(caseStudy?.fileName || "");
+  const [removeFile, setRemoveFile] = useState(false);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const docRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [slug, setSlug] = useState(caseStudy?.slug || "");
   const isEdit = !!caseStudy;
@@ -42,11 +40,11 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
     startTransition(async () => {
       try {
         const imageUpload = imageFile ? await uploadFile(imageFile) : undefined;
+        const fileUpload = docFile ? { ...(await uploadFile(docFile)), name: docFile.name } : undefined;
         const payload = {
           slug: formData.get("slug") as string, tag: formData.get("tag") as string, badge: formData.get("badge") as string,
-          title: formData.get("title") as string, description: formData.get("description") as string, content, gradient: "",
-          image: imageUpload, metaTitle: formData.get("metaTitle") as string,
-          metaDescription: formData.get("metaDescription") as string, metaKeywords: formData.get("metaKeywords") as string,
+          title: formData.get("title") as string, description: formData.get("description") as string, gradient: "",
+          image: imageUpload, file: fileUpload, removeFile,
         };
         const res = isEdit ? await updateCaseStudy(caseStudy!._id, payload) : await createCaseStudy(payload);
         if (res.success) { toast.success(isEdit ? "Updated" : "Created"); router.push("/admin/pages/home/case-studies"); }
@@ -67,32 +65,34 @@ export function CaseStudyForm({ caseStudy }: { caseStudy?: Data | null }) {
             <div><label className={labelClass}>Badge</label><input name="badge" defaultValue={caseStudy?.badge || ""} className={inputClass} placeholder="e.g. Fingerprint" /></div>
           </div>
           <div><label className={labelClass}>Short Description</label><textarea name="description" defaultValue={caseStudy?.description || ""} rows={3} className={`${inputClass} resize-none`} required /></div>
+
+          {/* File Upload */}
           <div>
-            <label className={labelClass}>Detailed Content</label>
-            <div className="mt-2 [&_.ql-container]:rounded-b-lg [&_.ql-toolbar]:rounded-t-lg [&_.ql-container]:border-border [&_.ql-toolbar]:border-border [&_.ql-editor]:min-h-[200px]">
-              <ReactQuill theme="snow" value={content} onChange={setContent} modules={quillModules} />
+            <label className={labelClass}>Case Study File (PDF, DOC, PNG, JPEG)</label>
+            <div onClick={() => docRef.current?.click()} className="mt-1 flex cursor-pointer items-center gap-3 rounded-lg border-2 border-dashed border-muted-foreground/20 bg-muted/30 px-4 py-4 transition hover:border-primary/40">
+              {docName ? (
+                <><FileIcon className="size-5 text-primary" /><span className="flex-1 truncate text-sm font-medium">{docName}</span></>
+              ) : (
+                <><UploadIcon className="size-5 text-muted-foreground" /><span className="text-sm text-muted-foreground">Click to upload file</span></>
+              )}
             </div>
+            {docName && (
+              <button type="button" onClick={() => { setDocFile(null); setDocName(""); setRemoveFile(true); }} className="mt-2 inline-flex items-center gap-1 text-xs text-destructive hover:underline">
+                <XIcon className="size-3" /> Remove file
+              </button>
+            )}
+            <input ref={docRef} type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" onChange={(e) => { const f = e.target.files?.[0]; if (f) { setDocFile(f); setDocName(f.name); setRemoveFile(false); } }} className="hidden" />
           </div>
         </div>
 
         <div className={`${cardClass} p-6 space-y-3`}>
           <label className={labelClass}>Cover Image</label>
-          <div onClick={() => fileRef.current?.click()} className="group relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/30 transition hover:border-primary/40">
+          <div onClick={() => imageRef.current?.click()} className="group relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/30 transition hover:border-primary/40">
             {preview ? (<><Image src={preview} alt="Cover" fill unoptimized className="object-cover" /><div className="absolute inset-0 flex items-center justify-center bg-black/0 transition group-hover:bg-black/30"><span className="rounded-lg bg-white/90 px-3 py-1.5 text-xs font-semibold opacity-0 shadow-lg backdrop-blur-sm transition group-hover:opacity-100">Replace</span></div></>) : (<div className="flex flex-col items-center gap-1 text-muted-foreground"><ImageIcon className="size-5" /><p className="text-xs">Upload</p></div>)}
           </div>
           {preview && <button type="button" onClick={() => { setImageFile(null); setPreview(""); }} className="inline-flex items-center gap-1 text-xs text-destructive hover:underline"><XIcon className="size-3" /> Remove</button>}
-          <input ref={fileRef} type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) { setImageFile(f); setPreview(URL.createObjectURL(f)); } }} className="hidden" />
+          <input ref={imageRef} type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) { setImageFile(f); setPreview(URL.createObjectURL(f)); } }} className="hidden" />
         </div>
-      </div>
-
-      {/* SEO */}
-      <div className={`${cardClass} p-6 space-y-5`}>
-        <h3 className="text-sm font-semibold">SEO Settings</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div><label className={labelClass}>Meta Title</label><input name="metaTitle" defaultValue={caseStudy?.metaTitle || ""} className={inputClass} placeholder="Page title for search engines" /></div>
-          <div><label className={labelClass}>Meta Keywords</label><input name="metaKeywords" defaultValue={caseStudy?.metaKeywords || ""} className={inputClass} placeholder="keyword1, keyword2" /></div>
-        </div>
-        <div><label className={labelClass}>Meta Description</label><textarea name="metaDescription" defaultValue={caseStudy?.metaDescription || ""} rows={2} className={`${inputClass} resize-none`} placeholder="Brief description for search engines" /></div>
       </div>
 
       <div className="flex items-center gap-3">

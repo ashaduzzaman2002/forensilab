@@ -46,7 +46,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         )}
 
         {s.content && (
-          <div className="prose prose-sm prose-gray max-w-none [&_*]:!whitespace-normal [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content.replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ') }} />
+          <div className="prose text-justify prose-sm prose-gray max-w-none [&_*]:!whitespace-normal [&>h2]:font-heading [&>h2]:text-primary [&>h2]:font-[800] [&>h2]:tracking-[-1px]" dangerouslySetInnerHTML={{ __html: s.content.replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ') }} />
         )}
       </section>
 

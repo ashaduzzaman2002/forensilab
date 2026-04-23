@@ -30,19 +30,24 @@ export async function getCaseStudyUploadUrl(fileName: string, contentType: strin
   return { url: await getUploadUrl(key, contentType), key };
 }
 
+function deleteS3File(url: string) {
+  if (url?.includes(".amazonaws.com/")) {
+    try { const k = url.split(".amazonaws.com/")[1]; if (k) deleteFile(k); } catch {}
+  }
+}
+
 export async function createCaseStudy(data: {
-  slug: string; tag: string; badge: string; title: string; description: string; content?: string;
-  gradient: string; image?: { key: string } | null;
-  metaTitle?: string; metaDescription?: string; metaKeywords?: string;
+  slug: string; tag: string; badge: string; title: string; description: string;
+  gradient: string; image?: { key: string } | null; file?: { key: string; name: string } | null;
 }) {
   await dbConnect();
   const count = await CaseStudy.countDocuments();
   await CaseStudy.create({
     slug: data.slug, tag: data.tag, badge: data.badge, title: data.title, description: data.description,
-    content: data.content || "",
     gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)",
     image: data.image?.key ? getFileUrl(data.image.key) : "",
-    metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
+    file: data.file?.key ? getFileUrl(data.file.key) : "",
+    fileName: data.file?.name || "",
     order: count,
   });
   revalidate();
@@ -50,24 +55,32 @@ export async function createCaseStudy(data: {
 }
 
 export async function updateCaseStudy(id: string, data: {
-  slug: string; tag: string; badge: string; title: string; description: string; content?: string;
-  gradient: string; image?: { key: string } | null;
-  metaTitle?: string; metaDescription?: string; metaKeywords?: string;
+  slug: string; tag: string; badge: string; title: string; description: string;
+  gradient: string; image?: { key: string } | null; file?: { key: string; name: string } | null; removeFile?: boolean;
 }) {
   await dbConnect();
   const existing = await CaseStudy.findById(id);
   let image = existing?.image || "";
+  let file = existing?.file || "";
+  let fileName = existing?.fileName || "";
+
   if (data.image?.key) {
-    if (image?.includes(".amazonaws.com/")) {
-      try { const k = image.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {}
-    }
+    deleteS3File(image);
     image = getFileUrl(data.image.key);
   }
+  if (data.removeFile) {
+    deleteS3File(file);
+    file = "";
+    fileName = "";
+  } else if (data.file?.key) {
+    deleteS3File(file);
+    file = getFileUrl(data.file.key);
+    fileName = data.file.name;
+  }
+
   await CaseStudy.findByIdAndUpdate(id, {
     slug: data.slug, tag: data.tag, badge: data.badge, title: data.title, description: data.description,
-    content: data.content || "",
-    gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)", image,
-    metaTitle: data.metaTitle || "", metaDescription: data.metaDescription || "", metaKeywords: data.metaKeywords || "",
+    gradient: data.gradient || "linear-gradient(135deg,#0A1A40,#0057FF)", image, file, fileName,
   });
   revalidate();
   return { success: true };
@@ -76,9 +89,8 @@ export async function updateCaseStudy(id: string, data: {
 export async function deleteCaseStudy(id: string) {
   await dbConnect();
   const item = await CaseStudy.findById(id);
-  if (item?.image?.includes(".amazonaws.com/")) {
-    try { const k = item.image.split(".amazonaws.com/")[1]; if (k) await deleteFile(k); } catch {}
-  }
+  deleteS3File(item?.image || "");
+  deleteS3File(item?.file || "");
   await CaseStudy.findByIdAndDelete(id);
   revalidate();
   return { success: true };
