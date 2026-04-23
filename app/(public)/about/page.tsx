@@ -36,7 +36,7 @@ export default async function AboutPage() {
           )}
           <div>
             <h3 className="font-heading text-2xl font-bold text-foreground md:text-3xl">{data.title}</h3>
-            {data.content && <div className="mt-6 prose prose-sm prose-gray bg-red-300 whitespace-nowrap text-gray-500" dangerouslySetInnerHTML={{ __html: data.content }} />}
+            {data.content && <div className="mt-6 prose prose-sm prose-gray text-gray-500 max-w-none [&_*]:!whitespace-normal" dangerouslySetInnerHTML={{ __html: data.content.replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ') }} />}
             {data.highlights?.length > 0 && (
               <div className="mt-8 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
                 {data.highlights.map((h: string) => (
