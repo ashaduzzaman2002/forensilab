@@ -9,6 +9,43 @@ interface Item {
   name: string;
   subtitle?: string;
   type: string;
+  image?: string;
+}
+
+function PartnerCard({ item }: { item: Item }) {
+  if (item.image) {
+    return (
+      <div className="flex min-h-[110px] items-center justify-center border border-border bg-white p-4">
+        <img src={item.image} alt={item.name} className="max-h-[80px] max-w-full object-contain" />
+      </div>
+    );
+  }
+  return (
+    <div className="flex min-h-[110px] items-center justify-center border border-border bg-white p-9">
+      <div className="text-center">
+        <div className="font-heading text-[14px] font-bold text-foreground">{item.name}</div>
+        {item.subtitle && <div className="mt-1 text-[10px] text-gray-500">{item.subtitle}</div>}
+      </div>
+    </div>
+  );
+}
+
+function PartnerCardMobile({ item }: { item: Item }) {
+  if (item.image) {
+    return (
+      <div className="flex min-h-[110px] w-[260px] shrink-0 items-center justify-center rounded-[10px] border border-border bg-white p-4">
+        <img src={item.image} alt={item.name} className="max-h-[80px] max-w-full object-contain" />
+      </div>
+    );
+  }
+  return (
+    <div className="flex min-h-[110px] w-[260px] shrink-0 items-center justify-center rounded-[10px] border border-border bg-white p-9">
+      <div className="text-center">
+        <div className="font-heading text-[14px] font-bold text-foreground">{item.name}</div>
+        {item.subtitle && <div className="mt-1 text-[10px] text-gray-500">{item.subtitle}</div>}
+      </div>
+    </div>
+  );
 }
 
 export function PartnershipsClient({ items }: { items: Item[] }) {
@@ -47,21 +84,7 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
 
         <div className="grid grid-cols-4 gap-[2px] max-md:grid-cols-2 max-sm:hidden">
           {filtered.map((item, i) => (
-            <div
-              key={i}
-              className="flex min-h-[110px] items-center justify-center border border-border bg-white p-9"
-            >
-              <div className="text-center">
-                <div className="font-heading text-[14px] font-bold text-foreground">
-                  {item.name}
-                </div>
-                {item.subtitle && (
-                  <div className="mt-1 text-[10px] text-gray-500">
-                    {item.subtitle}
-                  </div>
-                )}
-              </div>
-            </div>
+            <PartnerCard key={i} item={item} />
           ))}
         </div>
 
@@ -69,12 +92,7 @@ export function PartnershipsClient({ items }: { items: Item[] }) {
         <div className="relative overflow-hidden sm:hidden -mx-6">
           <MarqueeWrapper trackClassName="gap-4">
             {[...filtered, ...filtered].map((item, i) => (
-              <div key={i} className="flex min-h-[110px] w-[260px] shrink-0 items-center justify-center rounded-[10px] border border-border bg-white p-9">
-                <div className="text-center">
-                  <div className="font-heading text-[14px] font-bold text-foreground">{item.name}</div>
-                  {item.subtitle && <div className="mt-1 text-[10px] text-gray-500">{item.subtitle}</div>}
-                </div>
-              </div>
+              <PartnerCardMobile key={i} item={item} />
             ))}
           </MarqueeWrapper>
         </div>

@@ -28,7 +28,7 @@ export default async function AboutPage() {
           description=""
         />
 
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="grid gap-12 lg:grid-cols-2">
           {data.image && (
             <div className="relative h-[400px] overflow-hidden rounded-[10px] border border-border lg:h-[480px] max-md:h-[250px]">
               <Image src={data.image} alt="ForensiLabs" fill unoptimized className="object-cover" />
@@ -36,7 +36,7 @@ export default async function AboutPage() {
           )}
           <div>
             <h3 className="font-heading text-2xl font-bold text-foreground md:text-3xl">{data.title}</h3>
-            {data.content && <div className="mt-6 prose prose-sm prose-gray max-w-none text-gray-500 [overflow-wrap:anywhere] [word-break:break-word]" dangerouslySetInnerHTML={{ __html: data.content }} />}
+            {data.content && <div className="mt-6 prose prose-sm prose-gray bg-red-300 whitespace-nowrap text-gray-500" dangerouslySetInnerHTML={{ __html: data.content }} />}
             {data.highlights?.length > 0 && (
               <div className="mt-8 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
                 {data.highlights.map((h: string) => (

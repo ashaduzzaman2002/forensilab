@@ -11,7 +11,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-interface Item { _id: string; name: string; subtitle: string; type: string }
+interface Item { _id: string; name: string; subtitle: string; type: string; image?: string }
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 
 export function PartnershipList({ items }: { items: Item[] }) {
