@@ -1,10 +1,16 @@
 import mongoose, { Schema } from "mongoose";
 
-const AboutSchema = new Schema({
-  title: { type: String, required: true },
-  subtitle: { type: String, default: "" },
+const SectionSchema = new Schema({
+  title: { type: String, default: "" },
   content: { type: String, default: "" },
   image: { type: String, default: "" },
+}, { _id: false });
+
+const AboutSchema = new Schema({
+  subtitle: { type: String, default: "" },
+  whoWeAre: { type: SectionSchema, default: () => ({}) },
+  whatWeDo: { type: SectionSchema, default: () => ({}) },
+  others: { type: SectionSchema, default: () => ({}) },
   highlights: [{ type: String }],
   stats: [{ value: { type: String }, label: { type: String } }],
 }, { timestamps: true });

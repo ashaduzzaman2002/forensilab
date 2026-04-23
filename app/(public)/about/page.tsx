@@ -11,6 +11,23 @@ import { SectionHeading } from "@/components/public/section-heading";
 
 export async function generateMetadata() { return getPageMetadata("about", { title: "About — ForensiLabs", description: "Trusted experts in forensic and digital investigation" }); }
 
+function ContentSection({ section, reversed }: { section: { title: string; content: string; image: string }; reversed?: boolean }) {
+  if (!section?.title && !section?.content) return null;
+  return (
+    <div className={`grid gap-12 lg:grid-cols-2 items-center`}>
+      {section.image && (
+        <div className={`relative h-[300px] overflow-hidden rounded-[10px] border border-border lg:h-[360px] max-md:h-[220px] ${reversed ? "lg:order-2" : ""}`}>
+          <Image src={section.image} alt={section.title} fill unoptimized className="object-cover" />
+        </div>
+      )}
+      <div className={reversed ? "lg:order-1" : ""}>
+        <h3 className="font-heading text-2xl font-bold text-foreground md:text-3xl">{section.title}</h3>
+        {section.content && <div className="mt-6 prose prose-sm prose-gray text-gray-500 max-w-none [&_*]:!whitespace-normal text-justify" dangerouslySetInnerHTML={{ __html: section.content.replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ') }} />}
+      </div>
+    </div>
+  );
+}
+
 export default async function AboutPage() {
   await dbConnect();
   const doc = await About.findOne().lean();
@@ -20,37 +37,25 @@ export default async function AboutPage() {
 
   return (
     <>
-      {/* About Section */}
-      <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px] overflow-hidden">
-        <SectionHeading
-          label={data.subtitle}
-          title={<>About<br />ForensiLabs</>}
-          description=""
-        />
+      <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px] overflow-hidden space-y-20">
+        <SectionHeading label={data.subtitle} title={<>About<br />ForensiLabs</>} description="" />
 
-        <div className="grid gap-12 lg:grid-cols-2">
-          {data.image && (
-            <div className="relative h-[400px] overflow-hidden rounded-[10px] border border-border lg:h-[480px] max-md:h-[250px]">
-              <Image src={data.image} alt="ForensiLabs" fill unoptimized className="object-cover" />
-            </div>
-          )}
-          <div>
-            <h3 className="font-heading text-2xl font-bold text-foreground md:text-3xl">{data.title}</h3>
-            {data.content && <div className="mt-6 prose prose-sm prose-gray text-gray-500 max-w-none [&_*]:!whitespace-normal text-justify" dangerouslySetInnerHTML={{ __html: data.content.replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ') }} />}
-            {data.highlights?.length > 0 && (
-              <div className="mt-8 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
-                {data.highlights.map((h: string) => (
-                  <div key={h} className="flex items-center gap-3 rounded-[10px] border border-border bg-white px-4 py-3 transition-colors hover:border-primary">
-                    <span className="text-sm font-medium text-foreground">{h}</span>
-                  </div>
-                ))}
+        <ContentSection section={data.whoWeAre} />
+        <ContentSection section={data.whatWeDo} reversed />
+        <ContentSection section={data.others} />
+
+        {data.highlights?.length > 0 && (
+          <div className="grid grid-cols-2 gap-3 max-sm:grid-cols-1">
+            {data.highlights.map((h: string) => (
+              <div key={h} className="flex items-center gap-3 rounded-[10px] border border-border bg-white px-4 py-3 transition-colors hover:border-primary">
+                <span className="text-sm font-medium text-foreground">{h}</span>
               </div>
-            )}
+            ))}
           </div>
-        </div>
+        )}
 
         {data.stats?.length > 0 && (
-          <div className="mt-20 grid grid-cols-2 gap-[2px] bg-border md:grid-cols-4 max-md:mt-12">
+          <div className="grid grid-cols-2 gap-[2px] bg-border md:grid-cols-4">
             {data.stats.map((s: any) => (
               <div key={s.label} className="bg-white py-8 text-center max-md:py-5">
                 <p className="font-heading text-[38px] font-[800] text-primary max-md:text-[28px]">{s.value}</p>
@@ -61,15 +66,9 @@ export default async function AboutPage() {
         )}
       </section>
 
-      {/* Team Section */}
       {team.length > 0 && (
         <section className="bg-[#F5F7FA] px-[60px] py-[100px] max-md:px-6 max-md:py-[72px]">
-          <SectionHeading
-            reversed
-            label="Our People"
-            title={<>Meet Our<br />Experts</>}
-            description="A world-class team of certified forensic professionals dedicated to delivering justice."
-          />
+          <SectionHeading reversed label="Our People" title={<>Meet Our<br />Experts</>} description="A world-class team of certified forensic professionals dedicated to delivering justice." />
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-sm:hidden">
             {team.map((t: any) => (
@@ -98,7 +97,6 @@ export default async function AboutPage() {
             ))}
           </div>
 
-          {/* Mobile marquee */}
           <div className="relative overflow-hidden sm:hidden -mx-6">
             <div className="marquee-track flex gap-4 hover:[animation-play-state:paused]" style={{ width: "max-content" }}>
               {[...team, ...team].map((t: any, i: number) => (
