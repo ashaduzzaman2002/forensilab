@@ -9,7 +9,7 @@ const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
 
 interface Section { title: string; content: string; image: string }
-interface AboutData { subtitle: string; whoWeAre: Section; whatWeDo: Section; others: Section; highlights: string[]; stats: { value: string; label: string }[] }
+interface AboutData { subtitle: string; whoWeAre: Section; whatWeDo: Section; others: Section; stats: { value: string; label: string }[] }
 
 const cardClass = "rounded-2xl border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.06)]";
 const inputClass = "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary/40 focus:ring-2 focus:ring-primary/20";
@@ -82,13 +82,12 @@ export function AboutForm({ about }: { about: AboutData | null }) {
           whatImg ? uploadFile(whatImg) : undefined,
           othersImg ? uploadFile(othersImg) : undefined,
         ]);
-        const highlights = (formData.get("highlights") as string || "").split("\n").map(h => h.trim()).filter(Boolean);
         await updateAbout({
           subtitle: formData.get("subtitle") as string,
           whoWeAre: { title: formData.get("Who We Are-title") as string, content: whoContent, image: whoUpload },
           whatWeDo: { title: formData.get("What We Do-title") as string, content: whatContent, image: whatUpload },
           others: { title: formData.get("Others-title") as string, content: othersContent, image: othersUpload },
-          highlights, stats: stats.filter(s => s.value && s.label),
+          stats: stats.filter(s => s.value && s.label),
         });
         toast.success("About page updated");
       } catch { toast.error("Something went wrong"); }
@@ -106,12 +105,7 @@ export function AboutForm({ about }: { about: AboutData | null }) {
       <SectionEditor label="What We Do" section={about?.whatWeDo || empty} content={whatContent} onContentChange={setWhatContent} imageFile={whatImg} imagePreview={whatPrev} onImageChange={(f) => { setWhatImg(f); setWhatPrev(URL.createObjectURL(f)); }} />
       <SectionEditor label="Others" section={about?.others || empty} content={othersContent} onContentChange={setOthersContent} imageFile={othersImg} imagePreview={othersPrev} onImageChange={(f) => { setOthersImg(f); setOthersPrev(URL.createObjectURL(f)); }} />
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className={`${cardClass} p-6`}>
-          <label className={labelClass}>Highlights (one per line)</label>
-          <textarea name="highlights" defaultValue={about?.highlights?.join("\n") || ""} rows={4} className={`${inputClass} resize-none`} placeholder={"Certified & Accredited Lab\nAdvanced Technology"} />
-        </div>
-        <div className={`${cardClass} p-6 space-y-3`}>
+      <div className={`${cardClass} p-6 space-y-3`}>
           <div className="flex items-center justify-between"><label className={labelClass}>Stats</label><button type="button" onClick={() => setStats([...stats, { value: "", label: "" }])} className="text-xs text-primary font-semibold flex items-center gap-1"><PlusIcon className="size-3" /> Add</button></div>
           {stats.map((s, i) => (
             <div key={i} className="flex gap-2 items-center">
@@ -121,7 +115,6 @@ export function AboutForm({ about }: { about: AboutData | null }) {
             </div>
           ))}
         </div>
-      </div>
 
       <div className="flex justify-end">
         <button type="submit" disabled={isPending} className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-2.5 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-50">

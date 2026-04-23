@@ -20,7 +20,6 @@ async function seed() {
       title: "Our Certifications",
       content: "<p>ISO 9001:2015 Certification — A globally recognized standard ensuring our laboratory and investigative processes meet benchmarks.</p><p>DPIIT Start-up India Recognition — Official recognition by the Department for Promotion of Industry and Internal Trade.</p>",
     },
-    highlights: ["Certified & Accredited Lab", "Advanced Technology", "Experienced Analysts", "Confidential & Secure"],
     stats: [{ value: "500+", label: "Cases Solved" }, { value: "10+", label: "Years Experience" }, { value: "50+", label: "Expert Analysts" }, { value: "99%", label: "Client Satisfaction" }],
   });
   console.log("About page seeded."); process.exit(0);

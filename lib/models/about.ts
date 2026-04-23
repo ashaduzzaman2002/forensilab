@@ -11,7 +11,6 @@ const AboutSchema = new Schema({
   whoWeAre: { type: SectionSchema, default: () => ({}) },
   whatWeDo: { type: SectionSchema, default: () => ({}) },
   others: { type: SectionSchema, default: () => ({}) },
-  highlights: [{ type: String }],
   stats: [{ value: { type: String }, label: { type: String } }],
 }, { timestamps: true });
 

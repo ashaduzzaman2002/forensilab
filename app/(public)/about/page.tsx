@@ -44,16 +44,6 @@ export default async function AboutPage() {
         <ContentSection section={data.whatWeDo} reversed />
         <ContentSection section={data.others} />
 
-        {data.highlights?.length > 0 && (
-          <div className="grid grid-cols-2 gap-3 max-sm:grid-cols-1">
-            {data.highlights.map((h: string) => (
-              <div key={h} className="flex items-center gap-3 rounded-[10px] border border-border bg-white px-4 py-3 transition-colors hover:border-primary">
-                <span className="text-sm font-medium text-foreground">{h}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
         {data.stats?.length > 0 && (
           <div className="grid grid-cols-2 gap-[2px] bg-border md:grid-cols-4">
             {data.stats.map((s: any) => (

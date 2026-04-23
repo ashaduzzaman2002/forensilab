@@ -23,7 +23,7 @@ interface SectionData { title: string; content: string; image?: { key: string } 
 export async function updateAbout(data: {
   subtitle: string;
   whoWeAre: SectionData; whatWeDo: SectionData; others: SectionData;
-  highlights: string[]; stats: { value: string; label: string }[];
+  stats: { value: string; label: string }[];
 }) {
   await dbConnect();
   const existing = await About.findOne();
@@ -41,7 +41,6 @@ export async function updateAbout(data: {
     whoWeAre: { title: data.whoWeAre.title, content: data.whoWeAre.content, image: resolveImage(data.whoWeAre.image, existing?.whoWeAre?.image) },
     whatWeDo: { title: data.whatWeDo.title, content: data.whatWeDo.content, image: resolveImage(data.whatWeDo.image, existing?.whatWeDo?.image) },
     others: { title: data.others.title, content: data.others.content, image: resolveImage(data.others.image, existing?.others?.image) },
-    highlights: data.highlights,
     stats: data.stats.filter(s => s.value && s.label),
   };
 
