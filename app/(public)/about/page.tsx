@@ -14,7 +14,7 @@ export async function generateMetadata() { return getPageMetadata("about", { tit
 function ContentSection({ section, reversed }: { section: { title: string; content: string; image: string }; reversed?: boolean }) {
   if (!section?.title && !section?.content) return null;
   return (
-    <div className={`grid gap-12 lg:grid-cols-2 items-center`}>
+    <div className="grid gap-12 lg:grid-cols-2 items-center">
       {section.image && (
         <div className={`relative h-[300px] overflow-hidden rounded-[10px] border border-border lg:h-[360px] max-md:h-[220px] ${reversed ? "lg:order-2" : ""}`}>
           <Image src={section.image} alt={section.title} fill unoptimized className="object-cover" />
@@ -28,25 +28,70 @@ function ContentSection({ section, reversed }: { section: { title: string; conte
   );
 }
 
+const defaultData = {
+  subtitle: "About Us",
+  whoWeAre: {
+    title: "Who We Are",
+    content: `<p class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">ForensiLabs is a multidisciplinary forensic science laboratory and investigation agency in India, operating as a unit of Forensi. We are </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">ISO 9001:2015 certified</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);"> and officially recognized under the </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">Government of India's DPIIT Start-up India programme</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">.</span></p><p class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">We function at the intersection of </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">scientific precision and investigative expertise</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">, delivering reliable forensic solutions to insurance companies, banks, law enforcement agencies, legal professionals, and corporate clients across India.</span></p><p class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">Our work is grounded in accuracy, independence, and integrity—ensuring that every report we produce is </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">court-admissible and scientifically validated</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">.</span></p>`,
+    image: "https://forensilabs.s3.us-east-1.amazonaws.com/about-1776965779779-photo-1582719471384-894fbb16e074.avif",
+  },
+  whatWeDo: {
+    title: "What We Do",
+    content: `<p class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">Our expertise spans four core forensic domains, allowing us to deliver comprehensive and reliable investigative solutions across industries. In </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">Physical &amp; Scientific Forensics</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">, we conduct fire investigations, accident reconstruction, and DNA analysis to uncover factual, evidence-based insights. Our </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">Document &amp; Identity Forensics</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);"> services include questioned document examination, fingerprint analysis, and counterfeit detection to verify authenticity and prevent fraud. In the realm of </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">Digital &amp; Audio-Visual Forensics</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">, we specialize in audio-video authentication, image forensics, and speaker recognition to validate digital evidence with precision. Additionally, our </span><strong style="background-color: rgb(255, 255, 255); color: lab(8.11897 0.811279 -12.254);">Corporate Forensics</strong><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);"> services cover forensic audits, due diligence, background verification, and polygraph examinations—helping organizations mitigate risk, ensure compliance, and make informed decisions.</span></p>`,
+    image: "https://forensilabs.s3.us-east-1.amazonaws.com/about-1776965779801-photo-1582719471384-894fbb16e074.avif",
+  },
+  others: {
+    title: "Our Certifications",
+    content: `<h3 class="ql-align-justify"><strong style="background-color: rgb(255, 255, 255); color: inherit;">ISO 9001:2015 Certification</strong></h3><p class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">A globally recognized standard ensuring our laboratory and investigative processes meet benchmarks for:</span></p><p class="ql-align-justify"></p><h3 class="ql-align-justify"><strong style="background-color: rgb(255, 255, 255); color: inherit;">DPIIT Start-up India Recognition</strong></h3><p class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: lab(47.7841 -0.393182 -10.0268);">Official recognition by the Department for Promotion of Industry and Internal Trade, validating our innovation and contribution under the Government of India's flagship startup initiative.</span></p>`,
+    image: "https://forensilabs.s3.us-east-1.amazonaws.com/about-1776965779814-photo-1582719471384-894fbb16e074.avif",
+  },
+  stats: [
+    { value: "1000+", label: "Cases Solved" },
+    { value: "4+", label: "Years Experience" },
+    { value: "50+", label: "Expert Analysts" },
+    { value: "99%", label: "Client Satisfaction" },
+  ],
+};
+
 export default async function AboutPage() {
   await dbConnect();
   const doc = await About.findOne().lean();
-  if (!doc) return <section className="px-[60px] py-[100px] text-center text-gray-500 max-md:px-6">No content yet.</section>;
-  const data = JSON.parse(JSON.stringify(doc));
+  const data = doc ? JSON.parse(JSON.stringify(doc)) : defaultData;
   const team = JSON.parse(JSON.stringify(await Team.find().sort({ order: 1 }).lean()));
+
+  // Merge with defaults for any missing fields
+  const aboutData = {
+    subtitle: data.subtitle || defaultData.subtitle,
+    whoWeAre: {
+      title: data.whoWeAre?.title || defaultData.whoWeAre.title,
+      content: data.whoWeAre?.content || defaultData.whoWeAre.content,
+      image: data.whoWeAre?.image || defaultData.whoWeAre.image,
+    },
+    whatWeDo: {
+      title: data.whatWeDo?.title || defaultData.whatWeDo.title,
+      content: data.whatWeDo?.content || defaultData.whatWeDo.content,
+      image: data.whatWeDo?.image || defaultData.whatWeDo.image,
+    },
+    others: {
+      title: data.others?.title || defaultData.others.title,
+      content: data.others?.content || defaultData.others.content,
+      image: data.others?.image || defaultData.others.image,
+    },
+    stats: data.stats?.length > 0 ? data.stats : defaultData.stats,
+  };
 
   return (
     <>
       <section className="bg-white px-[60px] py-[100px] max-md:px-6 max-md:py-[72px] overflow-hidden space-y-20">
-        <SectionHeading label={data.subtitle} title={<>About<br />ForensiLabs</>} description="" />
+        <SectionHeading label={aboutData.subtitle} title={<>About<br />ForensiLabs</>} description="" />
 
-        <ContentSection section={data.whoWeAre} />
-        <ContentSection section={data.whatWeDo} reversed />
-        <ContentSection section={data.others} />
+        <ContentSection section={aboutData.whoWeAre} />
+        <ContentSection section={aboutData.whatWeDo} reversed />
+        <ContentSection section={aboutData.others} />
 
-        {data.stats?.length > 0 && (
+        {aboutData.stats?.length > 0 && (
           <div className="grid grid-cols-2 gap-[2px] bg-border md:grid-cols-4">
-            {data.stats.map((s: any) => (
+            {aboutData.stats.map((s: any) => (
               <div key={s.label} className="bg-white py-8 text-center max-md:py-5">
                 <p className="font-heading text-[38px] font-[800] text-primary max-md:text-[28px]">{s.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-[0.06em] text-gray-500">{s.label}</p>
