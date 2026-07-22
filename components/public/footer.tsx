@@ -74,6 +74,17 @@ export async function Footer() {
         <hr className="my-8 border-white/15 max-md:my-5" />
         <div className="flex flex-col items-center justify-between gap-4 text-sm text-white/35 sm:flex-row">
           <p>© {new Date().getFullYear()} ForensiLabs. A unit of forensi.</p>
+          <p className="text-xs text-white/35">
+            Powered by{" "}
+            <a
+              href="https://www.quentrya.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white underline transition-colors"
+            >
+              quentrya
+            </a>
+          </p>
           <div className="flex gap-4">
             <Link href="/privacy-policy" className="text-white/60 hover:text-white">Privacy Policy</Link>
             <Link href="/terms-of-service" className="text-white/60 hover:text-white">Terms of Service</Link>
