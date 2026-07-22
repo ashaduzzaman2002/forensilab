@@ -92,9 +92,9 @@ export function Navbar() {
         ))}
       </ul>
 
-      <span className="hidden md:block text-[10px] text-white bg-white/10 px-3 py-1 border border-white/60 rounded-full">
+      <a href="https://forensibus.com/" target="blank" className="hidden md:block text-[10px] text-white bg-white/10 px-3 py-1 border border-white/60 rounded-full">
         A unit of forensi
-      </span>
+      </a>
 
       {/* Mobile toggle */}
       <button

@@ -22,8 +22,8 @@ export function SectorsClient({ items }: { items: Sector[] }) {
         {items.map((s, i) => (
           <div key={i} className="group flex min-h-[200px] rounded-[10px] overflow-hidden cursor-default flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-primary">
             <div className="flex items-start justify-between">
-              <div className="relative flex size-12 items-center justify-center overflow-hidden rounded-[9px] bg-[#E8F0FF] transition-all group-hover:bg-white/15">
-                {s.image && <Image src={s.image} alt={s.name} fill unoptimized className="object-contain p-1.5" />}
+              <div className="relative flex size-12 items-center justify-center overflow-hidden">
+                {s.image && <Image src={s.image} alt={s.name} fill unoptimized className="object-contain" />}
               </div>
               <span className="font-heading text-[28px] font-[800] leading-none text-border transition-colors group-hover:text-white/15">
                 {String(i + 1).padStart(2, "0")}
